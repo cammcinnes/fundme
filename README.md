@@ -1,1 +1,1 @@
-Ben Vinnick committed with personal email: benvinnick@gmail.com
+Ben Vinnick committed with other email's: benvinnick@gmail.com, bvinnick@student.ubc.ca
