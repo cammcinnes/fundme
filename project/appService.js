@@ -2,6 +2,7 @@ const oracledb = require('oracledb');
 const loadEnvFile = require('./utils/envUtil');
 
 const envVariables = loadEnvFile('./.env');
+const fs = require("fs");
 
 // Database configuration setup. Ensure your .env file has the required database credentials.
 const dbConfig = {
@@ -61,12 +62,17 @@ async function initiateDemotable() {
             console.log('Table might not exist, proceeding to create...');
         }
 
+        const dbSetupScript = fs.readFileSync("./db-setup.sql").toString();
+
         const result = await connection.execute(`
             CREATE TABLE DEMOTABLE (
                 id NUMBER PRIMARY KEY,
                 name VARCHAR2(20)
             )
         `);
+        console.log("adding project tables and insert statements...: ", dbSetupScript,
+        );
+        await connection.execute(dbSetupScript);
         return true;
     }).catch(() => {
         return false;
