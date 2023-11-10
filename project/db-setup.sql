@@ -1,4 +1,3 @@
--- Drop Tables --
 DROP TABLE Account CASCADE CONSTRAINTS;
 DROP TABLE PostalCode_Location CASCADE CONSTRAINTS;
 DROP TABLE PaymentInformation CASCADE CONSTRAINTS;
@@ -13,7 +12,6 @@ DROP TABLE Individual_receives_Reward CASCADE CONSTRAINTS;
 DROP TABLE PaymentTier CASCADE CONSTRAINTS;
 DROP TABLE PaymentTier_has_Reward CASCADE CONSTRAINTS;
 
--- Create and Repopulate Tables --
 CREATE TABLE Account
 (
     Username     VARCHAR(50) PRIMARY KEY,
@@ -139,9 +137,6 @@ CREATE TABLE PaymentTier_has_Reward
     FOREIGN KEY (RewardName) REFERENCES Reward (RewardName) ON DELETE CASCADE
 );
 
--- Insert statements:
-
--- ACCOUNT <--------------
 INSERT INTO Account (Username, Password, CreationDate, Email)
 VALUES ('cmcdavid1', 'Cpass1', TO_DATE('2023-03-15', 'YYYY-MM-DD'), 'cmcdavid@gmail.com');
 
@@ -178,8 +173,6 @@ VALUES ('sfuneedsmoney', 'sfupass1', TO_DATE('2023-10-12', 'YYYY-MM-DD'), 'sfu@g
 INSERT INTO Account (Username, Password, CreationDate, Email)
 VALUES ('fundbenslife', 'fbenpass', TO_DATE('2023-07-12', 'YYYY-MM-DD'), 'fundben@gmail.com');
 
--- PostalCode_Location <--------------
-
 INSERT INTO PostalCode_Location (PostalCode, City, Province)
 VALUES ('M5H1W7', 'Toronto', 'ON');
 
@@ -194,8 +187,6 @@ VALUES ('E1C4P9', 'Moncton', 'NB');
 
 INSERT INTO PostalCode_Location (PostalCode, City, Province)
 VALUES ('L5N2X2', 'Mississauga', 'ON');
-
--- PaymentInformation <--------------
 
 INSERT INTO PaymentInformation (CCNumber, CVV, Address, PostalCode)
 VALUES ('1111222233334444', '123', '123 Main St', 'M5H1W7');
@@ -214,8 +205,6 @@ VALUES ('5555666777788888', '567', '567 Cedar St', 'L5N2X2');
 
 INSERT INTO PaymentInformation (CCNumber, CVV, Address, PostalCode)
 VALUES ('1234123412341234', '111', '111 Cedar St', 'L5N2X2');
-
--- Individual <--------------
 
 INSERT INTO Individual (Username, PaymentInfo, DateOfBirth, FirstName, LastName)
 VALUES ('cmcdavid1', '3333444455556666', TO_DATE('1990-05-15', 'YYYY-MM-DD'), 'Connor', 'McDavid');
@@ -238,8 +227,6 @@ VALUES ('pshelby1', '2222333344445555', TO_DATE('1894-10-11', 'YYYY-MM-DD'), 'Po
 INSERT INTO Individual (Username, PaymentInfo, DateOfBirth, FirstName, LastName)
 VALUES ('nomoney10', NULL, TO_DATE('1970-11-06', 'YYYY-MM-DD'), 'Dan', 'NoMoney');
 
--- Organization <--------------
-
 INSERT INTO Organization (Username, FoundedDate, OrgName)
 VALUES ('wildlife', TO_DATE('2000-08-15', 'YYYY-MM-DD'), 'Wildlife Preservation Inc');
 
@@ -255,8 +242,6 @@ VALUES ('sfuneedsmoney', TO_DATE('2023-10-11', 'YYYY-MM-DD'), 'Give SFU Money Pl
 INSERT INTO Organization (Username, FoundedDate, OrgName)
 VALUES ('fundbenslife', TO_DATE('2023-10-11', 'YYYY-MM-DD'), 'Ben Wants Money');
 
--- Organization_creates_Project <--------------
-
 INSERT INTO Organization_creates_Project (ProjectName, OUsername, Description, Balance)
 VALUES ('Help Pandas', 'wildlife', 'Pandas are going extinct. Send money.', 0);
 
@@ -271,8 +256,6 @@ VALUES ('Open more CPSC210 sections', 'ubcneedsmoney', 'Java', 0);
 
 INSERT INTO Organization_creates_Project (ProjectName, OUsername, Description, Balance)
 VALUES ('Bens Fund', 'fundbenslife', 'Ben needs money.', 0);
-
--- Organization_creates_Post <--------------
 
 INSERT INTO Organization_creates_Post(PostID, OUsername, ProjectName, Content, ImageURL, Timestamp)
 VALUES (101, 'wildlife', 'Help Pandas', 'Image of Panda', 'https://i.ebayimg.com/images/g/770AAOSwmYFjG-6w/s-l1600.jpg',
@@ -296,8 +279,6 @@ INSERT INTO Organization_creates_Post(PostID, OUsername, ProjectName, Content, I
 VALUES (105, 'fundbenslife', 'Bens Fund', 'Help me get to class.',
         'https://m.media-amazon.com/images/I/71iEjFb5AAL.jpg', CURRENT_TIMESTAMP);
 
--- Account_writes_Comment_on_Post <--------------
-
 INSERT INTO Account_writes_Comment_on_Post(CommentID, Username, PostID, Timestamp, Content)
 VALUES (0, 'tshebs', 105, CURRENT_TIMESTAMP,
         'Were gonna get ye that red bike and we hope to c ye riding it around brum.');
@@ -313,8 +294,6 @@ VALUES (3, 'ashebs12', 102, CURRENT_TIMESTAMP, 'No way');
 
 INSERT INTO Account_writes_Comment_on_Post(CommentID, Username, PostID, Timestamp, Content)
 VALUES (4, 'ashebs12', 105, CURRENT_TIMESTAMP, 'Ah a nice racing red');
-
--- Individual_makes_Contribution <--------------
 
 INSERT INTO Individual_makes_Contribution(IUsername, ProjectName, Amount, Timestamp)
 VALUES ('tshebs', 'Bens Fund', 7, CURRENT_TIMESTAMP);
@@ -334,8 +313,6 @@ VALUES ('ashebs12', 'Open more CPSC110 sections', 100, CURRENT_TIMESTAMP);
 INSERT INTO Individual_makes_Contribution(IUsername, ProjectName, Amount, Timestamp)
 VALUES ('ashebs12', 'Open more CPSC210 sections', 500000, CURRENT_TIMESTAMP);
 
--- Reward <--------------
-
 INSERT INTO Reward(RewardName, OUsername)
 VALUES ('T-Shirt', 'wildlife');
 
@@ -351,8 +328,6 @@ VALUES ('Tesla Model S', 'ubcneedsmoney');
 INSERT INTO Reward(RewardName, OUsername)
 VALUES ('CEOs Favorite Hat', 'fundbenslife');
 
--- Individual_receives_Reward <--------------
-
 INSERT INTO Individual_receives_Reward(RewardName, IUsername)
 VALUES ('CEOs Favorite Hat', 'tshebs');
 
@@ -367,8 +342,6 @@ VALUES ('T-Shirt', 'tshebs');
 
 INSERT INTO Individual_receives_Reward(RewardName, IUsername)
 VALUES ('Tesla Model S', 'ashebs12');
-
--- PaymentTier <--------------
 
 INSERT INTO PaymentTier(PayTierID, ProjectName, OUserName, Description, minAmount, maxAmount)
 VALUES (0, 'Help Pandas', 'wildlife', 'Donate 50$ and receive a t-shirt', 50, 100);
@@ -386,8 +359,6 @@ VALUES (3, 'Open more CPSC210 sections', 'ubcneedsmoney', 'Donate >=100000$ and 
 INSERT INTO PaymentTier(PayTierID, ProjectName, OUserName, Description, minAmount, maxAmount)
 VALUES (4, 'Bens Fund', 'fundbenslife', 'Donate enough money for a subway sandwich and receive the ultimate reward', 5,
         1000000);
-
--- PaymentTier_has_Reward <--------------
 
 INSERT INTO PaymentTier_has_Reward(PayTierID, RewardName)
 VALUES (0, 'T-Shirt');
