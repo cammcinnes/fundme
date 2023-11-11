@@ -19,7 +19,7 @@
         <!-- An in-line placeholder to display connection status. -->
         <span id="dbStatus"> </span>
         <!-- A loading GIF, will be hided once get the status. -->
-        <img id="loadingGif" class="loading-gif" src="loading_100px.gif" alt="Loading...">
+        <img id="loadingGif" class="loading-gif" src="./loading_100px.gif" alt="Loading...">
     </h1>
 
     <br><hr><br> <!-- ========================================================================= -->
@@ -34,6 +34,21 @@
                 <th>ID</th>
                 <th>Name</th>
             </tr>
+        </thead>
+        <tbody>
+        </tbody>
+    </table>
+
+    <h2>Show Accounts</h2>
+    <table id="accountsTable" border="1">
+        <thead>
+        <tr>
+            <!--Table head, need to be adjusted accordingly to align with your own.-->
+            <th>Username</th>
+            <th>Password</th>
+            <th>CreationDate</th>
+            <th>Email</th>
+        </tr>
         </thead>
         <tbody>
         </tbody>
@@ -58,6 +73,16 @@
     </form>
     <div id="insertResultMsg"></div>
 
+    <h2> Insert Values into Account </h2>
+    <form id="insertAccount">
+        Email: <input type="text" id="insertEmail" placeholder="Enter Email" maxlength="50" required> <br><br>
+        Username: <input type="text" id="insertUsername" placeholder="Enter Username" maxlength="50" required> <br><br>
+        Password: <input type="password" id="insertPassword" placeholder="Enter Password" maxlength="50" required> <br><br>
+
+        <button type="submit"> insert </button> <br>
+    </form>
+    <div id="insertAccountResultMsg"></div>
+
     <br><hr><br> <!-- ========================================================================= -->
 
     <h2>Update Name in DemoTable</h2>
@@ -80,6 +105,6 @@
 
     <!-- ===================================================================================== -->
     <!-- External JavaScript file that contains the functionality/logic for the operations above. -->
-    <script src="scripts.js"></script>
+    <script src="./scripts.js"></script>
 </body>
 </html>

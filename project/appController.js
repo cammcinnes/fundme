@@ -64,5 +64,26 @@ router.get('/count-demotable', async (req, res) => {
     }
 });
 
+router.get('/accounts', async (req, res) => {
+    const tableContent = await appService.fetchAccountsFromDB();
+    res.json({ data: tableContent });
+});
+
+/**
+ * Endpoint for inserting an account into the database. Account must exist before
+ * creating an Individual or Organization.
+ *
+ * @returns boolean - true if new account is successfully inserted into database
+ */
+router.post('/insert-account', async (req, res) => {
+    const { username, password, email } = req.body;
+    const insertResult = await appService.insertAccount(username, password, email);
+    if (insertResult) {
+        res.json({ success: true });
+    } else {
+        res.status(500).json({ success: false });
+    }
+});
+
 
 module.exports = router;

@@ -57,23 +57,21 @@ async function fetchDemotableFromDb() {
 async function initiateDemotable() {
     return await withOracleDB(async (connection) => {
         try {
-            await connection.execute(`DROP TABLE DEMOTABLE`);
-        } catch(err) {
-            console.log('Table might not exist, proceeding to create...');
+            console.log("adding project tables and insert statements...: ");
+            const statements = fs.readFileSync("./db-setup.sql", "utf8").split(';');
+
+            for (const statement of statements) {
+                if (statement.trim()) {
+                    await connection.execute(statement.trim(), [], { autoCommit: false });
+                    // console.log(statement.trim());
+                }
+            }
+            await connection.commit();
+            console.log('Executed db-setup.sql successfully.');
+            return true;
+        } catch (err) {
+            console.log(err);
         }
-
-        const dbSetupScript = fs.readFileSync("./db-setup.sql").toString();
-
-        const result = await connection.execute(`
-            CREATE TABLE DEMOTABLE (
-                id NUMBER PRIMARY KEY,
-                name VARCHAR2(20)
-            )
-        `);
-        console.log("adding project tables and insert statements...: ", dbSetupScript,
-        );
-        await connection.execute(dbSetupScript);
-        return true;
     }).catch(() => {
         return false;
     });
@@ -116,11 +114,51 @@ async function countDemotable() {
     });
 }
 
+/**
+ * Fetches all data from Account table
+ *
+ * @returns {Promise<*|boolean>}
+ */
+async function fetchAccountsFromDB() {
+    return await withOracleDB(async (connection) => {
+        const result = await connection.execute('SELECT * FROM ACCOUNT');
+        return result.rows;
+    }).catch(() => {
+        return false;
+    });
+}
+
+/**
+ * Inserts a new account into Account table with given username, password, and
+ * email. CreationDate is produced at time of insertion.
+ *
+ * @param {string} username - must be unique and not null
+ * @param {string} password
+ * @param {string} email - must be unique and not null
+ * @returns {Promise<*|boolean>}
+ */
+async function insertAccount(username, password, email) {
+    return await withOracleDB(async (connection) => {
+        const creationDate = new Date();
+        const result = await connection.execute(
+            `INSERT INTO ACCOUNT (Username, Password, CreationDate, Email)
+             VALUES (:username, :password, :creationDate, :email)`,
+            { username, password, creationDate, email },
+            { autoCommit: true }
+        );
+        return result.rowsAffected && result.rowsAffected > 0;
+    }).catch(() => {
+        return false;
+    });
+}
+
 module.exports = {
     testOracleConnection,
     fetchDemotableFromDb,
-    initiateDemotable, 
+    initiateDemotable,
     insertDemotable, 
     updateNameDemotable, 
-    countDemotable
+    countDemotable,
+    insertAccount,
+    fetchAccountsFromDB
 };

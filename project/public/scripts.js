@@ -154,6 +154,61 @@ async function countDemotable() {
     }
 }
 
+async function fetchAndDisplayAccounts() {
+    const tableElement = document.getElementById("accountsTable");
+    const tableBody = tableElement.querySelector('tbody');
+
+    const response = await fetch('/accounts', {
+         method: 'GET'
+    });
+
+    const responseData = await response.json();
+    const accounts = responseData.data;
+
+    if (tableBody) {
+        tableBody.innerHTML = '';
+    }
+
+    accounts.forEach((account) => {
+        const row = tableBody.insertRow();
+        account.forEach((attr, index) => {
+            const cell = row.insertCell(index);
+            cell.textContent = attr;
+        });
+    });
+}
+
+// Insert new account into Account Table
+async function insertAccount(event) {
+    event.preventDefault();
+
+    const email = document.getElementById('insertEmail').value;
+    const username = document.getElementById('insertUsername').value;
+    const password = document.getElementById('insertPassword').value;
+
+    const response = await fetch('/insert-account', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+            email: email,
+            username: username,
+            password: password
+        })
+    });
+
+    const responseData = await response.json();
+    const messageElement = document.getElementById('insertAccountResultMsg');
+
+    if (responseData.success) {
+        messageElement.textContent = "Account inserted successfully!";
+        fetchTableData();
+    } else {
+        messageElement.textContent = "Error inserting account!";
+    }
+}
+
 
 // ---------------------------------------------------------------
 // Initializes the webpage functionalities.
@@ -165,10 +220,12 @@ window.onload = function() {
     document.getElementById("insertDemotable").addEventListener("submit", insertDemotable);
     document.getElementById("updataNameDemotable").addEventListener("submit", updateNameDemotable);
     document.getElementById("countDemotable").addEventListener("click", countDemotable);
+    document.getElementById("insertAccount").addEventListener("submit", insertAccount);
 };
 
 // General function to refresh the displayed table data. 
 // You can invoke this after any table-modifying operation to keep consistency.
 function fetchTableData() {
     fetchAndDisplayUsers();
+    fetchAndDisplayAccounts();
 }
