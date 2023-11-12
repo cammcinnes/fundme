@@ -4,7 +4,7 @@
 cd "$(dirname "$0")"
 
 # Configure the oracle instant client env variable
-export DYLD_LIBRARY_PATH=/Users/benjaminvinnick/Desktop/instantclient_19_8:$DYLD_LIBRARY_PATH
+export LD_LIBRARY_PATH=/opt/oracle/instantclient_21_12:$LD_LIBRARY_PATH
 
 # Start Node application
 exec node server.js
