@@ -12,5 +12,11 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
+}
+.login {
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   height: 720px;
 }
