@@ -1,13 +1,14 @@
-import insert from "../components/Insert";
+import Insert from "../components/Insert";
 
 
-function login(){
+
+function Login(){
     return (
             <div className="login">
                 <h2> Please Login </h2>
-                <insert></insert>
+                <Insert />
             </div>
     );
 }
 
-export default login;
+export default Login;

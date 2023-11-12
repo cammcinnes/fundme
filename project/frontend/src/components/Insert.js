@@ -1,4 +1,4 @@
-function insert() {
+function Insert() {
     return (
         <form>
            <label>Email:
@@ -14,4 +14,4 @@ function insert() {
     )
 }
 
-export default insert;
+export default Insert;
