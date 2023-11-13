@@ -10,3 +10,4 @@
 .env
 local-start.sh
 node_modules
+../.idea

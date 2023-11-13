@@ -1,3 +1,4 @@
+import React from 'react';
 import Insert from "../components/Insert";
 import Button from "../components/Button";
 import '../App.css';
