@@ -29,6 +29,17 @@ router.get('/owned-projects', async (req, res) => {
 
 // get specific project includes: project information, payment tiers, posts and associated comments
 // need project name
+router.get('/project-data', async (req, res) => {
+    try {
+        const { projectName } = req.body;
+        if (!projectName)
+            return res.status(400).json({ success: false, error: "Project name is required." });
+
+
+    } catch (err) {
+        return res.status(400).json({ success: false, error: err.message });
+    }
+});
 
 // add a payment tier to the project
 

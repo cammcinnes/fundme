@@ -183,6 +183,11 @@ async function fetchOrgProjects(username) {
     });
 }
 
+// Fetches all data relating to a project: Project info, payment tiers, posts, and comments
+async function fetchProjectData(projectName) {
+
+}
+
 module.exports = {
     testOracleConnection,
     fetchDemotableFromDb,
