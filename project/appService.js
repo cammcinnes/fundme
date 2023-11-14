@@ -152,6 +152,37 @@ async function insertAccount(username, password, email) {
     });
 }
 
+// Fetch all projects
+async function fetchAllProjects() {
+    return await withOracleDB(async (connection) => {
+        const allProjects = await connection.execute(
+            `SELECT *
+             FROM ORGANIZATION_CREATES_PROJECT`,
+            {},
+            { autoCommit: true }
+        );
+        return allProjects.rows;
+    }).catch(() => {
+        return [];
+    });
+}
+
+// Fetches all projects owned by an organization
+async function fetchOrgProjects(username) {
+    return await withOracleDB(async (connection) => {
+        const orgProjects = await connection.execute(
+            `SELECT *
+             FROM ORGANIZATION_CREATES_PROJECT
+             WHERE USERNAME = :username`,
+            { username },
+            { autoCommit: true }
+        );
+        return orgProjects.rows;
+    }).catch(() => {
+        return [];
+    });
+}
+
 module.exports = {
     testOracleConnection,
     fetchDemotableFromDb,
@@ -160,5 +191,7 @@ module.exports = {
     updateNameDemotable, 
     countDemotable,
     insertAccount,
-    fetchAccountsFromDB
+    fetchAccountsFromDB,
+    fetchAllProjects,
+    fetchOrgProjects
 };
