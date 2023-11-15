@@ -217,7 +217,6 @@ async function fetchProjectData(projectName) {
     });
 }
 
-// Need to fix: Returns true when no project exists with given name
 async function deleteProject(projectName) {
     return await withOracleDB(async (connection) => {
         const result = await connection.execute(
@@ -227,7 +226,7 @@ async function deleteProject(projectName) {
             { projectName },
             { autoCommit: true }
         );
-        return true;
+        return result.rowsAffected >= 1;
     }).catch(() => {
         return false;
     });
@@ -237,8 +236,8 @@ module.exports = {
     testOracleConnection,
     fetchDemotableFromDb,
     initiateDemotable,
-    insertDemotable, 
-    updateNameDemotable, 
+    insertDemotable,
+    updateNameDemotable,
     countDemotable,
     insertAccount,
     fetchAccountsFromDB,
