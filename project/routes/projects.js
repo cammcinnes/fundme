@@ -1,6 +1,5 @@
 const express = require('express');
 const appService = require('../appService');
-const {fetchOrgProjects} = require("../appService");
 
 const router = express.Router();
 
@@ -20,22 +19,37 @@ router.get('/owned-projects', async (req, res) => {
         const { username } = req.body;
         if (!username)
             return res.status(400).json({success: false, error: "Username is required."});
-        const ownedProjects = await fetchOrgProjects(username);
-        return ownedProjects.rows;
+        const ownedProjects = await appService.fetchOrgProjects(username);
+        return res.json({ success: true, data: ownedProjects });
     } catch (err) {
         return res.status(400).json({ success: false, error: err.message });
     }
 });
 
 // get specific project includes: project information, payment tiers, posts and associated comments
-// need project name
 router.get('/project-data', async (req, res) => {
     try {
         const { projectName } = req.body;
         if (!projectName)
             return res.status(400).json({ success: false, error: "Project name is required." });
+        const projectData = await appService.fetchProjectData(projectName);
+        return res.json({ success: true, data: projectData });
+    } catch (err) {
+        return res.status(400).json({ success: false, error: err.message });
+    }
+});
 
-
+router.post('/delete-project', async (req, res) => {
+    try {
+        const { projectName } = req.body;
+        if (!projectName)
+            return res.status(400).json({ success: false, error: "Project name is required." });
+        const result = await appService.deleteProject(projectName);
+        if (result) {
+            return res.json({ success: true });
+        } else {
+            return res.status(400).json({ success: false });
+        }
     } catch (err) {
         return res.status(400).json({ success: false, error: err.message });
     }
@@ -44,7 +58,5 @@ router.get('/project-data', async (req, res) => {
 // add a payment tier to the project
 
 // remove a payment tier from the project
-
-// delete project
 
 module.exports = router;

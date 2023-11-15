@@ -173,7 +173,7 @@ async function fetchOrgProjects(username) {
         const orgProjects = await connection.execute(
             `SELECT *
              FROM ORGANIZATION_CREATES_PROJECT
-             WHERE USERNAME = :username`,
+             WHERE OUSERNAME = :username`,
             { username },
             { autoCommit: true }
         );
@@ -183,9 +183,54 @@ async function fetchOrgProjects(username) {
     });
 }
 
-// Fetches all data relating to a project: Project info, payment tiers, posts, and comments
+// Fetches all data relating to a project: Project info, payment tiers, and posts
+// Returns a nested array: [ [[Project Info]], [[PaymentTier_1], ..., [PaymentTier_n]], [[Post_1, ..., Post_n]] ]
 async function fetchProjectData(projectName) {
+    return await withOracleDB(async (connection) => {
+        const projectInfo = await connection.execute(
+            `SELECT *
+             FROM ORGANIZATION_CREATES_PROJECT
+             WHERE ProjectName = :projectName`,
+            { projectName },
+            { autoCommit: true }
+        );
 
+        const projectPayTiers = await connection.execute(
+            `SELECT *
+             FROM PaymentTier
+             WHERE ProjectName = :projectName`,
+            { projectName },
+            { autoCommit: true }
+        );
+
+        const projectPosts = await connection.execute(
+            `SELECT *
+             FROM ORGANIZATION_CREATES_POST
+             WHERE ProjectName = :projectName`,
+            { projectName },
+            { autoCommit: true }
+        );
+
+        return [projectInfo.rows, projectPayTiers.rows, projectPosts.rows];
+    }).catch(() => {
+        return [];
+    });
+}
+
+// Need to fix: Returns true when no project exists with given name
+async function deleteProject(projectName) {
+    return await withOracleDB(async (connection) => {
+        const result = await connection.execute(
+            `DELETE
+             FROM ORGANIZATION_CREATES_PROJECT
+             WHERE ProjectName = :projectName`,
+            { projectName },
+            { autoCommit: true }
+        );
+        return true;
+    }).catch(() => {
+        return false;
+    });
 }
 
 module.exports = {
@@ -198,5 +243,7 @@ module.exports = {
     insertAccount,
     fetchAccountsFromDB,
     fetchAllProjects,
-    fetchOrgProjects
+    fetchOrgProjects,
+    fetchProjectData,
+    deleteProject
 };
