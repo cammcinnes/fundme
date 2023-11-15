@@ -33,6 +33,36 @@ async function withOracleDB(action) {
     }
 }
 
+async function login(username, password) {
+    return await withOracleDB(async (connection) => {
+        const result = await connection.execute(
+            `SELECT * FROM ACCOUNT WHERE username=:username AND password=:password`,
+            [username, password],
+            { autoCommit: true }
+        );
+        return result.rows;
+    }).catch(() => {
+        return [];
+    });
+}
+
+// assume username exists
+async function getAccountType(username) {
+    return await withOracleDB(async (connection) => {
+        const resultInd = await connection.execute(
+            `SELECT * FROM INDIVIDUAL WHERE username=:username`,
+            [username],
+            { autoCommit: true }
+        );
+        if (resultInd.rows.length === 1) {
+            return "individual"
+        }
+        return "organization"
+    }).catch((error) => {
+        throw Error(error.message);
+    });
+}
+
 
 // ----------------------------------------------------------
 // Core functions for database operations
@@ -62,8 +92,8 @@ async function initiateDemotable() {
 
             for (const statement of statements) {
                 if (statement.trim()) {
+                    console.log(statement.trim());
                     await connection.execute(statement.trim(), [], { autoCommit: false });
-                    // console.log(statement.trim());
                 }
             }
             await connection.commit();
@@ -160,5 +190,7 @@ module.exports = {
     updateNameDemotable, 
     countDemotable,
     insertAccount,
-    fetchAccountsFromDB
+    fetchAccountsFromDB,
+    login,
+    getAccountType
 };

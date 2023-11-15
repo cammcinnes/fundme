@@ -1,13 +1,20 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import Login from "./pages/Login";
-import './App.css';
 import Welcome from "./pages/Welcome";
+import './App.css';
+
 
 function App() {
+  const [account, setAccount] = useState({type: null});
+
+  useEffect(() => {
+  }, [account]);
+
   return (
     <div className="App">
-      {/*<Login />*/}
-        <Welcome />
+      {account.type === null ? (<Login setAccount={setAccount}/>) :
+        (<Welcome/>
+      )}
     </div>
   );
 }
