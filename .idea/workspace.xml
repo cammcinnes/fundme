@@ -5,7 +5,14 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="29416fb2-5623-44d6-aca4-74c93dcfaa86" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/project_k2h3b_s7f3b_w7a1m.iml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/project/frontend/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/project/frontend/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/project/frontend/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/project/frontend/package.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/project/frontend/src/App.js" beforeDir="false" afterPath="$PROJECT_DIR$/project/frontend/src/App.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/project/frontend/src/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/project/frontend/src/index.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/project/frontend/src/pages/Welcome.js" beforeDir="false" afterPath="$PROJECT_DIR$/project/frontend/src/pages/Welcome.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -108,7 +115,7 @@
       <workItem from="1700066481395" duration="323000" />
       <workItem from="1700077248933" duration="216000" />
       <workItem from="1700088360942" duration="97000" />
-      <workItem from="1700105012378" duration="734000" />
+      <workItem from="1700105012378" duration="4278000" />
     </task>
     <servers />
   </component>

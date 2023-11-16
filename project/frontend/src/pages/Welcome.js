@@ -1,10 +1,15 @@
 import React from 'react';
-
+import { useNavigate } from "react-router-dom";
 function Welcome() {
+    const navigate = useNavigate();
+
+    const movePages = () => {
+        navigate("/login");
+    }
     return (
         <div>Welcome page
             <div className={'startMenu'}>
-                <button type={"submit"} value={'submit'}>Login</button>
+                <button type={"submit"} value={'submit'} onClick={movePages}>Login</button>
                 <button type={"submit"} value={'submit'}>Create Account</button>
             </div>
         </div>
