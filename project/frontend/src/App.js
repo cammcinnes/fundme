@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import Login from "./pages/Login";
 import Welcome from "./pages/Welcome";
 import './App.css';
-
+import { BrowserRouter, Route, Routes } from "react-router-dom";
 
 function App() {
   const [account, setAccount] = useState({type: null});
@@ -12,9 +12,8 @@ function App() {
 
   return (
     <div className="App">
-      {account.type === null ? (<Login setAccount={setAccount}/>) :
-        (<Welcome/>
-      )}
+      {account.type === null ? (<Welcome/>) :
+        (<Login setAccount={setAccount}/>)}
     </div>
   );
 }
