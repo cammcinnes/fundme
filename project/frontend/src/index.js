@@ -6,6 +6,7 @@ import {createBrowserRouter, RouterProvider} from "react-router-dom";
 import Welcome from "./pages/Welcome";
 import Login from "./pages/Login";
 import ChooseAccountType from "./pages/ChooseAccountType";
+import CreateIndividual from "./pages/CreateIndividual";
 
 const router = createBrowserRouter([
     {
@@ -19,6 +20,10 @@ const router = createBrowserRouter([
     {
         path: "/create",
         element: <ChooseAccountType />,
+    },
+    {
+        path: "/create/individual",
+        element: <CreateIndividual />,
     },
 ]);
 const root = ReactDOM.createRoot(document.getElementById('root'));

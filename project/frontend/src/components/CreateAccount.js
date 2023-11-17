@@ -12,6 +12,7 @@ function CreateAccount() {
         <div>
             <h2>Create an Account</h2>
             <div className={'create'}>
+                <h3>Account Information</h3>
                 <label>Email:
                     <input
                         type='email'
@@ -36,7 +37,7 @@ function CreateAccount() {
                     <input
                         type='password'
                         name='insertPass'
-                        placeholder='1234'
+                        placeholder='enter password here'
                         maxLength={50}
                         value={password}
                         onChange={e => setPassword(e.target.value)}
@@ -46,7 +47,7 @@ function CreateAccount() {
                     <input
                         type='password'
                         name='insertPass2'
-                        placeholder='1234'
+                        placeholder='re-enter password here'
                         maxLength={50}
                         value={password2}
                         onChange={e => setPassword2(e.target.value)}
