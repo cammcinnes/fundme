@@ -29,7 +29,7 @@ function CreateIndividual() {
                 <h3>Personal Information</h3>
                 <label>First Name:
                     <input
-                        type='test'
+                        type='text'
                         name='insertFirstName'
                         placeholder='enter name here'
                         maxLength={50}
