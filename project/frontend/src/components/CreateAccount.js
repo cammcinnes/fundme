@@ -1,16 +1,9 @@
-import React, {useState} from 'react';
+import React from 'react';
 import '../App.css';
-import Login from "../pages/Login";
 
-function CreateAccount() {
-    const [email, setEmail] = useState("");
-    const [username, setUsername] = useState("");
-    const [password, setPassword] = useState("");
-    const [password2, setPassword2] = useState("");
-
+function CreateAccount({email, setEmail, username, setUsername, password, setPassword, password2, setPassword2}) {
     return (
         <div>
-            <h2>Create an Account</h2>
             <div className={'create'}>
                 <h3>Account Information</h3>
                 <label>Email:
@@ -19,7 +12,7 @@ function CreateAccount() {
                         name='insertEmail'
                         placeholder='enter email here'
                         maxLength={50}
-                        value={username}
+                        value={email}
                         onChange={e => setEmail(e.target.value)}
                     />
                 </label>
