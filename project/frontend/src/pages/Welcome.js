@@ -4,14 +4,17 @@ import '../App.css';
 function Welcome() {
     const navigate = useNavigate();
 
-    const movePages = () => {
+    const moveLogin = () => {
         navigate("/login");
+    }
+    const moveCreate = () => {
+        navigate("/create");
     }
     return (
         <div>Welcome page
             <div className={'startMenu'}>
-                <button type={"submit"} value={'submit'} onClick={movePages}>Login</button>
-                <button type={"submit"} value={'submit'}>Create Account</button>
+                <button type={"submit"} value={'submit'} onClick={moveLogin}>Login</button>
+                <button type={"submit"} value={'submit'} onClick={moveCreate}>Create Account</button>
             </div>
         </div>
     );
