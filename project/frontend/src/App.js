@@ -1,15 +1,21 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import Login from "./pages/Login";
-import './App.css';
 import Welcome from "./pages/Welcome";
-
-function App() {
-  return (
-    <div className="App">
-      {/*<Login />*/}
-        <Welcome />
-    </div>
-  );
-}
-
-export default App;
+// import './App.css';
+// import {BrowserRouter as Router, Routes, Route, Link} from "react-router-dom";
+//
+// // function App() {
+// //  // const [account, setAccount] = useState({type: null});
+// //
+// //   // useEffect(() => {
+// //   // }, [account]);
+// //   return (
+// //     // <div className="App">
+// //     //   {account.type === null ? (<Welcome/>) :
+// //     //     (<Login setAccount={setAccount}/>)}
+// //     // </div>
+// //
+// //   );
+// // }
+//
+// export default App;
