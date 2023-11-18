@@ -1,5 +1,6 @@
 const express = require('express');
 const appController = require('./appController');
+const projectsRoutes = require('./routes/projects');
 const loginRoutes = require('./routes/login');
 const cors = require('cors');
 
@@ -25,8 +26,9 @@ app.use(cors());
 
 
 // mount the router
-app.use('/login', loginRoutes);
 app.use('/', appController);
+app.use('/login', loginRoutes);
+app.use('/projects', projectsRoutes);
 
 // ----------------------------------------------------------
 // Starting the server
