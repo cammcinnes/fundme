@@ -1,8 +1,15 @@
 const express = require('express');
 const appService = require('../appService');
 const bcrypt = require('bcrypt');
+const loadEnvFile = require('../utils/envUtil');
+const envVariables = loadEnvFile('./.env');
+const jwt = require("jsonwebtoken");
 
 const router = express.Router();
+
+const generateJWTToken = (id, type) => {
+  return jwt.sign({ username: id, accountType: type }, envVariables.JWT_SECRET, { expiresIn: "2hr" });
+};
 
 // LOGIN
 // curl -X POST -H "Content-Type: application/json" -d '{"username":"cmcdavid1","password":"Cpass1"}' http://localhost:65535/auth/login
@@ -18,7 +25,8 @@ router.post('/login', async (req, res) => {
       return res.status(401).json({success: false, error: "Username or password is incorrect"});
     }
     const accountType = await appService.getAccountType(username);
-    return res.json({success: true, result: { accountType }});
+    const token = generateJWTToken(username, accountType);
+    return res.json({success: true, result: { token, accountType }});
   } catch (error) {
     return res.status(400).json({success: false, error: error.message});
   }
@@ -60,7 +68,8 @@ router.post('/register', async (req, res) => {
       await appService.registerOrganization(username, options);
     }
     const accountType = await appService.getAccountType(username);
-    return res.json({success: true, result: { accountType }});
+    const token = generateJWTToken(username, accountType);
+    return res.json({success: true, result: { token, accountType }});
   } catch (error) {
     return res.status(400).json({success: false, error: error.message});
   }

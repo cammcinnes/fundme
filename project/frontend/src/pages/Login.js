@@ -17,6 +17,7 @@ function Login(props){
                         const parsedResponse = await response.json();
                         if (parsedResponse.success === true) {
                                 props.setAccount(parsedResponse.result.accountType);
+                                localStorage.setItem('token', parsedResponse.result.token);
                         } else {
                                 console.log("hit");
                                 alert(parsedResponse.error);

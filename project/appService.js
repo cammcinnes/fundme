@@ -390,5 +390,6 @@ module.exports = {
     fetchProjectData,
     deleteProject,
     createPaymentTier,
-    deletePaymentTier
+    deletePaymentTier,
+    getAccountType
 };
