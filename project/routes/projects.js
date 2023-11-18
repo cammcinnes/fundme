@@ -39,24 +39,43 @@ router.get('/project-data', async (req, res) => {
     }
 });
 
+// Delete a project with given projectName
 router.post('/delete-project', async (req, res) => {
     try {
         const { projectName } = req.body;
         if (!projectName)
             return res.status(400).json({ success: false, error: "Project name is required." });
-        const result = await appService.deleteProject(projectName);
-        if (result) {
-            return res.json({ success: true });
-        } else {
-            return res.status(400).json({ success: false });
-        }
+        await appService.deleteProject(projectName);
+        return res.json({ success: true });
     } catch (err) {
         return res.status(400).json({ success: false, error: err.message });
     }
 });
 
-// add a payment tier to the project
+router.post('/add-payment-tier', async (req, res) => {
+    try {
+        const { payTierID, projectName, orgUsername, description, minAmount, maxAmount } = req.body;
+        if (!payTierID || !projectName || !orgUsername || !minAmount || !maxAmount) {
+            return res.status(400).json({ success: false, error: "All fields are required." });
+        }
+        await appService.createPaymentTier(payTierID, projectName, orgUsername, description, minAmount, maxAmount);
+        return res.json({ success: true });
+    } catch (err) {
+        return res.status(400).json({ success: false, error: err.message });
+    }
+});
 
-// remove a payment tier from the project
+router.post('/delete-payment-tier', async (req, res) => {
+    try {
+        const { payTierID } = req.body;
+        if (!payTierID) {
+            return res.status(400).json({ success: false, error: "Payment tier ID is required." });
+        }
+        await appService.deletePaymentTier(payTierID);
+        return res.json({ success: true });
+    } catch (err) {
+        return res.status(400).json({ success: false, error: err.message });
+    }
+});
 
 module.exports = router;

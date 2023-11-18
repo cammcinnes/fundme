@@ -123,8 +123,8 @@ async function fetchAccountsFromDB() {
     return await withOracleDB(async (connection) => {
         const result = await connection.execute('SELECT * FROM ACCOUNT');
         return result.rows;
-    }).catch(() => {
-        return false;
+    }).catch((err) => {
+        throw err;
     });
 }
 
@@ -140,15 +140,15 @@ async function fetchAccountsFromDB() {
 async function insertAccount(username, password, email) {
     return await withOracleDB(async (connection) => {
         const creationDate = new Date();
-        const result = await connection.execute(
+        await connection.execute(
             `INSERT INTO ACCOUNT (Username, Password, CreationDate, Email)
              VALUES (:username, :password, :creationDate, :email)`,
             { username, password, creationDate, email },
             { autoCommit: true }
         );
-        return result.rowsAffected && result.rowsAffected > 0;
-    }).catch(() => {
-        return false;
+        return true;
+    }).catch((err) => {
+        throw err;
     });
 }
 
@@ -162,8 +162,8 @@ async function fetchAllProjects() {
             { autoCommit: true }
         );
         return allProjects.rows;
-    }).catch(() => {
-        return [];
+    }).catch((err) => {
+        throw err;
     });
 }
 
@@ -178,13 +178,13 @@ async function fetchOrgProjects(username) {
             { autoCommit: true }
         );
         return orgProjects.rows;
-    }).catch(() => {
-        return [];
+    }).catch((err) => {
+        throw err;
     });
 }
 
 // Fetches all data relating to a project: Project info, payment tiers, and posts
-// Returns a nested array: [ [[Project Info]], [[PaymentTier_1], ..., [PaymentTier_n]], [[Post_1, ..., Post_n]] ]
+// Returns an object { info: projectInfo, paymentTiers: projectPayTiers, posts: projectPosts }
 async function fetchProjectData(projectName) {
     return await withOracleDB(async (connection) => {
         const projectInfo = await connection.execute(
@@ -211,24 +211,54 @@ async function fetchProjectData(projectName) {
             { autoCommit: true }
         );
 
-        return [projectInfo.rows, projectPayTiers.rows, projectPosts.rows];
-    }).catch(() => {
-        return [];
+        return { info: projectInfo, paymentTiers: projectPayTiers, posts: projectPosts };
+    }).catch((err) => {
+        throw err;
     });
 }
 
 async function deleteProject(projectName) {
     return await withOracleDB(async (connection) => {
-        const result = await connection.execute(
+        await connection.execute(
             `DELETE
              FROM ORGANIZATION_CREATES_PROJECT
              WHERE ProjectName = :projectName`,
             { projectName },
             { autoCommit: true }
         );
-        return result.rowsAffected >= 1;
-    }).catch(() => {
-        return false;
+        return true;
+    }).catch((err) => {
+        throw err;
+    });
+}
+
+async function createPaymentTier(payTierID, projectName, orgUsername, description, minAmount, maxAmount) {
+    return await withOracleDB(async (connection) => {
+        await connection.execute(
+            `INSERT INTO PaymentTier(PayTierID, ProjectName, OUserName, Description, minAmount, maxAmount)
+             VALUES (:payTierID, :projectName, :orgUsername, :description, :minAmount, :maxAmount)`,
+            { payTierID, projectName, orgUsername, description, minAmount, maxAmount },
+            { autoCommit: true }
+        );
+        return true;
+    }).catch((err) => {
+        throw err;
+    });
+}
+
+async function deletePaymentTier(payTierID) {
+    return await withOracleDB(async (connection) => {
+        const result = await connection.execute(
+            `DELETE
+             FROM PAYMENTTIER
+             WHERE PAYTIERID = :payTierID`,
+            { payTierID },
+            { autoCommit: true }
+        );
+        if (result.rowsAffected) return true;
+        throw Error(`There exists no payment tier with given payTierID (${payTierID})`);
+    }).catch((err) => {
+        throw err;
     });
 }
 
@@ -244,5 +274,7 @@ module.exports = {
     fetchAllProjects,
     fetchOrgProjects,
     fetchProjectData,
-    deleteProject
+    deleteProject,
+    createPaymentTier,
+    deletePaymentTier
 };
