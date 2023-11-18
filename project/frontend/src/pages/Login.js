@@ -9,15 +9,16 @@ function Login(props){
         const [password, setPassword] = useState("");
         const handleLogin = async () => {
                 try {
-                        const response = await fetch(URL + "/login", {
+                        const response = await fetch(URL + "/auth/login", {
                                 method: "POST",
                                 headers: {"Content-Type": "application/json"},
                                 body: JSON.stringify({ username, password })
                         });
                         const parsedResponse = await response.json();
                         if (parsedResponse.success === true) {
-                                props.setAccount(parsedResponse.accountType);
+                                props.setAccount(parsedResponse.result.accountType);
                         } else {
+                                console.log("hit");
                                 alert(parsedResponse.error);
                         }
                 } catch (error) {

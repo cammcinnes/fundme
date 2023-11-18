@@ -1,7 +1,7 @@
 const express = require('express');
 const appController = require('./appController');
+const authRoutes = require('./routes/auth');
 const projectsRoutes = require('./routes/projects');
-const loginRoutes = require('./routes/login');
 const cors = require('cors');
 
 // Load environment variables from .env file
@@ -25,10 +25,10 @@ app.use(cors());
 // });
 
 
-// mount the router
-app.use('/', appController);
-app.use('/login', loginRoutes);
+// mount the router (ORDER MATTERS HERE!!! if you have '/a' before '/a/b' then /a/b will never be hit!. Put '/a/b' before /a
+app.use('/auth', authRoutes);
 app.use('/projects', projectsRoutes);
+app.use('/', appController);
 
 // ----------------------------------------------------------
 // Starting the server

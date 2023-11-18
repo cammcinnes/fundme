@@ -33,11 +33,86 @@ async function withOracleDB(action) {
     }
 }
 
-async function login(username, password) {
+// <----- START AUTH SQL ----->
+async function userExists(username) {
     return await withOracleDB(async (connection) => {
         const result = await connection.execute(
-            `SELECT * FROM ACCOUNT WHERE username=:username AND password=:password`,
-            [username, password],
+            `SELECT Username FROM ACCOUNT WHERE username=:username`,
+            [username],
+            { autoCommit: true }
+        );
+        return result.rows;
+    }).catch((err) => {
+        throw new Error(err);
+    });
+}
+
+async function emailExists(email) {
+    return await withOracleDB(async (connection) => {
+        const result = await connection.execute(
+            `SELECT Username FROM ACCOUNT WHERE email=:email`,
+            [email],
+            { autoCommit: true }
+        );
+        return result.rows;
+    }).catch((err) => {
+        throw new Error(err);
+    });
+}
+
+async function registerAccount(username, password, email) {
+    return await withOracleDB(async (connection) => {
+        const result = await connection.execute(
+            `INSERT INTO Account (Username, Password, CreationDate, Email) VALUES (:username, :password, SYSDATE, :email)`,
+            [username, password, email],
+            { autoCommit: true }
+        );
+        return result.rowsAffected === 1 ? true : false
+    }).catch((err) => {
+        throw new Error(err);
+    });
+}
+
+async function registerIndividual(username, options) {
+    let { dob, firstname, lastname } = options;
+    dob = dob ?? null; // should be in form 'YYYY-MM-DD'
+    firstname = firstname ?? null;
+    lastname = lastname ?? null;
+    
+    return await withOracleDB(async (connection) => {
+        const result = await connection.execute(
+            `INSERT INTO Individual (Username, DateOfBirth, FirstName, LastName) VALUES (:username, TO_DATE(:dob, 'YYYY-MM-DD'), :firstname, :lastname)`,
+            [username, dob, firstname, lastname],
+            { autoCommit: true }
+        );
+        return result.rowsAffected === 1 ? true : false
+    }).catch((err) => {
+        throw new Error(err);
+    });
+}
+
+async function registerOrganization(username, options) {
+    let { foundedDate, orgName } = options;
+    foundedDate = foundedDate ?? null;
+    orgName = orgName ?? null;
+    
+    return await withOracleDB(async (connection) => {
+        const result = await connection.execute(
+            `INSERT INTO Organization (Username, FoundedDate, OrgName) VALUES (:username, TO_DATE(:foundedDate, 'YYYY-MM-DD'), :orgName)`,
+            [username, foundedDate, orgName],
+            { autoCommit: true }
+        );
+        return result.rowsAffected === 1 ? true : false
+    }).catch((err) => {
+        throw new Error(err);
+    });
+}
+
+async function login(username) {
+    return await withOracleDB(async (connection) => {
+        const result = await connection.execute(
+            `SELECT Password FROM ACCOUNT WHERE username=:username`,
+            [username],
             { autoCommit: true }
         );
         return result.rows;
@@ -62,7 +137,7 @@ async function getAccountType(username) {
         throw Error(error.message);
     });
 }
-
+// <----- END AUTH SQL ----->
 
 // ----------------------------------------------------------
 // Core functions for database operations
@@ -88,15 +163,18 @@ async function initiateDemotable() {
     return await withOracleDB(async (connection) => {
         try {
             console.log("adding project tables and insert statements...: ");
-            const statements = fs.readFileSync("./db-setup.sql", "utf8").split(';');
+            const statements = fs.readFileSync("./db-setup.sql", "utf8").split('--\n');
 
             for (const statement of statements) {
-                if (statement.trim()) {
-                    console.log(statement.trim());
-                    await connection.execute(statement.trim(), [], { autoCommit: false });
+                const trimStatement = statement.trim();
+                if (trimStatement) {
+                    if (trimStatement.slice(-4) === "END;") {
+                        await connection.execute(statement.trim(), [], { autoCommit: true });
+                    } else {
+                        await connection.execute(statement.trim().slice(0, -1), [], { autoCommit: true });
+                    }
                 }
             }
-            await connection.commit();
             console.log('Executed db-setup.sql successfully.');
             return true;
         } catch (err) {
@@ -151,7 +229,7 @@ async function countDemotable() {
  */
 async function fetchAccountsFromDB() {
     return await withOracleDB(async (connection) => {
-        const result = await connection.execute('SELECT * FROM ACCOUNT');
+        const result = await connection.execute('SELECT * FROM organization');
         return result.rows;
     }).catch((err) => {
         throw err;
@@ -302,7 +380,11 @@ module.exports = {
     insertAccount,
     fetchAccountsFromDB,
     login,
-    getAccountType,
+    registerAccount,
+    userExists,
+    emailExists,
+    registerIndividual,
+    registerOrganization,
     fetchAllProjects,
     fetchOrgProjects,
     fetchProjectData,
