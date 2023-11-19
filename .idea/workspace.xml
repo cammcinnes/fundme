@@ -4,14 +4,18 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="29416fb2-5623-44d6-aca4-74c93dcfaa86" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/project/routes/payment.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-    </list>
+    <list default="true" id="29416fb2-5623-44d6-aca4-74c93dcfaa86" name="Changes" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="JavaScript File" />
+      </list>
+    </option>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -123,7 +127,7 @@
       <workItem from="1700088360942" duration="97000" />
       <workItem from="1700105012378" duration="5112000" />
       <workItem from="1700187267059" duration="8250000" />
-      <workItem from="1700434718933" duration="299000" />
+      <workItem from="1700434718933" duration="628000" />
     </task>
     <servers />
   </component>

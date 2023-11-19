@@ -1,5 +1,5 @@
 const express = require('express');
-const projectQuery = require('../queries/projects');
+const paymentQuery = require('../queries/payment');
 
 const router = express.Router();
 
@@ -11,7 +11,7 @@ const router = express.Router();
 
 router.post('/payment', async(req, res) => {
     const { ccnumber, cvv, address, postalCode} = req.body;
-    const insertResult = await appService.insertPaymentInfo(ccnumber, cvv, address, postalCode);
+    const insertResult = await paymentQuery.insertPaymentInfo(ccnumber, cvv, address, postalCode);
     if (insertResult) {
         res.json({ success: true });
     } else {
