@@ -1,12 +1,12 @@
 const express = require('express');
-const appService = require('../appService');
+const projectQuery = require('../queries/projects');
 
 const router = express.Router();
 
 // Get all projects
 router.get('/', async (req, res) => {
     try {
-        const projects = await appService.fetchAllProjects();
+        const projects = await projectQuery.fetchAllProjects();
         return res.json({ success: true, data: projects });
     } catch (err) {
         return res.status(400).json({ success: false, error: err.message});
@@ -19,7 +19,7 @@ router.get('/owned-projects', async (req, res) => {
         const { username } = req.body;
         if (!username)
             return res.status(400).json({success: false, error: "Username is required."});
-        const ownedProjects = await appService.fetchOrgProjects(username);
+        const ownedProjects = await projectQuery.fetchOrgProjects(username);
         return res.json({ success: true, data: ownedProjects });
     } catch (err) {
         return res.status(400).json({ success: false, error: err.message });
@@ -32,7 +32,7 @@ router.get('/project-data', async (req, res) => {
         const { projectName } = req.body;
         if (!projectName)
             return res.status(400).json({ success: false, error: "Project name is required." });
-        const projectData = await appService.fetchProjectData(projectName);
+        const projectData = await projectQuery.fetchProjectData(projectName);
         return res.json({ success: true, data: projectData });
     } catch (err) {
         return res.status(400).json({ success: false, error: err.message });
@@ -45,7 +45,7 @@ router.post('/delete-project', async (req, res) => {
         const { projectName } = req.body;
         if (!projectName)
             return res.status(400).json({ success: false, error: "Project name is required." });
-        await appService.deleteProject(projectName);
+        await projectQuery.deleteProject(projectName);
         return res.json({ success: true });
     } catch (err) {
         return res.status(400).json({ success: false, error: err.message });
@@ -58,7 +58,7 @@ router.post('/add-payment-tier', async (req, res) => {
         if (!payTierID || !projectName || !orgUsername || !minAmount || !maxAmount) {
             return res.status(400).json({ success: false, error: "All fields are required." });
         }
-        await appService.createPaymentTier(payTierID, projectName, orgUsername, description, minAmount, maxAmount);
+        await projectQuery.createPaymentTier(payTierID, projectName, orgUsername, description, minAmount, maxAmount);
         return res.json({ success: true });
     } catch (err) {
         return res.status(400).json({ success: false, error: err.message });
@@ -71,7 +71,7 @@ router.post('/delete-payment-tier', async (req, res) => {
         if (!payTierID) {
             return res.status(400).json({ success: false, error: "Payment tier ID is required." });
         }
-        await appService.deletePaymentTier(payTierID);
+        await projectQuery.deletePaymentTier(payTierID);
         return res.json({ success: true });
     } catch (err) {
         return res.status(400).json({ success: false, error: err.message });

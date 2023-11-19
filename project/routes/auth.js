@@ -1,9 +1,9 @@
 const express = require('express');
-const appService = require('../appService');
 const bcrypt = require('bcrypt');
 const loadEnvFile = require('../utils/envUtil');
 const envVariables = loadEnvFile('./.env');
 const jwt = require("jsonwebtoken");
+const authQuery = require('../queries/auth');
 
 const router = express.Router();
 
@@ -19,16 +19,16 @@ router.post('/login', async (req, res) => {
     if (!username || !password) {
       return res.status(400).json({success: false, error: "Username and password are required"});
     }
-    const result = await appService.login(username);
+    const result = await authQuery.login(username);
     const validPassword = await bcrypt.compare(password, String(result[0][0]));
     if (result.length < 1 || !validPassword) {
       return res.status(401).json({success: false, error: "Username or password is incorrect"});
     }
-    const accountType = await appService.getAccountType(username);
+    const accountType = await authQuery.getAccountType(username);
     const token = generateJWTToken(username, accountType);
     return res.json({success: true, result: { token, accountType }});
   } catch (error) {
-    return res.status(400).json({success: false, error: error.message});
+    return res.status(500).json({success: false, error: error.message});
   }
 });
 
@@ -49,11 +49,11 @@ router.post('/register', async (req, res) => {
     if (type === 'organization' && !options || type === 'organization' && !options.orgName) {
         return res.status(400).json({success: false, error: "Organization account requires an organization name"});
     }
-    const usernameExists = await appService.userExists(username);
+    const usernameExists = await authQuery.userExists(username);
     if (usernameExists.length > 0) {
         return res.status(400).json({success: false, error: "Username is taken! Use a different one."});
     }
-    const emailExists = await appService.emailExists(email);
+    const emailExists = await authQuery.emailExists(email);
     if (emailExists.length > 0) {
         return res.status(400).json({success: false, error: "Email is already taken! Use a different one."});
     }
@@ -61,17 +61,17 @@ router.post('/register', async (req, res) => {
     const salt = await bcrypt.genSalt(saltRounds);
     const bcryptPassword = await bcrypt.hash(password, salt);
     
-    await appService.registerAccount(username, bcryptPassword, email);
+    await authQuery.registerAccount(username, bcryptPassword, email);
     if (type === "individual") {
-      await appService.registerIndividual(username, options ?? {});
+      await authQuery.registerIndividual(username, options ?? {});
     } else {
-      await appService.registerOrganization(username, options);
+      await authQuery.registerOrganization(username, options);
     }
-    const accountType = await appService.getAccountType(username);
+    const accountType = await authQuery.getAccountType(username);
     const token = generateJWTToken(username, accountType);
     return res.json({success: true, result: { token, accountType }});
   } catch (error) {
-    return res.status(400).json({success: false, error: error.message});
+    return res.status(500).json({success: false, error: error.message});
   }
 });
 

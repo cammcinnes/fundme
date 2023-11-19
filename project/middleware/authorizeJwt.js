@@ -7,7 +7,6 @@ const envVariables = loadEnvFile('./.env');
 function handleAuthorization(req, res, next, allowedAccountType) {
   try {
     const jwtToken = req.header("token");
-    console.log("token", jwtToken);
     if (!jwtToken) {
       return res.status(403).json("You are not logged in! Please visit the login page.");
     }
