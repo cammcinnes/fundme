@@ -3,6 +3,7 @@ const appController = require('./appController');
 const authRoutes = require('./routes/auth');
 const projectsRoutes = require('./routes/projects');
 const postRoutes = require('./routes/posts');
+const paymentRoutes = require('./routes/payment');
 const cors = require('cors');
 
 // Load environment variables from .env file
@@ -30,6 +31,7 @@ app.use(cors());
 app.use('/auth', authRoutes);
 app.use('/projects', projectsRoutes);
 app.use('/post', postRoutes);
+app.use('/payment', paymentRoutes);
 app.use('/', appController);
 
 // ----------------------------------------------------------
