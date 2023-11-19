@@ -13,7 +13,7 @@ function handleAuthorization(req, res, next, allowedAccountType) {
     }
     const payload = jwt.verify(jwtToken, envVariables.JWT_SECRET);
     req.username = payload.username;
-    if (payload.accountType !== allowedAccountType) {
+    if (allowedAccountType && payload.accountType !== allowedAccountType) {
       return res.status(403).json({ success: false, error: "You do not have the right permissions" });
     }
     next();
@@ -22,15 +22,23 @@ function handleAuthorization(req, res, next, allowedAccountType) {
   }
 }
 
+// for authorizing indiv. only
 async function authorizeIndividual(req, res, next) {
   handleAuthorization(req, res, next, 'individual');
 }
 
+// for authorizing org only
 async function authorizeOrganization(req, res, next) {
   handleAuthorization(req, res, next, 'organization');
 }
 
+// for authorizing any type of account
+async function authorizeAccount(req, res, next) {
+  handleAuthorization(req, res, next, null);
+}
+
 module.exports = {
   authorizeIndividual,
-  authorizeOrganization
+  authorizeOrganization,
+  authorizeAccount
 }
