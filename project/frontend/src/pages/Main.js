@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { checkAuth } from "../utils";
 import { useNavigate } from "react-router-dom";
 import '../App.css';
+import ProjectList from "../components/ProjectList";
 
 function Main() {
   const [accountType, setAccountType] = useState(null);
@@ -22,7 +23,10 @@ function Main() {
 
   return (
     <div>
-      Main page. Account type : { accountType }
+        Main page. Account type : { accountType }
+
+        <h1>Projects</h1>
+        <ProjectList></ProjectList>
     </div>
   );
 }
