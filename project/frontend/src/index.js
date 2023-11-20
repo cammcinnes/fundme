@@ -8,11 +8,17 @@ import Login from "./pages/Login";
 import ChooseAccountType from "./pages/ChooseAccountType";
 import CreateIndividual from "./pages/CreateIndividual";
 import CreateOrganization from "./pages/CreateOrganization";
+import Project from "./pages/Project";
+import Main from "./pages/Main";
 
 const router = createBrowserRouter([
     {
         path: "/",
         element: <Welcome />,
+    },
+    {
+        path: "/main",
+        element: <Main />,
     },
     {
         path: "/login",
@@ -29,6 +35,10 @@ const router = createBrowserRouter([
     {
         path: "/create/organization",
         element: <CreateOrganization />,
+    },
+    {
+        path: '/project/:projectId',
+        element: <Project />,
     },
 ]);
 const root = ReactDOM.createRoot(document.getElementById('root'));

@@ -4,12 +4,24 @@ const loadEnvFile = require('../utils/envUtil');
 const envVariables = loadEnvFile('./.env');
 const jwt = require("jsonwebtoken");
 const authQuery = require('../queries/auth');
+const { authorizeAccount } = require('../middleware/authorizeJwt');
 
 const router = express.Router();
 
 const generateJWTToken = (id, type) => {
   return jwt.sign({ username: id, accountType: type }, envVariables.JWT_SECRET, { expiresIn: "2hr" });
 };
+
+
+// route for checking if were authed. also returns accountType
+router.get("/is-authed", authorizeAccount, async (req, res) => {
+  try {
+    const accountType = await authQuery.getAccountType(req.username);
+    return res.json({ success: true, result: { accountType }});
+  } catch (error) {
+    return res.status(500).json({success: false, error: error.message});
+  }
+});
 
 // LOGIN
 // curl -X POST -H "Content-Type: application/json" -d '{"username":"cmcdavid1","password":"Cpass1"}' http://localhost:65535/auth/login
@@ -27,7 +39,7 @@ router.post('/login', async (req, res) => {
     }
     const accountType = await authQuery.getAccountType(username);
     const token = generateJWTToken(username, accountType);
-    return res.json({success: true, result: { token, accountType }});
+    return res.json({success: true, result: { token }});
   } catch (error) {
     return res.status(500).json({success: false, error: error.message});
   }
@@ -71,7 +83,7 @@ router.post('/register', async (req, res) => {
     }
     const accountType = await authQuery.getAccountType(username);
     const token = generateJWTToken(username, accountType);
-    return res.json({success: true, result: { token, accountType }});
+    return res.json({success: true, result: { token }});
   } catch (error) {
     return res.status(500).json({success: false, error: error.message});
   }

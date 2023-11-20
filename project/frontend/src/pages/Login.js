@@ -1,10 +1,12 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import '../App.css';
+import { useNavigate } from "react-router-dom";
+import { checkAuth } from "../utils";
 
 const URL = "http://localhost:65535";
 
-
-function Login(props){
+function Login(){
+        const navigate = useNavigate();
         const [username, setUsername] = useState("");
         const [password, setPassword] = useState("");
         const handleLogin = async () => {
@@ -16,16 +18,27 @@ function Login(props){
                         });
                         const parsedResponse = await response.json();
                         if (parsedResponse.success === true) {
-                                props.setAccount(parsedResponse.result.accountType);
                                 localStorage.setItem('token', parsedResponse.result.token);
+                                navigate("/main");
+                                alert("Successfully logged in!");
                         } else {
-                                console.log("hit");
                                 alert(parsedResponse.error);
                         }
                 } catch (error) {
                         alert(error.message);
                 }
         }
+        // we use this effect to navigate to main page if already logged in!
+        useEffect(() => {
+                const isLoggedIn = async () => {
+                        const token = localStorage.getItem("token");
+                        const result = await checkAuth(token);
+                        if (result !== null) {
+                                navigate("/main");
+                        }
+                }
+                isLoggedIn();
+        }, [])
         return (
             <div>
                 <h2>My Account</h2>

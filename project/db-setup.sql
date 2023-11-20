@@ -164,7 +164,6 @@ CREATE TABLE Organization_creates_Project
     ProjectName VARCHAR(50) PRIMARY KEY,
     OUsername   VARCHAR(50) NOT NULL,
     Description VARCHAR(200),
-    Name        VARCHAR(100),
     Balance     INT         NOT NULL,
     FOREIGN KEY (OUsername) REFERENCES Organization (Username)
 );

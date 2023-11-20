@@ -8,7 +8,7 @@ function handleAuthorization(req, res, next, allowedAccountType) {
   try {
     const jwtToken = req.header("token");
     if (!jwtToken) {
-      return res.status(403).json("You are not logged in! Please visit the login page.");
+      return res.status(403).json({ success: false, error: "You are not logged in! Please visit the login page." });
     }
     const payload = jwt.verify(jwtToken, envVariables.JWT_SECRET);
     req.username = payload.username;
