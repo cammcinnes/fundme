@@ -17,7 +17,7 @@ async function fetchAllProjects() {
 async function fetchOrgProjects(username) {
     return await withOracleDB(async (connection) => {
         const orgProjects = await connection.execute(
-            `SELECT *
+            `SELECT PROJECTNAME, DESCRIPTION, BALANCE
              FROM ORGANIZATION_CREATES_PROJECT
              WHERE OUSERNAME = :username`,
             { username },
