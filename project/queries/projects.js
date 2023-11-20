@@ -31,7 +31,7 @@ async function fetchOrgProjects(username) {
 }
 
 // Fetches all data relating to a project: Project info, payment tiers, and posts
-// Returns an object { info: projectInfo, paymentTiers: projectPayTiers, posts: projectPosts }
+// Returns an object { info: projectInfo, paymentTiers: projectPayTiers, posts: projectPosts }.
 async function fetchProjectData(projectName) {
     return await withOracleDB(async (connection) => {
         const projectInfo = await connection.execute(
