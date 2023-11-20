@@ -41,7 +41,6 @@ async function fetchProjectData(projectName) {
             { projectName },
             { autoCommit: true }
         );
-
         const projectPayTiers = await connection.execute(
             `SELECT PROJECTNAME, DESCRIPTION, MINAMOUNT, MAXAMOUNT
              FROM PaymentTier
@@ -49,38 +48,15 @@ async function fetchProjectData(projectName) {
             { projectName },
             { autoCommit: true }
         );
-
-        // Returned array:
-        // [
-        //  [
-        //   Post1 content, Post1 ImageURL, Post1 timestamp,
-        //    "Commenter1 username", "Comment1 timestamp", "Comment1 content",
-        //    ...
-        //    "CommenterN username", "CommentN timestamp", "CommentN content"
-        //  ],
-        //  [
-        //    ...post2 with comments... (same template)
-        //  ],
-        //   ...
-        //  [
-        //    ...postN with comments
-        //  ]
-        // ]
-        const projectPostsAndComments = await connection.execute(
-            `SELECT ORGANIZATION_CREATES_POST.CONTENT,
-                    IMAGEURL,
-                    ORGANIZATION_CREATES_POST.TIMESTAMP,
-                    USERNAME,
-                    ACCOUNT_WRITES_COMMENT_ON_POST.TIMESTAMP,
-                    ACCOUNT_WRITES_COMMENT_ON_POST.CONTENT
-             FROM ORGANIZATION_CREATES_POST, ACCOUNT_WRITES_COMMENT_ON_POST
-             WHERE ORGANIZATION_CREATES_POST.POSTID = ACCOUNT_WRITES_COMMENT_ON_POST.POSTID
-             AND PROJECTNAME = :projectName`,
+        const projectPosts = await connection.execute(
+            `SELECT POSTID, CONTENT, IMAGEURL, TIMESTAMP
+             FROM ORGANIZATION_CREATES_POST
+             WHERE PROJECTNAME = :projectName`,
             { projectName },
             { autoCommit: true }
         );
         if (projectInfo.rows.length > 0) {
-            return { info: projectInfo.rows, paymentTiers: projectPayTiers.rows, postsAndComments: projectPostsAndComments.rows };
+            return { info: projectInfo.rows, paymentTiers: projectPayTiers.rows, posts: projectPosts.rows };
         }
         throw Error("There is no existing project with given projectName.");
     }).catch((err) => {
