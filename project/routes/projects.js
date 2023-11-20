@@ -14,6 +14,7 @@ router.get('/', async (req, res) => {
 });
 
 // Get all projects owned by given username
+// Move to accounts???
 router.get('/owned-projects', async (req, res) => {
     try {
         const { username } = req.body;
@@ -27,9 +28,9 @@ router.get('/owned-projects', async (req, res) => {
 });
 
 // get specific project includes: project information, payment tiers, posts and associated comments
-router.get('/project-data', async (req, res) => {
+router.get('/:projectName', async (req, res) => {
     try {
-        const { projectName } = req.body;
+        const { projectName } = req.params;
         if (!projectName)
             return res.status(400).json({ success: false, error: "Project name is required." });
         const projectData = await projectQuery.fetchProjectData(projectName);
@@ -39,10 +40,32 @@ router.get('/project-data', async (req, res) => {
     }
 });
 
-// Delete a project with given projectName
-router.post('/delete-project', async (req, res) => {
+router.post('/:projectName', async (req, res) => {
     try {
-        const { projectName } = req.body;
+        const { projectName } = req.params;
+        const { orgUsername, description, balance } = req.body;
+
+        const missingFields= [];
+        if (!projectName) missingFields.push("projectName");
+        if (!orgUsername) missingFields.push("orgUsername");
+        if (!description) missingFields.push("description");
+        if (!balance) missingFields.push("balance");
+
+        if (missingFields.length > 0) {
+            return res.status(400).json({ success: false, error: `Missing field(s): ${missingFields.join(", ")}` });
+        }
+
+        await projectQuery.createProject(projectName, orgUsername, description, balance);
+        return res.json({ success: true });
+    } catch (err) {
+        return res.status(400).json({ success: false, error: err.message });
+    }
+});
+
+// Delete a project with given projectName
+router.delete('/:projectName', async (req, res) => {
+    try {
+        const { projectName } = req.params;
         if (!projectName)
             return res.status(400).json({ success: false, error: "Project name is required." });
         await projectQuery.deleteProject(projectName);
@@ -52,12 +75,23 @@ router.post('/delete-project', async (req, res) => {
     }
 });
 
-router.post('/add-payment-tier', async (req, res) => {
+router.post('/:projectName/:payTierID', async (req, res) => {
     try {
-        const { payTierID, projectName, orgUsername, description, minAmount, maxAmount } = req.body;
-        if (!payTierID || !projectName || !orgUsername || !minAmount || !maxAmount) {
-            return res.status(400).json({ success: false, error: "All fields are required." });
+        const { projectName, payTierID } = req.params;
+        const { orgUsername, description, minAmount, maxAmount } = req.body;
+
+        const missingFields = [];
+        if (!payTierID) missingFields.push("payTierID");
+        if (!projectName) missingFields.push("projectName");
+        if (!orgUsername) missingFields.push("orgUsername");
+        if (!description) missingFields.push("description");
+        if (!minAmount) missingFields.push("minAmount");
+        if (!maxAmount) missingFields.push("maxAmount");
+
+        if (missingFields.length > 0) {
+            return res.status(400).json({ success: false, error: `Missing field(s): ${missingFields.join(", ")}` });
         }
+
         await projectQuery.createPaymentTier(payTierID, projectName, orgUsername, description, minAmount, maxAmount);
         return res.json({ success: true });
     } catch (err) {
@@ -65,11 +99,11 @@ router.post('/add-payment-tier', async (req, res) => {
     }
 });
 
-router.post('/delete-payment-tier', async (req, res) => {
+router.delete('/:projectName/:payTierID', async (req, res) => {
     try {
-        const { payTierID } = req.body;
+        const { payTierID } = req.params;
         if (!payTierID) {
-            return res.status(400).json({ success: false, error: "Payment tier ID is required." });
+            return res.status(400).json({ success: false, error: "payTierID is required." });
         }
         await projectQuery.deletePaymentTier(payTierID);
         return res.json({ success: true });
