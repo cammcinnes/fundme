@@ -1,12 +1,16 @@
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
+import { checkAuth } from "../utils";
+import { useNavigate } from "react-router-dom";
 import '../App.css';
 
 const URL = "http://localhost:65535";
 
 function Project() {
+  const [accountType, setAccountType] = useState(null);
   const [projectData, setProjectData] = useState(null);
   const { projectId } = useParams();
+  const navigate = useNavigate();
 
   useEffect(() => {
     const getProjectData = async () => {
@@ -18,8 +22,17 @@ function Project() {
         alert("No project with the given id found");
       }
     };
-
-    getProjectData();
+    const isLoggedIn = async () => {
+      const token = localStorage.getItem("token");
+      const result = await checkAuth(token);
+      if (result === null) {
+        navigate("/login");
+      } else {
+        setAccountType(result)
+        getProjectData();
+      }
+    }
+    isLoggedIn();
   }, [projectId]);
 
   return (
