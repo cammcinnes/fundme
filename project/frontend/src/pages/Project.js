@@ -7,7 +7,6 @@ const URL = "http://localhost:65535";
 function Project() {
   const [projectData, setProjectData] = useState(null);
   const { projectId } = useParams();
-  const accountType = localStorage.get("accountType");
 
   useEffect(() => {
     const getProjectData = async () => {
