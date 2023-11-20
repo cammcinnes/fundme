@@ -43,7 +43,7 @@ async function fetchProjectData(projectName) {
         );
 
         const projectPayTiers = await connection.execute(
-            `SELECT PROJECTNAME, DESCRIPTION, MINAMOUNT, MAXAMOUNT
+            `SELECT DESCRIPTION, MINAMOUNT, MAXAMOUNT
              FROM PaymentTier
              WHERE ProjectName = :projectName`,
             { projectName },

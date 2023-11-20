@@ -1,12 +1,3 @@
-/*
-CRUD post + get all posts (for a specific project)
-
-- require
-
-Comments:
-
-- create, delete + get all comments on a post
-*/
 const express = require('express');
 const router = express.Router();
 const { authorizeOrganization, authorizeAccount } = require('../middleware/authorizeJwt');
