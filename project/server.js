@@ -30,7 +30,7 @@ app.use(cors());
 // mount the router (ORDER MATTERS HERE!!! if you have '/a' before '/a/b' then /a/b will never be hit!. Put '/a/b' before /a
 app.use('/auth', authRoutes);
 app.use('/projects', projectsRoutes);
-app.use('/post', postRoutes);
+app.use('/posts', postRoutes);
 app.use('/payment', paymentRoutes);
 app.use('/', appController);
 

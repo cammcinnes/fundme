@@ -16,6 +16,7 @@ const generateJWTToken = (id, type) => {
 router.post('/login', async (req, res) => {
   try {
     const { username, password } = req.body;
+    console.log("attempting login for username: ", username);
     if (!username || !password) {
       return res.status(400).json({success: false, error: "Username and password are required"});
     }
@@ -40,6 +41,7 @@ router.post('/register', async (req, res) => {
     // options should be {} if dont want to pass in any 
     // any date is in format 'YEAR-MM-DD'
     const { username, password, email, type, options } = req.body;
+    console.log("attempting register for username: ", username);
     if (!username || !password || !email || !type) {
         return res.status(400).json({success: false, error: "Username, password, email, and type are required"});
     }

@@ -33,7 +33,9 @@ async function registerAccount(username, password, email) {
             [username, password, email],
             { autoCommit: true }
         );
-        return result.rowsAffected === 1 ? true : false
+        if (result.rowsAffected !== 1) {
+            throw new Error("rows affected is not 1");
+        }
     }).catch((err) => {
         throw new Error(err);
     });
@@ -51,7 +53,9 @@ async function registerIndividual(username, options) {
             [username, dob, firstname, lastname],
             { autoCommit: true }
         );
-        return result.rowsAffected === 1 ? true : false
+        if (result.rowsAffected !== 1) {
+            throw new Error("rows affected is not 1");
+        }
     }).catch((err) => {
         throw new Error(err);
     });
@@ -68,7 +72,9 @@ async function registerOrganization(username, options) {
             [username, foundedDate, orgName],
             { autoCommit: true }
         );
-        return result.rowsAffected === 1 ? true : false
+        if (result.rowsAffected !== 1) {
+            throw new Error("rows affected is not 1");
+        }
     }).catch((err) => {
         throw new Error(err);
     });
