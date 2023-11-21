@@ -3,9 +3,8 @@ import '../App.css';
 import { useNavigate } from "react-router-dom";
 import { checkAuth } from "../utils";
 
-const URL = "http://localhost:65535";
-
 function Login(){
+        const URL = process.env.REACT_APP_URL;
         const navigate = useNavigate();
         const [username, setUsername] = useState("");
         const [password, setPassword] = useState("");

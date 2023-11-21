@@ -4,9 +4,8 @@ import { checkAuth } from "../utils";
 import { useNavigate } from "react-router-dom";
 import '../App.css';
 
-const URL = "http://localhost:65535";
-
 function Project() {
+  const URL = process.env.REACT_APP_URL;
   const [accountType, setAccountType] = useState(null);
   const [projectData, setProjectData] = useState(null);
   const { projectId } = useParams();
