@@ -81,6 +81,16 @@ button:active {
   vertical-align: middle;
 }
 
+nav ul {
+  display: flex;
+  justify-content: center;
+  list-style-type: none;
+}
+
+nav ul li {
+  padding: 10px;
+}
+
 .loader {
   border: 8px solid #f3f3f3;
   border-top: 8px solid rgb(32, 107, 227);

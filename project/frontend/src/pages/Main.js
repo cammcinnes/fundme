@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { checkAuth } from "../utils";
 import { useNavigate } from "react-router-dom";
 import '../App.css';
+import Navbar from "../components/Nav";
 
 function Main() {
   const [accountType, setAccountType] = useState(null);
@@ -21,9 +22,12 @@ function Main() {
   }, [])
 
   return (
-    <div>
-      Main page. Account type : { accountType }
-    </div>
+    <>
+      <Navbar />
+      <div>
+        Main page. Account type : { accountType }
+      </div>
+    </>
   );
 }
 export default Main;

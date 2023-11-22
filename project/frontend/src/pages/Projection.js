@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { checkAuth } from "../utils";
 import { useNavigate } from "react-router-dom";
 import '../App.css';
+import Navbar from "../components/Nav";
 
 function Projection() {
   const URL = process.env.REACT_APP_URL;
@@ -93,49 +94,52 @@ function Projection() {
   }, [selectedAttributes]);
 
   return (
-    <div>
-      <h3>Projection page</h3>
-      <div className="projection-container">
-        <div>
-          <h3>Select table:</h3>
-          <select onChange={handleTableChange}>
-            { tables.map((table) =>
-              (
-                <option value={table} key={table}>{table}</option>
-              )
-            )}
-          </select>
+    <>
+      <Navbar />
+      <div>
+        <h3>Projection page</h3>
+        <div className="projection-container">
+          <div>
+            <h3>Select table:</h3>
+            <select onChange={handleTableChange}>
+              { tables.map((table) =>
+                (
+                  <option value={table} key={table}>{table}</option>
+                )
+              )}
+            </select>
+          </div>
+          <div>
+            <h3>Select attributes:</h3>
+            <form>
+              { attributes.map((attr) =>
+                (
+                  <div key={`${selectedTable}-${attr}`}>
+                    <label>{attr}</label>
+                    <input className="attr-check" type="checkbox" name={attr} value={attr} onChange={handleAttrChange}/>
+                  </div>
+                )
+              )}
+            </form>
+          </div>
         </div>
-        <div>
-          <h3>Select attributes:</h3>
-          <form>
-            { attributes.map((attr) =>
-              (
-                <div key={`${selectedTable}-${attr}`}>
-                  <label>{attr}</label>
-                  <input className="attr-check" type="checkbox" name={attr} value={attr} onChange={handleAttrChange}/>
-                </div>
-              )
-            )}
-          </form>
-        </div>
+        { selectedAttributes.length > 0 && selectedTable &&
+          <div className="projection-list">
+            <h3>Results:</h3>
+            <table>
+              <thead>
+                <tr>{ selectedAttributes.map((attr) => (<th key={attr}>{ attr }</th>)) }</tr>
+              </thead>
+              <tbody>
+                { result.map((tuple, i) => (<tr key={`${selectedTable}-${i}}`}>
+                  { tuple.map((data, j) => (<td key={`${selectedTable}-${i}-${j}`}>{data}</td>)) }
+                </tr>)) }
+              </tbody>
+            </table>
+          </div>
+        }
       </div>
-      { selectedAttributes.length > 0 && selectedTable &&
-        <div className="projection-list">
-          <h3>Results:</h3>
-          <table>
-            <thead>
-              <tr>{ selectedAttributes.map((attr) => (<th key={attr}>{ attr }</th>)) }</tr>
-            </thead>
-            <tbody>
-              { result.map((tuple, i) => (<tr key={`${selectedTable}-${i}}`}>
-                { tuple.map((data, j) => (<td key={`${selectedTable}-${i}-${j}`}>{data}</td>)) }
-              </tr>)) }
-            </tbody>
-          </table>
-        </div>
-      }
-    </div>
+    </>
   );
 }
 export default Projection;
