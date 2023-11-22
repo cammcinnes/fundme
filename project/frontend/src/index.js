@@ -10,6 +10,7 @@ import CreateIndividual from "./pages/CreateIndividual";
 import CreateOrganization from "./pages/CreateOrganization";
 import Project from "./pages/Project";
 import Main from "./pages/Main";
+import Projection from "./pages/Projection";
 
 const router = createBrowserRouter([
     {
@@ -27,6 +28,10 @@ const router = createBrowserRouter([
     {
         path: "/create",
         element: <ChooseAccountType />,
+    },
+    {
+        path: "/projection",
+        element: <Projection />
     },
     {
         path: "/create/individual",

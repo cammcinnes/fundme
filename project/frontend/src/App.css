@@ -63,7 +63,7 @@ button:active {
 }
 
 /* INPUT STYLES */
-input, textarea {
+.login-input {
   width: 100%;
   padding: 10px 15px;
   font-size: 16px;
@@ -73,10 +73,6 @@ input, textarea {
   color: #333;
   box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1);
   margin-bottom: 10px;
-}
-
-input::placeholder, textarea::placeholder {
-  color: #aaa;
 }
 
 /* OTHER STYLES */
@@ -99,6 +95,34 @@ input::placeholder, textarea::placeholder {
   justify-content: center;
   align-items: center;
   height: 100vh;
+}
+
+.projection-container {
+  display: flex;
+  justify-content: space-around;
+}
+
+.projection-list {
+  max-height: 400px; /* Set the desired fixed height */
+  overflow-y: auto;
+  font-size: 12px;
+}
+
+.projection-list td {
+  max-width: 100px;
+  overflow: auto;
+  white-space: nowrap;
+}
+
+.welcome {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: 100vh;
+}
+
+.welcome * {
+  margin: 10px 0;
 }
 
 @keyframes spin {

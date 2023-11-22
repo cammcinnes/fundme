@@ -4,6 +4,7 @@ const authRoutes = require('./routes/auth');
 const projectsRoutes = require('./routes/projects');
 const postRoutes = require('./routes/posts');
 const paymentRoutes = require('./routes/payment');
+const projectionRoutes = require('./routes/projection');
 const cors = require('cors');
 
 // Load environment variables from .env file
@@ -30,6 +31,7 @@ app.use(cors());
 // mount the router (ORDER MATTERS HERE!!! if you have '/a' before '/a/b' then /a/b will never be hit!. Put '/a/b' before /a
 app.use('/auth', authRoutes);
 app.use('/projects', projectsRoutes);
+app.use('/projection', projectionRoutes);
 app.use('/posts', postRoutes);
 app.use('/payment', paymentRoutes);
 app.use('/', appController);

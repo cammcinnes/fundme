@@ -43,7 +43,8 @@ function Login(){
                 <h2>My Account</h2>
                 <div className='login'>
                     <label>Username:
-                           <input
+                           <input 
+                            className="login-input"
                             type='text'
                             name='insertUsername'
                             placeholder='example'
@@ -54,6 +55,7 @@ function Login(){
                     </label>
                     <label>Password:
                             <input
+                            className="login-input"
                             type='password'
                             name='insertPass'
                             placeholder='1234'
