@@ -33,7 +33,7 @@ function Welcome() {
             setDbConnected(parsedResponse.success);
         }
         checkConnection();
-    }, [])
+    }, [URL])
     return (
         <div className="welcome">
             <h3>Welcome Page</h3>
