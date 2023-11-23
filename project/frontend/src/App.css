@@ -2,7 +2,7 @@
 body {
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
   padding: 40px;
-  max-width: 800px;
+  max-width: 90%;
   margin: auto;
   line-height: 1.6;
   background-color: #fffef5f9;
@@ -100,11 +100,19 @@ nav ul li {
   animation: spin 1s linear infinite;
 }
 
-.main-container {
+.project-container {
   display: flex;
-  justify-content: center;
+  flex-direction: column;
   align-items: center;
   height: 100vh;
+}
+
+.project-container div {
+  max-width: 500px;
+}
+
+.project-container div * {
+  text-align: center;
 }
 
 .projection-container {
@@ -112,8 +120,7 @@ nav ul li {
   justify-content: space-around;
 }
 
-.projection-list {
-  max-height: 400px; /* Set the desired fixed height */
+.projection-list table {
   overflow-y: auto;
   font-size: 12px;
 }
@@ -138,4 +145,34 @@ nav ul li {
 @keyframes spin {
   0% { transform: rotate(0deg); }
   100% { transform: rotate(360deg); }
+}
+
+.post {
+  border: 2px solid black;
+  box-sizing: border-box;
+  padding: 20px;
+  margin: 10px;
+  width: 100%;
+}
+
+.post-top {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
+
+.post-top button {
+  padding: 2px 4px;
+  font-size: 10px;
+  height: 20px;
+  margin-left: 5px;
+}
+
+.post img {
+  max-width: 100%;
+}
+
+.comment {
+  border-bottom: 2px solid grey;
 }

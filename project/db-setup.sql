@@ -370,7 +370,7 @@ INSERT INTO Organization_creates_Project (ProjectName, OUsername, Description, B
 VALUES ('Bens Fund', 'fundbenslife', 'Ben needs money.', 0);
 --
 INSERT INTO Organization_creates_Post(OUsername, ProjectName, Content, ImageURL, Timestamp)
-VALUES ('wildlife', 'Help Pandas', 'Image of Panda', 'https://i.ebayimg.com/images/g/770AAOSwmYFjG-6w/s-l1600.jpg',
+VALUES ('wildlife', 'Help Pandas', 'Donate to help our pandas out!', 'https://i.ebayimg.com/images/g/770AAOSwmYFjG-6w/s-l1600.jpg',
         CURRENT_TIMESTAMP);
 --
 INSERT INTO Organization_creates_Post(OUsername, ProjectName, Content, ImageURL, Timestamp)
@@ -391,6 +391,10 @@ INSERT INTO Organization_creates_Post(OUsername, ProjectName, Content, ImageURL,
 VALUES ('fundbenslife', 'Bens Fund', 'Help me get to class.',
         'https://m.media-amazon.com/images/I/71iEjFb5AAL.jpg', CURRENT_TIMESTAMP);
 --
+INSERT INTO Organization_creates_Post(OUsername, ProjectName, Content, ImageURL, Timestamp)
+VALUES ('wildlife', 'Help Pandas', 'Friendly reminder to donate to help some pandas!', 'https://m.media-amazon.com/images/M/MV5BYTFiMWNlNmItMDRiYy00NzA4LWE5YjItZmViNWQ2NzhhOWZlXkEyXkFqcGdeQXVyMTA2Mjc5ODMy._V1_.jpg',
+        CURRENT_TIMESTAMP);
+--
 INSERT INTO Account_writes_Comment_on_Post(Username, PostID, Timestamp, Content)
 VALUES ('tshebs', 5, CURRENT_TIMESTAMP,
         'Were gonna get ye that red bike and we hope to c ye riding it around brum.');
@@ -405,7 +409,19 @@ INSERT INTO Account_writes_Comment_on_Post(Username, PostID, Timestamp, Content)
 VALUES ('ashebs12', 2, CURRENT_TIMESTAMP, 'No way');
 --
 INSERT INTO Account_writes_Comment_on_Post(Username, PostID, Timestamp, Content)
+VALUES ('ashebs12', 1, CURRENT_TIMESTAMP, 'I love pandas');
+--
+INSERT INTO Account_writes_Comment_on_Post(Username, PostID, Timestamp, Content)
+VALUES ('tshebs', 1, CURRENT_TIMESTAMP, 'Pandas remind me of the dead');
+--
+INSERT INTO Account_writes_Comment_on_Post(Username, PostID, Timestamp, Content)
+VALUES ('wildlife', 1, CURRENT_TIMESTAMP, 'Glad some of you like pandas. i really like them a lot. you should donate to the project!');
+--
+INSERT INTO Account_writes_Comment_on_Post(Username, PostID, Timestamp, Content)
 VALUES ('ashebs12', 5, CURRENT_TIMESTAMP, 'Ah a nice racing red');
+--
+INSERT INTO Account_writes_Comment_on_Post(Username, PostID, Timestamp, Content)
+VALUES ('ashebs12', 6, CURRENT_TIMESTAMP, 'Jack black isnt a panda');
 --
 INSERT INTO Individual_makes_Contribution(IUsername, ProjectName, Amount, Timestamp)
 VALUES ('tshebs', 'Bens Fund', 7, CURRENT_TIMESTAMP);

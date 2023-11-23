@@ -17,28 +17,41 @@ async function createPost(username, content, imageUrl, projectId) {
   });
 }
 
-async function getPosts(projectId) {
+// async function getPosts(projectId) {
+//   return await withOracleDB(async (connection) => {
+//     const result = await connection.execute(
+//       `SELECT * FROM Organization_creates_Post ocp WHERE ocp.ProjectName = :projectId ORDER BY Timestamp DESC`,
+//       [projectId],
+//       { autoCommit: true }
+//     );
+//     return result.rows;
+//   }).catch((err) => {
+//       throw new Error(err);
+//   });
+// }
+
+// RUBRIC: delete on cascade (deletes all comments linked to post)
+async function deletePost(postId, username) {
   return await withOracleDB(async (connection) => {
-    // need to use a left join here because there may not be any comments
     const result = await connection.execute(
-      `SELECT * FROM Organization_creates_Post ocp LEFT JOIN Account_writes_Comment_on_Post awc ON ocp.PostID = awc.PostID WHERE ocp.ProjectName = :projectId`,
-      [projectId],
+      `DELETE FROM Organization_creates_Post WHERE PostId = :postId AND OUsername = :username`,
+      [postId, username],
       { autoCommit: true }
     );
-    return result.rows;
+    return result.rowsAffected;
   }).catch((err) => {
       throw new Error(err);
   });
 }
 
-async function deletePost(postId) {
+async function getComments(postId) {
   return await withOracleDB(async (connection) => {
     const result = await connection.execute(
-      `DELETE FROM Organization_creates_Post WHERE PostId = :postId`,
+      `SELECT CommentID, Username, Content, Timestamp FROM Account_writes_Comment_on_Post awc WHERE awc.PostID = :postId ORDER BY Timestamp DESC`,
       [postId],
       { autoCommit: true }
     );
-    return result.rowsAffected;
+    return result.rows;
   }).catch((err) => {
       throw new Error(err);
   });
@@ -59,7 +72,8 @@ async function createComment(username, postId, content) {
 
 module.exports = {
   createPost,
-  getPosts,
+  // getPosts,
   deletePost,
+  getComments,
   createComment
 }

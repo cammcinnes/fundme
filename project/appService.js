@@ -52,6 +52,7 @@ async function initiateDemotable() {
 
             for (const statement of statements) {
                 const trimStatement = statement.trim();
+                console.log(trimStatement);
                 if (trimStatement) {
                     if (trimStatement.slice(-4) === "END;") {
                         await connection.execute(statement.trim(), [], { autoCommit: true });
