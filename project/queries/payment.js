@@ -1,4 +1,17 @@
 const { withOracleDB } = require('../appService');
+async function ccExists(ccNumber) {
+    return await withOracleDB(async (connection) => {
+        const result = await connection.execute(
+            `SELECT CCNumber FROM PaymentInformation WHERE CCNumber=:ccnNumber`,
+            [ccNumber],
+            { autoCommit: true }
+        );
+        return result.rows;
+    }).catch((err) => {
+        throw new Error(err);
+    });
+}
+
 
 /**
  * Inserts a new payment into Payment Information table with given ccnumber, cvv, address and
@@ -25,5 +38,6 @@ async function insertPaymentInfo(CCNumber, cvv, address, postalCode) {
 }
 
 module.exports = {
-    insertPaymentInfo
+    insertPaymentInfo,
+    ccExists
 }

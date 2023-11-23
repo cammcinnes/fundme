@@ -8,7 +8,7 @@ function Profile() {
     const [accountType, setAccountType] = useState(null);
     const navigate = useNavigate();
     const [ccNumber, setCCNumber] = useState("");
-    const [ccv, setCCV] = useState("");
+    const [cvv, setCVV] = useState("");
     const [address, setAddress] = useState("");
     const [postalCode, setPostalCode] = useState("");
 
@@ -27,7 +27,17 @@ function Profile() {
 
     const handlePaymentCreation = async () => {
         try {
-
+            const response = await fetch(URL + "/payment", {
+                method: "POST",
+                headers: {"Content-Type": "application/json"},
+                body: JSON.stringify({ ccNumber, cvv, address, postalCode})
+            });
+            const parsedResponse = await response.json();
+            if (parsedResponse.success === true) {
+                alert("Successfully Added Payment Info!");
+            } else {
+                alert(parsedResponse.error);
+            }
         } catch (error) {
             alert(error.message);
         }
@@ -48,14 +58,14 @@ function Profile() {
                     />
                 </label>
                 <br/>
-                <label>CCV:
+                <label>CVV:
                     <input
                         type={'text'}
-                        name={'insertCCV'}
+                        name={'insertCVV'}
                         placeholder={'enter security code here'}
                         maxLength={3}
-                        value={ccv}
-                        onChange = {e => setCCV(e.target.value)}
+                        value={cvv}
+                        onChange = {e => setCVV(e.target.value)}
                     />
                 </label>
                 <br/>
@@ -81,7 +91,7 @@ function Profile() {
                     />
                 </label>
                 <br/>
-                <button onClick={handlePaymentCreation} >Change Payment Info</button>
+                <button onClick={handlePaymentCreation} >Add Payment Info</button>
             </div>
         );
     }
