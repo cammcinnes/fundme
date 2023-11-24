@@ -44,6 +44,10 @@ async function donorsDivideProjects(donors, projects) {
       throw Error("Requires selecting atleast one donor");
     }
     // although we are dynamically prepping the query string, it is safe from sql injection here because all we are doing is adding fixed strings like :1 or :2. There is no actual input someone can inject.
+    // result looks something like this:
+    /*
+      SELECT i.Username FROM Individual i WHERE i.Username in (:1,:2) AND NOT EXISTS ((SELECT ocp.ProjectName FROM Organization_creates_Project ocp WHERE ocp.Projectname in (:3,:4)) MINUS (SELECT imc.ProjectName FROM Individual_makes_Contribution imc WHERE imc.IUsername = i.Username)) ORDER BY i.Username ASC
+    */
     let query = `SELECT i.Username FROM Individual i WHERE i.Username in (${donors.map((_, i) => { return ':' + (i + 1)})}) AND NOT EXISTS ((SELECT ocp.ProjectName FROM Organization_creates_Project ocp`;
     if (projects.length > 0) {
       query += ` WHERE ocp.Projectname in (${projects.map((_, i) => { return ':' + (i + 1 + donors.length)})})`;
@@ -52,6 +56,7 @@ async function donorsDivideProjects(donors, projects) {
     }
     query += ')';
     query += ` MINUS (SELECT imc.ProjectName FROM Individual_makes_Contribution imc WHERE imc.IUsername = i.Username)) ORDER BY i.Username ASC`;
+    console.log(query);
     const args = [...donors, ...projects];
     const result = await connection.execute(
       query,
