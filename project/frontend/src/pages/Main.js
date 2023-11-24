@@ -26,7 +26,7 @@ function Main() {
         Main page. Account type : { accountType }
 
         <h1>Projects</h1>
-        <ProjectList></ProjectList>
+        <ProjectList />
     </div>
   );
 }
