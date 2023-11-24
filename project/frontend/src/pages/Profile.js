@@ -11,6 +11,8 @@ function Profile() {
     const [cvv, setCVV] = useState("");
     const [address, setAddress] = useState("");
     const [postalCode, setPostalCode] = useState("");
+    const [city, setCity] = useState("");
+    const [province, setProvince] = useState("");
 
     useEffect(() => {
         const isLoggedIn = async () => {
@@ -27,10 +29,10 @@ function Profile() {
 
     const handlePaymentCreation = async () => {
         try {
-            const response = await fetch(URL + "/payment", {
+            const response = await fetch(URL + "/payment/insert-payment", {
                 method: "POST",
                 headers: {"Content-Type": "application/json"},
-                body: JSON.stringify({ ccNumber, cvv, address, postalCode})
+                body: JSON.stringify({ ccNumber, cvv, address, postalCode, city, province})
             });
             const parsedResponse = await response.json();
             if (parsedResponse.success === true) {
@@ -52,6 +54,7 @@ function Profile() {
                         type={'text'}
                         name={'insertCCNumber'}
                         placeholder={'enter credit card number here'}
+                        minLength={16}
                         maxLength={16}
                         value={ccNumber}
                         onChange = {e => setCCNumber(e.target.value)}
@@ -63,6 +66,7 @@ function Profile() {
                         type={'text'}
                         name={'insertCVV'}
                         placeholder={'enter security code here'}
+                        minLength={3}
                         maxLength={3}
                         value={cvv}
                         onChange = {e => setCVV(e.target.value)}
@@ -84,14 +88,37 @@ function Profile() {
                     <input
                         type={'text'}
                         name={'insertPostalCode'}
-                        placeholder={'enter postalCode here'}
+                        placeholder={'enter postal code here'}
+                        minLength={6}
                         maxLength={6}
                         value={postalCode}
                         onChange = {e => setPostalCode(e.target.value)}
                     />
                 </label>
                 <br/>
-                <button onClick={handlePaymentCreation} >Add Payment Info</button>
+                <label>City:
+                    <input
+                        type={'text'}
+                        name={'insertCity'}
+                        placeholder={'enter city here'}
+                        maxLength={50}
+                        value={city}
+                        onChange = {e => setCity(e.target.value)}
+                    />
+                </label>
+                <br/>
+                <label>Province:
+                    <input
+                        type={'text'}
+                        name={'insertProvince'}
+                        placeholder={'enter province here'}
+                        maxLength={2}
+                        value={province}
+                        onChange = {e => setProvince(e.target.value)}
+                    />
+                </label>
+                <br/>
+                <button onClick={handlePaymentCreation}>Add Payment Info</button>
             </div>
         );
     }

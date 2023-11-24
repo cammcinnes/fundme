@@ -1,9 +1,34 @@
 const { withOracleDB } = require('../appService');
+
+/**
+ * Checks if Credit Card Number already exists in the database.
+ *
+ * @param {string} ccNumber
+ * @returns {Promise<*|boolean>}
+ */
 async function ccExists(ccNumber) {
     return await withOracleDB(async (connection) => {
         const result = await connection.execute(
-            `SELECT CCNumber FROM PaymentInformation WHERE CCNumber=:ccnNumber`,
+            `SELECT CCNumber FROM PaymentInformation WHERE CCNumber=:ccNumber`,
             [ccNumber],
+            { autoCommit: true }
+        );
+        return result.rows;
+    }).catch((err) => {
+        throw new Error(err);
+    });
+}
+/**
+ * Checks if PostalCode already exists in the database.
+ *
+ * @param {string} postalCode
+ * @returns {Promise<*|boolean>}
+ */
+async function postalCodeExists(postalCode) {
+    return await withOracleDB(async (connection) => {
+        const result = await connection.execute(
+            `SELECT PostalCode FROM PostalCode_Location WHERE PostalCode=:postalCode`,
+            [postalCode],
             { autoCommit: true }
         );
         return result.rows;
@@ -37,7 +62,23 @@ async function insertPaymentInfo(CCNumber, cvv, address, postalCode) {
     });
 }
 
+async function insertPostalInfo(postalCode, city, province) {
+    return await withOracleDB(async (connection) => {
+        await connection.execute(
+            `INSERT INTO PostalCode_Location (PostalCode, City, Province)
+             VALUES (:PostalCode, :City, :Province)`,
+            {postalCode, city, province},
+            { autoCommit: true }
+        );
+        return true;
+    }).catch((err) => {
+        throw err;
+    });
+}
+
 module.exports = {
     insertPaymentInfo,
-    ccExists
+    ccExists,
+    postalCodeExists,
+    insertPostalInfo
 }
