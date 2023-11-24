@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import '../App.css';
 import { useParams } from 'react-router-dom';
 import Navbar from "../components/Nav";
+import { Link } from 'react-router-dom';
 
 function Organization() {
   const URL = process.env.REACT_APP_URL;
@@ -108,7 +109,7 @@ function Organization() {
                     { orgProjects.map((project) =>
                       (
                         <div key={project[0]}>
-                          <label>{project[0]}</label>
+                          <label><Link to={`/project/${project[0]}`}>{ project[0] }</Link></label>
                           <input className="attr-check" type="checkbox" name={project[0]} value={project[0]} onChange={handleProjectChange}/>
                         </div>
                       )

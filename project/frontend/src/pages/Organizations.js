@@ -1,12 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import '../App.css';
-import {useNavigate} from "react-router-dom";
 import Navbar from "../components/Nav";
 import { Link } from 'react-router-dom';
 
 function Organizations() {
   const URL = process.env.REACT_APP_URL;
-  const navigate = useNavigate();
   const [orgs, setOrgs] = useState([]);
 
   const loadOrgs = async () => {
