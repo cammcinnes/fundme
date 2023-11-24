@@ -27,9 +27,7 @@ router.post('/insert-payment', async(req, res) => {
             });
         }
         const postalCodeExists = await paymentQuery.postalCodeExists(postalCode);
-        if (postalCodeExists.length > 0) {
-            await paymentQuery.insertPaymentInfo(ccNumber, cvv, address, postalCode);
-        } else {
+        if (postalCodeExists.length === 0) {
             await paymentQuery.insertPostalInfo(postalCode, city, province);
         }
         await paymentQuery.insertPaymentInfo(ccNumber, cvv, address, postalCode);
