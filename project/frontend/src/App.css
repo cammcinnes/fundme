@@ -104,7 +104,6 @@ nav ul li {
   display: flex;
   flex-direction: column;
   align-items: center;
-  height: 100vh;
 }
 
 .project-container div {
@@ -175,4 +174,20 @@ nav ul li {
 
 .comment {
   border-bottom: 2px solid grey;
+}
+
+.organization {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.donor-proj-input {
+  display: flex;
+  justify-content: space-between;
+}
+
+.division-result {
+  padding: 0;
+  margin: 0;
 }

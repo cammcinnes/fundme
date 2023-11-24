@@ -13,7 +13,7 @@ function handleAuthorization(req, res, next, allowedAccountType) {
     const payload = jwt.verify(jwtToken, envVariables.JWT_SECRET);
     req.username = payload.username;
     if (allowedAccountType && payload.accountType !== allowedAccountType) {
-      return res.status(403).json({ success: false, error: "You do not have the right permissions" });
+      return res.status(403).json({ success: false, error: "You do not have the right permissions. You must be an " + allowedAccountType + "to delete a post" });
     }
     next();
   } catch (error) {

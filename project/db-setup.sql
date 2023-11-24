@@ -355,16 +355,28 @@ INSERT INTO Organization (Username, FoundedDate, OrgName)
 VALUES ('fundbenslife', TO_DATE('2023-10-11', 'YYYY-MM-DD'), 'Ben Wants Money');
 --
 INSERT INTO Organization_creates_Project (ProjectName, OUsername, Description, Balance)
-VALUES ('Help Pandas', 'wildlife', 'Pandas are going extinct. Send money.', 0);
+VALUES ('Help Pandas', 'wildlife', 'Pandas are going extinct. Send money.', 100000);
 --
 INSERT INTO Organization_creates_Project (ProjectName, OUsername, Description, Balance)
-VALUES ('Stop Global Warming', 'globewarm', 'Hot in Herre by Nelly', 0);
+VALUES ('Help Lions', 'wildlife', 'Lions are going extinct. Send money.', 3000);
 --
 INSERT INTO Organization_creates_Project (ProjectName, OUsername, Description, Balance)
-VALUES ('Open more CPSC110 sections', 'ubcneedsmoney', 'Trust the natural recursion', 0);
+VALUES ('Help Snakes', 'wildlife', 'Snakes are going extinct. Send money.', 400);
 --
 INSERT INTO Organization_creates_Project (ProjectName, OUsername, Description, Balance)
-VALUES ('Open more CPSC210 sections', 'ubcneedsmoney', 'Java', 0);
+VALUES ('Help Zebras', 'wildlife', 'Zebras are going extinct. Send money.', 1610);
+--
+INSERT INTO Organization_creates_Project (ProjectName, OUsername, Description, Balance)
+VALUES ('Help Fishies', 'wildlife', 'fishies are going extinct. Send money.', 8020);
+--
+INSERT INTO Organization_creates_Project (ProjectName, OUsername, Description, Balance)
+VALUES ('Stop Global Warming', 'globewarm', 'Hot in Herre by Nelly', 10);
+--
+INSERT INTO Organization_creates_Project (ProjectName, OUsername, Description, Balance)
+VALUES ('Open more CPSC110 sections', 'ubcneedsmoney', 'Trust the natural recursion', 300);
+--
+INSERT INTO Organization_creates_Project (ProjectName, OUsername, Description, Balance)
+VALUES ('Open more CPSC210 sections', 'ubcneedsmoney', 'Java', 40);
 --
 INSERT INTO Organization_creates_Project (ProjectName, OUsername, Description, Balance)
 VALUES ('Bens Fund', 'fundbenslife', 'Ben needs money.', 0);
@@ -424,22 +436,73 @@ INSERT INTO Account_writes_Comment_on_Post(Username, PostID, Timestamp, Content)
 VALUES ('ashebs12', 6, CURRENT_TIMESTAMP, 'Jack black isnt a panda');
 --
 INSERT INTO Individual_makes_Contribution(IUsername, ProjectName, Amount, Timestamp)
-VALUES ('tshebs', 'Bens Fund', 7, CURRENT_TIMESTAMP);
+VALUES ('cmcdavid1', 'Help Pandas', 97, CURRENT_TIMESTAMP);
 --
 INSERT INTO Individual_makes_Contribution(IUsername, ProjectName, Amount, Timestamp)
-VALUES ('ntesla12', 'Help Pandas', 150, CURRENT_TIMESTAMP);
+VALUES ('cmcdavid1', 'Help Lions', 97, CURRENT_TIMESTAMP);
+--
+INSERT INTO Individual_makes_Contribution(IUsername, ProjectName, Amount, Timestamp)
+VALUES ('cmcdavid1', 'Help Snakes', 97, CURRENT_TIMESTAMP);
+--
+INSERT INTO Individual_makes_Contribution(IUsername, ProjectName, Amount, Timestamp)
+VALUES ('cmcdavid1', 'Help Zebras', 97, CURRENT_TIMESTAMP);
+--
+INSERT INTO Individual_makes_Contribution(IUsername, ProjectName, Amount, Timestamp)
+VALUES ('cmcdavid1', 'Help Fishies', 97, CURRENT_TIMESTAMP);
+--
+INSERT INTO Individual_makes_Contribution(IUsername, ProjectName, Amount, Timestamp)
+VALUES ('cmcdavid1', 'Stop Global Warming', 97, CURRENT_TIMESTAMP);
+--
+INSERT INTO Individual_makes_Contribution(IUsername, ProjectName, Amount, Timestamp)
+VALUES ('cmcdavid1', 'Open more CPSC110 sections', 97, CURRENT_TIMESTAMP);
+--
+INSERT INTO Individual_makes_Contribution(IUsername, ProjectName, Amount, Timestamp)
+VALUES ('cmcdavid1', 'Open more CPSC210 sections', 97, CURRENT_TIMESTAMP);
+--
+INSERT INTO Individual_makes_Contribution(IUsername, ProjectName, Amount, Timestamp)
+VALUES ('ntesla12', 'Help Pandas', 15, CURRENT_TIMESTAMP);
+--
+INSERT INTO Individual_makes_Contribution(IUsername, ProjectName, Amount, Timestamp)
+VALUES ('ntesla12', 'Stop Global Warming', 230, CURRENT_TIMESTAMP);
+--
+INSERT INTO Individual_makes_Contribution(IUsername, ProjectName, Amount, Timestamp)
+VALUES ('ntesla12', 'Help Lions', 150, CURRENT_TIMESTAMP);
+--
+INSERT INTO Individual_makes_Contribution(IUsername, ProjectName, Amount, Timestamp)
+VALUES ('ntesla12', 'Help Fishies', 2000, CURRENT_TIMESTAMP);
+--
+INSERT INTO Individual_makes_Contribution(IUsername, ProjectName, Amount, Timestamp)
+VALUES ('aeinstein30', 'Help Lions', 100, CURRENT_TIMESTAMP);
+--
+INSERT INTO Individual_makes_Contribution(IUsername, ProjectName, Amount, Timestamp)
+VALUES ('aeinstein30', 'Help Zebras', 50, CURRENT_TIMESTAMP);
+--
+INSERT INTO Individual_makes_Contribution(IUsername, ProjectName, Amount, Timestamp)
+VALUES ('aeinstein30', 'Stop Global Warming', 50, CURRENT_TIMESTAMP);
 --
 INSERT INTO Individual_makes_Contribution(IUsername, ProjectName, Amount, Timestamp)
 VALUES ('aeinstein30', 'Stop Global Warming', 10, CURRENT_TIMESTAMP);
 --
 INSERT INTO Individual_makes_Contribution(IUsername, ProjectName, Amount, Timestamp)
+VALUES ('aeinstein30', 'Stop Global Warming', 42, CURRENT_TIMESTAMP);
+--
+INSERT INTO Individual_makes_Contribution(IUsername, ProjectName, Amount, Timestamp)
 VALUES ('tshebs', 'Help Pandas', 68, CURRENT_TIMESTAMP);
+--
+INSERT INTO Individual_makes_Contribution(IUsername, ProjectName, Amount, Timestamp)
+VALUES ('tshebs', 'Bens Fund', 7, CURRENT_TIMESTAMP);
 --
 INSERT INTO Individual_makes_Contribution(IUsername, ProjectName, Amount, Timestamp)
 VALUES ('ashebs12', 'Open more CPSC110 sections', 100, CURRENT_TIMESTAMP);
 --
 INSERT INTO Individual_makes_Contribution(IUsername, ProjectName, Amount, Timestamp)
-VALUES ('ashebs12', 'Open more CPSC210 sections', 500000, CURRENT_TIMESTAMP);
+VALUES ('ashebs12', 'Help Snakes', 500, CURRENT_TIMESTAMP);
+--
+INSERT INTO Individual_makes_Contribution(IUsername, ProjectName, Amount, Timestamp)
+VALUES ('ashebs12', 'Help Fishies', 10, CURRENT_TIMESTAMP);
+--
+INSERT INTO Individual_makes_Contribution(IUsername, ProjectName, Amount, Timestamp)
+VALUES ('pshelby1', 'Help Snakes', 58, CURRENT_TIMESTAMP);
 --
 INSERT INTO Reward(RewardName, OUsername)
 VALUES ('T-Shirt', 'wildlife');

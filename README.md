@@ -7,3 +7,4 @@ Sources:
 - https://www.npmjs.com/package/jsonwebtoken for help with jwt tokens
 - https://www.w3schools.com/howto/howto_css_loader.asp for help with css loaders
 - https://reactrouter.com/en/main/start/tutorial for routing the pages using react
+- https://python-oracledb.readthedocs.io/en/latest/user_guide/bind.html#binding-multiple-values-to-a-sql-where-in-clause help with dynamic division
