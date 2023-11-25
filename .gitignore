@@ -1,0 +1,5 @@
+/project_k2h3b_s7f3b_w7a1m.iml
+/.idea
+
+# Cam's IDE doesn't display properly without an src file
+/src

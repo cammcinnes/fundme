@@ -2,11 +2,12 @@ import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { checkAuth } from "../utils";
 import { useNavigate } from "react-router-dom";
+import Post from "../components/Post";
+import Navbar from "../components/Nav";
 import '../App.css';
 
-const URL = "http://localhost:65535";
-
 function Project() {
+  const URL = process.env.REACT_APP_URL;
   const [accountType, setAccountType] = useState(null);
   const [projectData, setProjectData] = useState(null);
   const { projectId } = useParams();
@@ -17,9 +18,13 @@ function Project() {
       try {
         const response = await fetch(`${URL}/projects/${projectId}`);
         const parsedResponse = await response.json();
-        setProjectData(parsedResponse);
+        if (parsedResponse.success === true) {
+          setProjectData(parsedResponse.data);
+        } else {
+          alert("Error getting project data: " + parsedResponse.error);
+        }
       } catch (error) {
-        alert("No project with the given id found");
+        alert("No project with the given name found");
       }
     };
     const isLoggedIn = async () => {
@@ -36,27 +41,31 @@ function Project() {
   }, [projectId]);
 
   return (
-    <div className="main-container">
-      {projectData === null ? (
-        <div className="loader"></div>
-      ) : (
-        <div>
-          <h2>Project: {projectData.result.info[0]}</h2>
-          <h4>Organization: {projectData.result.info[1]}</h4>
-          <p>{projectData.result.info[2]}</p>
-          <p>Current balance: {projectData.result.info[3]}</p>
-          {projectData.result.paymentTiers.map((item, index) => (
-            <div key={index}>
-              <div>
-                <p>{item[0]}</p>
-                <button>Donate</button>
+    <>
+      <Navbar />
+      <div className="project-container">
+        {projectData === null ? (
+          <div className="loader"></div>
+        ) : (
+          <div>
+            <h2>Project: {projectData.info[0][0]}</h2>
+            <h4>Organization: {projectData.info[0][1]}</h4>
+            <p>{projectData.info[0][2]}</p>
+            <p>Current balance: {projectData.info[0][3]}</p>
+            {projectData.paymentTiers.map((item, index) => (
+              <div key={index}>
+                <div>
+                  <p>{item[0]}</p>
+                  <button>Donate</button>
+                </div>
               </div>
-              {/* Render other content for each item as needed */}
-            </div>
-          ))}
-        </div>
-      )}
-    </div>
+            ))}
+            <h3>Posts:</h3>
+            { projectData.posts.map((post) => (<Post key={post[0]} postData={post}/>)) }
+          </div>
+        )}
+      </div>
+    </>
   );
 }
 

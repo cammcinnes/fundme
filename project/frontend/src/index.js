@@ -10,6 +10,10 @@ import CreateIndividual from "./pages/CreateIndividual";
 import CreateOrganization from "./pages/CreateOrganization";
 import Project from "./pages/Project";
 import Main from "./pages/Main";
+import Projection from "./pages/Projection";
+import Profile from "./pages/Profile";
+import Organizations from "./pages/Organizations";
+import Organization from "./pages/Organization";
 
 const router = createBrowserRouter([
     {
@@ -29,6 +33,18 @@ const router = createBrowserRouter([
         element: <ChooseAccountType />,
     },
     {
+        path: "/projection",
+        element: <Projection />
+    },
+    {
+        path: "/organizations",
+        element: <Organizations />
+    },
+    {
+        path: "/organization/:orgId",
+        element: <Organization />
+    },
+    {
         path: "/create/individual",
         element: <CreateIndividual />,
     },
@@ -40,6 +56,10 @@ const router = createBrowserRouter([
         path: '/project/:projectId',
         element: <Project />,
     },
+    {
+        path: '/profile',
+        element: <Profile />,
+    }
 ]);
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(

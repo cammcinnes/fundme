@@ -9,13 +9,13 @@ const router = express.Router();
 router.get('/check-db-connection', async (req, res) => {
     const isConnect = await appService.testOracleConnection();
     if (isConnect) {
-        res.send('connected');
+        res.send({ success: true })
     } else {
-        res.send('unable to connect');
+        res.send({ success: false });
     }
 });
 
-router.post("/initiate-demotable", async (req, res) => {
+router.post("/initiate-database", async (req, res) => {
     const initiateResult = await appService.initiateDemotable();
     if (initiateResult) {
         res.json({ success: true });

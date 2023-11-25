@@ -1,6 +1,5 @@
-const URL = "http://localhost:65535";
-
 export async function checkAuth(token) {
+  const URL = process.env.REACT_APP_URL;
   const response = await fetch(URL + "/auth/is-authed", {
     headers: {
       token

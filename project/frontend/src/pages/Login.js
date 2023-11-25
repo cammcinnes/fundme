@@ -3,9 +3,8 @@ import '../App.css';
 import { useNavigate } from "react-router-dom";
 import { checkAuth } from "../utils";
 
-const URL = "http://localhost:65535";
-
 function Login(){
+        const URL = process.env.REACT_APP_URL;
         const navigate = useNavigate();
         const [username, setUsername] = useState("");
         const [password, setPassword] = useState("");
@@ -44,7 +43,8 @@ function Login(){
                 <h2>My Account</h2>
                 <div className='login'>
                     <label>Username:
-                           <input
+                           <input 
+                            className="login-input"
                             type='text'
                             name='insertUsername'
                             placeholder='example'
@@ -55,6 +55,7 @@ function Login(){
                     </label>
                     <label>Password:
                             <input
+                            className="login-input"
                             type='password'
                             name='insertPass'
                             placeholder='1234'

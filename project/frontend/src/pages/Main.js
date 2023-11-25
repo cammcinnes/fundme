@@ -3,6 +3,7 @@ import { checkAuth } from "../utils";
 import { useNavigate } from "react-router-dom";
 import '../App.css';
 import ProjectList from "../components/ProjectList";
+import Navbar from "../components/Nav";
 
 function Main() {
   const [accountType, setAccountType] = useState(null);
@@ -22,12 +23,15 @@ function Main() {
   }, [])
 
   return (
-    <div>
+    <>
+      <Navbar />
+      <div>
         Main page. Account type : { accountType }
-
+        
         <h1>Projects</h1>
         <ProjectList />
-    </div>
+      </div>
+    </>
   );
 }
 export default Main;
