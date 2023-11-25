@@ -1,44 +1,59 @@
 import React, {useEffect, useState} from 'react';
+import { checkAuth } from "../utils";
+import { useNavigate } from "react-router-dom";
 import Navbar from "../components/Nav";
 
 function Join() {
     const URL = process.env.REACT_APP_URL;
-
+    const navigate = useNavigate();
+    const [accountType, setAccountType] = useState(null);
     const [selectedProject, setSelectedProject] = useState("");
     const [projectNames, setProjectNames] = useState([]);
     const [individuals, setIndividuals] = useState([]);
 
+    async function getProjectNames() {
+        try {
+            const response = await fetch(`${URL}/projects/names`, {
+                method: "GET"
+            });
+            const data = await response.json();
+            if (data.success) setProjectNames(data.result);
+        } catch (err) {
+            alert(err.message);
+        }
+    }
+
+    async function getContributorsOfProject() {
+        try {
+            const response = await fetch(`${URL}/join/${selectedProject}`, {
+                method: "GET"
+            });
+            const data = await response.json();
+            if (data.success) setIndividuals(data.result);
+        } catch (err) {
+            alert(err.message);
+        }
+    }
+
     useEffect(() => {
-        async function getContributorsOfProject() {
-            try {
-                const response = await fetch(`${URL}/join/${selectedProject}`, {
-                    method: "GET"
-                });
-                const data = await response.json();
-                if (data.success) setIndividuals(data.result);
-            } catch (err) {
-                alert(err.message);
+        const isLoggedIn = async () => {
+            const token = localStorage.getItem("token");
+            const result = await checkAuth(token);
+            if (result === null) {
+                navigate("/login");
+            } else {
+                setAccountType(result);
+                getProjectNames();
             }
         }
-
-        getContributorsOfProject();
-    }, [selectedProject, URL]);
+        isLoggedIn();
+    }, [])
 
     useEffect(() => {
-        async function getProjectNames() {
-            try {
-                const response = await fetch(`${URL}/projects/names`, {
-                    method: "GET"
-                });
-                const data = await response.json();
-                if (data.success) setProjectNames(data.result);
-            } catch (err) {
-                alert(err.message);
-            }
+        if (selectedProject !== "") {
+            getContributorsOfProject();
         }
-
-        getProjectNames();
-    });
+    }, [selectedProject]);
 
     return (
         <>
