@@ -66,6 +66,7 @@ function Join() {
                     value={selectedProject}
                     onChange={(e) => setSelectedProject(e.target.value)}
                 >
+                    <option key={-1} value={""}></option>
                     {projectNames.map((projectName, index) => (
                         <option key={index} value={projectName}>
                             {projectName}
@@ -82,7 +83,7 @@ function Join() {
                         </tr>
                         {individuals.map((username, index) => {
                             return (
-                                <tr>
+                                <tr key={index}>
                                     <td key={index}>
                                         {username}
                                     </td>
