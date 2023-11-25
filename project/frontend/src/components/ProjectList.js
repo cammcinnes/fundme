@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import '../App.css';
 import Project from './Project';
 
-const URL = "http://localhost:65535";
+const URL = process.env.REACT_APP_URL;
 function ProjectList() {
     const [projects, setProjects] = useState([]);
 
@@ -13,7 +13,7 @@ function ProjectList() {
             });
             const projectsData = await response.json();
             if (projectsData.success) {
-                setProjects(projectsData.data);
+                setProjects(projectsData.result);
             }
         }
         fetchProjects();

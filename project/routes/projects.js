@@ -7,7 +7,7 @@ const router = express.Router();
 router.get('/', async (req, res) => {
     try {
         const projects = await projectQuery.fetchAllProjects();
-        return res.json({ success: true, data: projects });
+        return res.json({ success: true, result: projects });
     } catch (err) {
         return res.status(400).json({ success: false, error: err.message});
     }
@@ -21,7 +21,7 @@ router.get('/owned-projects', async (req, res) => {
         if (!username)
             return res.status(400).json({success: false, error: "Username is required."});
         const ownedProjects = await projectQuery.fetchOrgProjects(username);
-        return res.json({ success: true, data: ownedProjects });
+        return res.json({ success: true, result: ownedProjects });
     } catch (err) {
         return res.status(400).json({ success: false, error: err.message });
     }
@@ -34,7 +34,7 @@ router.get('/:projectName', async (req, res) => {
         if (!projectName)
             return res.status(400).json({ success: false, error: "Project name is required." });
         const projectData = await projectQuery.fetchProjectData(projectName);
-        return res.json({ success: true, data: projectData });
+        return res.json({ success: true, result: projectData });
     } catch (err) {
         return res.status(400).json({ success: false, error: err.message });
     }
