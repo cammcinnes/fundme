@@ -6,6 +6,7 @@ const postRoutes = require('./routes/posts');
 const paymentRoutes = require('./routes/payment');
 const projectionRoutes = require('./routes/projection');
 const orgRoutes = require('./routes/organization');
+const joinRoutes= require('./routes/join');
 const cors = require('cors');
 
 // Load environment variables from .env file
@@ -36,6 +37,7 @@ app.use('/projection', projectionRoutes);
 app.use('/posts', postRoutes);
 app.use('/payment', paymentRoutes);
 app.use('/organization', orgRoutes);
+app.use('/join', joinRoutes);
 app.use('/', appController);
 
 // ----------------------------------------------------------

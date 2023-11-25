@@ -14,6 +14,20 @@ async function fetchAllProjects() {
     });
 }
 
+async function fetchAllProjectNames() {
+    return await withOracleDB(async (connection) => {
+        const allProjectNames = await connection.execute(
+            `SELECT PROJECTNAME
+             FROM ORGANIZATION_CREATES_PROJECT`,
+            {},
+            { autoCommit: true }
+        );
+        return allProjectNames.rows;
+    }).catch((err) => {
+        throw err;
+    });
+}
+
 async function fetchOrgProjects(username) {
     return await withOracleDB(async (connection) => {
         const orgProjects = await connection.execute(
@@ -131,5 +145,6 @@ module.exports = {
     createProject,
     deleteProject,
     createPaymentTier,
-    deletePaymentTier
+    deletePaymentTier,
+    fetchAllProjectNames
 }
