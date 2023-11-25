@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { checkAuth } from "../utils";
 import { useNavigate } from "react-router-dom";
 import '../App.css';
+import ProjectList from "../components/ProjectList";
 import Navbar from "../components/Nav";
 
 function Main() {
@@ -26,6 +27,9 @@ function Main() {
       <Navbar />
       <div>
         Main page. Account type : { accountType }
+        
+        <h1>Projects</h1>
+        <ProjectList />
       </div>
     </>
   );
