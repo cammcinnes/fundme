@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, {useEffect, useState} from 'react';
 import Navbar from "../components/Nav";
 
 function Join() {
@@ -20,6 +20,7 @@ function Join() {
                 alert(err.message);
             }
         }
+
         getContributorsOfProject();
     }, [selectedProject, URL]);
 
@@ -35,13 +36,14 @@ function Join() {
                 alert(err.message);
             }
         }
+
         getProjectNames();
     });
 
     return (
         <>
-            <Navbar />
-            <h1>Join Query: find all the individuals who donated to a particular project.</h1>
+            <Navbar/>
+            <h1>Join Query: find all the individuals who have donated to a particular project</h1>
             <div>
                 <label htmlFor="project-select"><h2>Choose a project:</h2></label>
                 <select
@@ -57,22 +59,24 @@ function Join() {
                 </select>
             </div>
             <div>
-                <table>
-                    <tbody>
-                    <tr>
-                        <th>Individual</th>
-                    </tr>
-                    {individuals.map((username, index) => {
-                        return (
-                            <tr>
-                                <td key={index}>
-                                    {username}
-                                </td>
-                            </tr>
-                        );
-                    })}
-                    </tbody>
-                </table>
+                {selectedProject !== "" &&
+                    <table>
+                        <tbody>
+                        <tr>
+                            <th>Individual</th>
+                        </tr>
+                        {individuals.map((username, index) => {
+                            return (
+                                <tr>
+                                    <td key={index}>
+                                        {username}
+                                    </td>
+                                </tr>
+                            );
+                        })}
+                        </tbody>
+                    </table>
+                }
             </div>
         </>
     );
