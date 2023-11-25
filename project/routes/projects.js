@@ -13,6 +13,16 @@ router.get('/', async (req, res) => {
     }
 });
 
+// Get all project names
+router.get('/names', async (req, res) => {
+    try {
+        const projects = await projectQuery.fetchAllProjectNames();
+        return res.json({ success: true, result: projects });
+    } catch (err) {
+        return res.status(400).json({ success: false, error: err.message});
+    }
+});
+
 // Get all projects owned by given username
 // Move to accounts???
 router.get('/owned-projects', async (req, res) => {

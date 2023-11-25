@@ -14,6 +14,7 @@ import Projection from "./pages/Projection";
 import Profile from "./pages/Profile";
 import Organizations from "./pages/Organizations";
 import Organization from "./pages/Organization";
+import Join from "./pages/Join";
 
 const router = createBrowserRouter([
     {
@@ -59,6 +60,10 @@ const router = createBrowserRouter([
     {
         path: '/profile',
         element: <Profile />,
+    },
+    {
+        path: '/join',
+        element: <Join />,
     }
 ]);
 const root = ReactDOM.createRoot(document.getElementById('root'));
