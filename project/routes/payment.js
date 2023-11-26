@@ -37,8 +37,9 @@ router.post('/insert-payment', async(req, res) => {
 });
 
 // Get All Payment Info for account
-router.get('/', async (req, res) => {
+router.get('/:username', async (req, res) => {
     try {
+        const { username } = req.params;
         if (!username)
             return res.status(400).json({success: false, error: "Username is required."});
         const info = await paymentQuery.fetchAllInfos(username);
