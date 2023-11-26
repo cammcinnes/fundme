@@ -31,7 +31,7 @@ function Login(){
         useEffect(() => {
                 const isLoggedIn = async () => {
                         const token = localStorage.getItem("token");
-                        const result = await checkAuth(token);
+                        const [result, username] = await checkAuth(token);
                         if (result !== null) {
                                 navigate("/main");
                         }

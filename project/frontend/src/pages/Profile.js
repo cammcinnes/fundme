@@ -2,10 +2,12 @@ import React, { useState, useEffect } from 'react';
 import '../App.css';
 import { useNavigate } from "react-router-dom";
 import { checkAuth } from "../utils";
+import Navbar from "../components/Nav";
 
 function Profile() {
     const URL = process.env.REACT_APP_URL;
     const [accountType, setAccountType] = useState(null);
+    const [username, setUsername] = useState(null);
     const navigate = useNavigate();
     const [ccNumber, setCCNumber] = useState("");
     const [cvv, setCVV] = useState("");
@@ -17,11 +19,12 @@ function Profile() {
     useEffect(() => {
         const isLoggedIn = async () => {
             const token = localStorage.getItem("token");
-            const result = await checkAuth(token);
+            const [result,username] = await checkAuth(token);
             if (result === null) {
                 navigate("/login");
             } else {
                 setAccountType(result)
+                setUsername(username);
             }
         }
         isLoggedIn();
@@ -32,7 +35,7 @@ function Profile() {
             const response = await fetch(URL + "/payment/insert-payment", {
                 method: "POST",
                 headers: {"Content-Type": "application/json"},
-                body: JSON.stringify({ ccNumber, cvv, address, postalCode, city, province})
+                body: JSON.stringify({ ccNumber, username, cvv, address, postalCode, city, province})
             });
             const parsedResponse = await response.json();
             if (parsedResponse.success === true) {
@@ -48,6 +51,9 @@ function Profile() {
     if (accountType === 'individual'){
         return (
             <div className={'payment'}>
+                <Navbar/>
+                <h1> Profile Info</h1>
+                username: {username}
                 <h1>Payment Information</h1>
                 <label>Credit Card Number:
                     <input
