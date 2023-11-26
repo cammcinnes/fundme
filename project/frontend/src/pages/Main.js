@@ -7,16 +7,18 @@ import Navbar from "../components/Nav";
 
 function Main() {
   const [accountType, setAccountType] = useState(null);
+  const [username, setUsername] = useState("");
   const navigate = useNavigate();
   // we use this effect for pages that require authentication!
   useEffect(() => {
     const isLoggedIn = async () => {
       const token = localStorage.getItem("token");
-      const result = await checkAuth(token);
+      const [result, username] = await checkAuth(token);
       if (result === null) {
         navigate("/login");
       } else {
         setAccountType(result)
+        setUsername(username);
       }
     }
     isLoggedIn();
@@ -26,7 +28,7 @@ function Main() {
     <>
       <Navbar />
       <div>
-        Main page. Account type : { accountType }
+        Main page. Account type : { accountType } Username: {username}
         
         <h1>Projects</h1>
         <ProjectList />

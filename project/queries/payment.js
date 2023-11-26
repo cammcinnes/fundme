@@ -44,18 +44,18 @@ async function postalCodeExists(postalCode) {
  * postal code. Postal Code must already exist in PostalCode_Location table.
  *
  * @param {int} CCNumber - not null and char length = 16
- * @param {string} username
+ * @param {string} iUsername
  * @param {int} cvv - not null and char length = 3
  * @param {string} address - not null
  * @param {int} postalCode - not null and char length = 6
  * @returns {Promise<*|boolean>}
  */
-async function insertPaymentInfo(CCNumber, username, cvv, address, postalCode) {
+async function insertPaymentInfo(CCNumber, iUsername, cvv, address, postalCode) {
     return await withOracleDB(async (connection) => {
         await connection.execute(
             `INSERT INTO PaymentInformation (CCNumber, IUsername, CVV, Address, PostalCode)
              VALUES (:CCNumber, :IUsername, :CVV, :Address, :PostalCode)`,
-            { CCNumber, username, cvv, address, postalCode},
+            { CCNumber, iUsername, cvv, address, postalCode},
             { autoCommit: true }
         );
         return true;

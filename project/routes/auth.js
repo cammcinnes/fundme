@@ -16,8 +16,8 @@ const generateJWTToken = (id, type) => {
 // route for checking if were authed. also returns accountType
 router.get("/is-authed", authorizeAccount, async (req, res) => {
   try {
-    const accountType = await authQuery.getAccountType(req.username);
-    return res.json({ success: true, result: { accountType }});
+    const [accountType, username] = await authQuery.getAccountType(req.username);
+    return res.json({ success: true, result: { accountType, username }});
   } catch (error) {
     return res.status(500).json({success: false, error: error.message});
   }

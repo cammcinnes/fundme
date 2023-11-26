@@ -7,7 +7,7 @@ export async function checkAuth(token) {
   });
   const parsedResponse = await response.json();
   if (parsedResponse.success === true) {
-    return parsedResponse.result.accountType;
+    return [parsedResponse.result.accountType, parsedResponse.result.username];
   }
   return null;
 }
