@@ -3,7 +3,7 @@ function Card({ CCNumber }) {
     const [cardNumber, username, cvv, address, postalCode] = CCNumber;
     return (
         <>
-            <p>{CCNumber}</p>
+            <p>{cardNumber}</p>
             <p>{cvv}</p>
             <p>{address}</p>
             <p>{postalCode}</p>

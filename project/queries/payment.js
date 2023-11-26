@@ -77,10 +77,24 @@ async function insertPostalInfo(postalCode, city, province) {
         throw err;
     });
 }
+async function fetchAllInfos() {
+    return await withOracleDB(async (connection) => {
+        const allInfo = await connection.execute(
+            `SELECT *
+             FROM PaymentInformation`,
+            {},
+            { autoCommit: true }
+        );
+        return allInfo.rows;
+    }).catch((err) => {
+        throw err;
+    });
+}
 
 module.exports = {
     insertPaymentInfo,
     ccExists,
     postalCodeExists,
-    insertPostalInfo
+    insertPostalInfo,
+    fetchAllInfos
 }

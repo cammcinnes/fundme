@@ -57,7 +57,7 @@ function Profile() {
                 Username: {username}
                 <h1>Payment Information</h1>
                 <h3> Existing Credit Cards</h3>
-                    <CCList />
+                <CCList />
                 <h3>Add a New Credit Card</h3>
                 <label>Credit Card Number:
                     <input
