@@ -1,128 +1,119 @@
 --
 BEGIN
-   EXECUTE IMMEDIATE 'DROP TABLE DEMOTABLE CASCADE CONSTRAINTS';
+EXECUTE IMMEDIATE 'DROP TABLE PostalCode_Location CASCADE CONSTRAINTS';
 EXCEPTION
    WHEN OTHERS THEN
       IF SQLCODE != -942 THEN
          RAISE;
-      END IF;
+END IF;
 END;
 --
 BEGIN
-   EXECUTE IMMEDIATE 'DROP TABLE PostalCode_Location CASCADE CONSTRAINTS';
+EXECUTE IMMEDIATE 'DROP TABLE Account CASCADE CONSTRAINTS';
 EXCEPTION
    WHEN OTHERS THEN
       IF SQLCODE != -942 THEN
          RAISE;
-      END IF;
+END IF;
 END;
 --
 BEGIN
-   EXECUTE IMMEDIATE 'DROP TABLE Account CASCADE CONSTRAINTS';
+EXECUTE IMMEDIATE 'DROP TABLE PaymentInformation CASCADE CONSTRAINTS';
 EXCEPTION
    WHEN OTHERS THEN
       IF SQLCODE != -942 THEN
          RAISE;
-      END IF;
+END IF;
 END;
 --
 BEGIN
-   EXECUTE IMMEDIATE 'DROP TABLE PaymentInformation CASCADE CONSTRAINTS';
+EXECUTE IMMEDIATE 'DROP TABLE Individual CASCADE CONSTRAINTS';
 EXCEPTION
    WHEN OTHERS THEN
       IF SQLCODE != -942 THEN
          RAISE;
-      END IF;
+END IF;
 END;
 --
 BEGIN
-   EXECUTE IMMEDIATE 'DROP TABLE Individual CASCADE CONSTRAINTS';
+EXECUTE IMMEDIATE 'DROP TABLE Organization CASCADE CONSTRAINTS';
 EXCEPTION
    WHEN OTHERS THEN
       IF SQLCODE != -942 THEN
          RAISE;
-      END IF;
+END IF;
 END;
 --
 BEGIN
-   EXECUTE IMMEDIATE 'DROP TABLE Organization CASCADE CONSTRAINTS';
+EXECUTE IMMEDIATE 'DROP TABLE Organization_creates_Project CASCADE CONSTRAINTS';
 EXCEPTION
    WHEN OTHERS THEN
       IF SQLCODE != -942 THEN
          RAISE;
-      END IF;
+END IF;
 END;
 --
 BEGIN
-   EXECUTE IMMEDIATE 'DROP TABLE Organization_creates_Project CASCADE CONSTRAINTS';
+EXECUTE IMMEDIATE 'DROP TABLE Organization_creates_Post CASCADE CONSTRAINTS';
 EXCEPTION
    WHEN OTHERS THEN
       IF SQLCODE != -942 THEN
          RAISE;
-      END IF;
+END IF;
 END;
 --
 BEGIN
-   EXECUTE IMMEDIATE 'DROP TABLE Organization_creates_Post CASCADE CONSTRAINTS';
+EXECUTE IMMEDIATE 'DROP TABLE Account_writes_Comment_on_Post CASCADE CONSTRAINTS';
 EXCEPTION
    WHEN OTHERS THEN
       IF SQLCODE != -942 THEN
          RAISE;
-      END IF;
+END IF;
 END;
 --
 BEGIN
-   EXECUTE IMMEDIATE 'DROP TABLE Account_writes_Comment_on_Post CASCADE CONSTRAINTS';
+EXECUTE IMMEDIATE 'DROP TABLE Individual_makes_Contribution CASCADE CONSTRAINTS';
 EXCEPTION
    WHEN OTHERS THEN
       IF SQLCODE != -942 THEN
          RAISE;
-      END IF;
+END IF;
 END;
 --
 BEGIN
-   EXECUTE IMMEDIATE 'DROP TABLE Individual_makes_Contribution CASCADE CONSTRAINTS';
+EXECUTE IMMEDIATE 'DROP TABLE Reward CASCADE CONSTRAINTS';
 EXCEPTION
    WHEN OTHERS THEN
       IF SQLCODE != -942 THEN
          RAISE;
-      END IF;
+END IF;
 END;
 --
 BEGIN
-   EXECUTE IMMEDIATE 'DROP TABLE Reward CASCADE CONSTRAINTS';
+EXECUTE IMMEDIATE 'DROP TABLE Individual_receives_Reward CASCADE CONSTRAINTS';
 EXCEPTION
    WHEN OTHERS THEN
       IF SQLCODE != -942 THEN
          RAISE;
-      END IF;
+END IF;
 END;
 --
 BEGIN
-   EXECUTE IMMEDIATE 'DROP TABLE Individual_receives_Reward CASCADE CONSTRAINTS';
+EXECUTE IMMEDIATE 'DROP TABLE PaymentTier CASCADE CONSTRAINTS';
 EXCEPTION
    WHEN OTHERS THEN
       IF SQLCODE != -942 THEN
          RAISE;
-      END IF;
+END IF;
 END;
 --
 BEGIN
-   EXECUTE IMMEDIATE 'DROP TABLE PaymentTier CASCADE CONSTRAINTS';
+EXECUTE IMMEDIATE 'DROP TABLE PaymentTier_has_Reward CASCADE CONSTRAINTS';
 EXCEPTION
    WHEN OTHERS THEN
       IF SQLCODE != -942 THEN
          RAISE;
-      END IF;
-END;
---
-BEGIN
-   EXECUTE IMMEDIATE 'DROP TABLE PaymentTier_has_Reward CASCADE CONSTRAINTS';
-EXCEPTION
-   WHEN OTHERS THEN
-      IF SQLCODE != -942 THEN
-         RAISE;
-      END IF;
+END IF;
 END;
 --
 CREATE TABLE Account
@@ -140,24 +131,25 @@ CREATE TABLE PostalCode_Location
     Province   VARCHAR(50) NOT NULL
 );
 --
-CREATE TABLE PaymentInformation
-(
-    CCNumber   CHAR(16) PRIMARY KEY,
-    CVV        CHAR(3)     NOT NULL,
-    Address    VARCHAR(50) NOT NULL,
-    PostalCode CHAR(6)     NOT NULL,
-    FOREIGN KEY (PostalCode) REFERENCES PostalCode_Location (PostalCode)
-);
---
 CREATE TABLE Individual
 (
     Username    VARCHAR(50) PRIMARY KEY,
-    PaymentInfo CHAR(16),
     DateOfBirth DATE,
     FirstName   VARCHAR(50),
     LastName    VARCHAR(50),
-    FOREIGN KEY (Username) REFERENCES Account (Username) ON DELETE CASCADE,
-    FOREIGN KEY (PaymentInfo) REFERENCES PaymentInformation (CCNumber) ON DELETE SET NULL
+    FOREIGN KEY (Username) REFERENCES Account (Username) ON DELETE CASCADE
+);
+--
+CREATE TABLE PaymentInformation
+(
+    CCNumber   CHAR(16),
+    IUsername  VARCHAR(50),
+    CVV        CHAR(3)     NOT NULL,
+    Address    VARCHAR(50) NOT NULL,
+    PostalCode CHAR(6)     NOT NULL,
+    PRIMARY KEY (CCNumber, IUsername),
+    FOREIGN KEY (PostalCode) REFERENCES PostalCode_Location (PostalCode),
+    FOREIGN KEY (IUsername) REFERENCES Individual (Username)
 );
 --
 CREATE TABLE Organization
@@ -300,44 +292,44 @@ VALUES ('E1C4P9', 'Moncton', 'NB');
 INSERT INTO PostalCode_Location (PostalCode, City, Province)
 VALUES ('L5N2X2', 'Mississauga', 'ON');
 --
-INSERT INTO PaymentInformation (CCNumber, CVV, Address, PostalCode)
-VALUES ('1111222233334444', '123', '123 Main St', 'M5H1W7');
+INSERT INTO Individual (Username, DateOfBirth, FirstName, LastName)
+VALUES ('cmcdavid1', TO_DATE('1990-05-15', 'YYYY-MM-DD'), 'Connor', 'McDavid');
 --
-INSERT INTO PaymentInformation (CCNumber, CVV, Address, PostalCode)
-VALUES ('2222333344445555', '456', '456 Elm St', 'H2X1L4');
+INSERT INTO Individual (Username, DateOfBirth, FirstName, LastName)
+VALUES ('ntesla12', TO_DATE('1950-01-12', 'YYYY-MM-DD'), 'Nikola', 'Tesla');
 --
-INSERT INTO PaymentInformation (CCNumber, CVV, Address, PostalCode)
-VALUES ('3333444455556666', '789', '789 Oak St', 'V6Z1K7');
+INSERT INTO Individual (Username, DateOfBirth, FirstName, LastName)
+VALUES ('aeinstein30', TO_DATE('1960-11-20', 'YYYY-MM-DD'), 'Albert', 'Einstein');
 --
-INSERT INTO PaymentInformation (CCNumber, CVV, Address, PostalCode)
-VALUES ('4444555566667777', '234', '234 Pine St', 'E1C4P9');
+INSERT INTO Individual (Username, DateOfBirth, FirstName, LastName)
+VALUES ('tshebs', TO_DATE('1900-02-21', 'YYYY-MM-DD'), 'Tommy', 'Shelby');
 --
-INSERT INTO PaymentInformation (CCNumber, CVV, Address, PostalCode)
-VALUES ('5555666777788888', '567', '567 Cedar St', 'L5N2X2');
+INSERT INTO Individual (Username, DateOfBirth, FirstName, LastName)
+VALUES ('ashebs12', TO_DATE('1895-05-10', 'YYYY-MM-DD'), 'Arthur', 'Shelby');
 --
-INSERT INTO PaymentInformation (CCNumber, CVV, Address, PostalCode)
-VALUES ('1234123412341234', '111', '111 Cedar St', 'L5N2X2');
+INSERT INTO Individual (Username, DateOfBirth, FirstName, LastName)
+VALUES ('pshelby1', TO_DATE('1894-10-11', 'YYYY-MM-DD'), 'Polly', 'Shelby');
 --
-INSERT INTO Individual (Username, PaymentInfo, DateOfBirth, FirstName, LastName)
-VALUES ('cmcdavid1', '3333444455556666', TO_DATE('1990-05-15', 'YYYY-MM-DD'), 'Connor', 'McDavid');
+INSERT INTO Individual (Username, DateOfBirth, FirstName, LastName)
+VALUES ('nomoney10', TO_DATE('1970-11-06', 'YYYY-MM-DD'), 'Dan', 'NoMoney');
 --
-INSERT INTO Individual (Username, PaymentInfo, DateOfBirth, FirstName, LastName)
-VALUES ('ntesla12', '4444555566667777', TO_DATE('1950-01-12', 'YYYY-MM-DD'), 'Nikola', 'Tesla');
+INSERT INTO PaymentInformation (CCNumber, IUsername, CVV, Address, PostalCode)
+VALUES ('1111222233334444','cmcdavid1', '123', '123 Main St', 'M5H1W7');
 --
-INSERT INTO Individual (Username, PaymentInfo, DateOfBirth, FirstName, LastName)
-VALUES ('aeinstein30', '5555666777788888', TO_DATE('1960-11-20', 'YYYY-MM-DD'), 'Albert', 'Einstein');
+INSERT INTO PaymentInformation (CCNumber, IUsername, CVV, Address, PostalCode)
+VALUES ('2222333344445555','ntesla12', '456', '456 Elm St', 'H2X1L4');
 --
-INSERT INTO Individual (Username, PaymentInfo, DateOfBirth, FirstName, LastName)
-VALUES ('tshebs', '1111222233334444', TO_DATE('1900-02-21', 'YYYY-MM-DD'), 'Tommy', 'Shelby');
+INSERT INTO PaymentInformation (CCNumber, IUsername, CVV, Address, PostalCode)
+VALUES ('3333444455556666','aeinstein30', '789', '789 Oak St', 'V6Z1K7');
 --
-INSERT INTO Individual (Username, PaymentInfo, DateOfBirth, FirstName, LastName)
-VALUES ('ashebs12', '1111222233334444', TO_DATE('1895-05-10', 'YYYY-MM-DD'), 'Arthur', 'Shelby');
+INSERT INTO PaymentInformation (CCNumber, IUsername, CVV, Address, PostalCode)
+VALUES ('4444555566667777','pshelby1', '234', '234 Pine St', 'E1C4P9');
 --
-INSERT INTO Individual (Username, PaymentInfo, DateOfBirth, FirstName, LastName)
-VALUES ('pshelby1', '2222333344445555', TO_DATE('1894-10-11', 'YYYY-MM-DD'), 'Polly', 'Shelby');
+INSERT INTO PaymentInformation (CCNumber, IUsername, CVV, Address, PostalCode)
+VALUES ('5555666777788888','tshebs', '567', '567 Cedar St', 'L5N2X2');
 --
-INSERT INTO Individual (Username, PaymentInfo, DateOfBirth, FirstName, LastName)
-VALUES ('nomoney10', NULL, TO_DATE('1970-11-06', 'YYYY-MM-DD'), 'Dan', 'NoMoney');
+INSERT INTO PaymentInformation (CCNumber, IUsername, CVV, Address, PostalCode)
+VALUES ('1234123412341234','ashebs12', '111', '111 Cedar St', 'L5N2X2');
 --
 INSERT INTO Organization (Username, FoundedDate, OrgName)
 VALUES ('wildlife', TO_DATE('2000-08-15', 'YYYY-MM-DD'), 'Wildlife Preservation Inc');
@@ -534,7 +526,7 @@ VALUES ('T-Shirt', 'tshebs');
 INSERT INTO Individual_receives_Reward(RewardName, IUsername)
 VALUES ('Tesla Model S', 'ashebs12');
 --
-INSERT INTO PaymentTier(ProjectName, OUserName, Description, minAmount, maxAmount) 
+INSERT INTO PaymentTier(ProjectName, OUserName, Description, minAmount, maxAmount)
 VALUES ('Help Pandas', 'wildlife', 'Donate 50$ and receive a t-shirt', 50, 100);
 --
 INSERT INTO PaymentTier(ProjectName, OUserName, Description, minAmount, maxAmount)
