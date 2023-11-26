@@ -8,3 +8,5 @@ Sources:
 - https://www.w3schools.com/howto/howto_css_loader.asp for help with css loaders
 - https://reactrouter.com/en/main/start/tutorial for routing the pages using react
 - https://python-oracledb.readthedocs.io/en/latest/user_guide/bind.html#binding-multiple-values-to-a-sql-where-in-clause help with dynamic division
+- https://pushmetrics.io/blog/why-use-where-1-1-in-sql-queries-exploring-the-surprising-benefits-of-a-seemingly-redundant-clause/ help with dynamic query generation
+- https://www.geeksforgeeks.org/how-to-pass-data-from-child-component-to-its-parent-in-reactjs/ help with passing data from child to parent component
