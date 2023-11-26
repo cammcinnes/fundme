@@ -3,6 +3,7 @@ import '../App.css';
 import { useNavigate } from "react-router-dom";
 import { checkAuth } from "../utils";
 import Navbar from "../components/Nav";
+import CCList from "../components/CCList";
 
 function Profile() {
     const URL = process.env.REACT_APP_URL;
@@ -53,8 +54,11 @@ function Profile() {
             <div className={'payment'}>
                 <Navbar/>
                 <h1> Profile Info</h1>
-                username: {username}
+                Username: {username}
                 <h1>Payment Information</h1>
+                <h3> Existing Credit Cards</h3>
+                    <CCList />
+                <h3>Add a New Credit Card</h3>
                 <label>Credit Card Number:
                     <input
                         type={'text'}
