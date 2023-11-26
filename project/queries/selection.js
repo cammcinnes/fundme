@@ -21,8 +21,6 @@ async function getProjectsWithQueryParams(queryParams) {
                 balanceOp
             } = queryParam.queryData;
 
-            console.log(queryParam);
-
             // Preventing SQL injection
             if (logicalOp === "OR") {
                 sql += " OR 1=1";
@@ -51,8 +49,6 @@ async function getProjectsWithQueryParams(queryParams) {
                 sql += ` AND BALANCE ${balanceOp} :${counter++}`;
                 values.push(balance);
             }
-
-            console.log(sql);
         }
 
         const result = await connection.execute(
