@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from "react";
 
-function ProjectQuery({ onInputChange }) {
+function QueryParam({ id, onInputChange }) {
     const [projectName, setProjectName] = useState("");
     const [projectNameOp, setProjectNameOp] = useState("");
     const [oUsername, setOUsername] = useState("");
@@ -57,7 +57,7 @@ function ProjectQuery({ onInputChange }) {
 
     useEffect(() => {
         const queryData = parseInputData();
-        onInputChange(queryData);
+        onInputChange(id, queryData);
     }, [projectName, oUsername, description, balance]);
 
     const attributeStyle = {
@@ -67,11 +67,11 @@ function ProjectQuery({ onInputChange }) {
     return (
         <>
             <div style={{
-                backgroundColor: "rgba(252, 251, 251, 1)",
+                backgroundColor: "#f5f5f5",
                 padding: "0.7em",
                 width: "fit-content",
                 borderRadius: "0.35em",
-                boxShadow: "0.2em 0.2em 0.5em rgba(0,0,0,0.05)"
+                boxShadow: "0.15em 0.15em 0.3em rgba(0,0,0,0.07)"
             }}>
                 <div style={attributeStyle}>
                     <label htmlFor={"project-name-op"}>Project Name: </label>
@@ -88,6 +88,7 @@ function ProjectQuery({ onInputChange }) {
                         type={"text"}
                         value={projectName}
                         onChange={handleInputChange}
+                        style={{marginLeft: "0.5em"}}
                         placeholder={"enter project name"}
                     />
                 </div>
@@ -106,6 +107,7 @@ function ProjectQuery({ onInputChange }) {
                         type={"text"}
                         value={oUsername}
                         onChange={handleInputChange}
+                        style={{marginLeft: "0.5em"}}
                         placeholder={"enter username"}
                     />
                 </div>
@@ -124,6 +126,7 @@ function ProjectQuery({ onInputChange }) {
                         type={"text"}
                         value={description}
                         onChange={handleInputChange}
+                        style={{marginLeft: "0.5em"}}
                         placeholder={"enter description"}
                     />
                 </div>
@@ -145,6 +148,7 @@ function ProjectQuery({ onInputChange }) {
                         type={"number"}
                         value={balance}
                         onChange={handleInputChange}
+                        style={{marginLeft: "0.5em"}}
                         placeholder={"enter balance"}
                     />
                 </div>
@@ -153,4 +157,4 @@ function ProjectQuery({ onInputChange }) {
     );
 }
 
-export default ProjectQuery;
+export default QueryParam;
