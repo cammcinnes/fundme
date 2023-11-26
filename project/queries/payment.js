@@ -77,12 +77,13 @@ async function insertPostalInfo(postalCode, city, province) {
         throw err;
     });
 }
-async function fetchAllInfos() {
+async function fetchAllInfos(username) {
     return await withOracleDB(async (connection) => {
         const allInfo = await connection.execute(
             `SELECT *
-             FROM PaymentInformation`,
-            {},
+             FROM PaymentInformation
+             WHERE IUsername=:username`,
+            { username },
             { autoCommit: true }
         );
         return allInfo.rows;

@@ -1,24 +1,25 @@
 import React, { useState, useEffect } from 'react';
 import '../App.css';
-import Project from "./Project";
 import Card from "./Card";
 
 const URL = process.env.REACT_APP_URL;
 
-function CCList() {
+function CCList({user}) {
     const [CCNumbers, setCCNumbers] = useState([]);
 
     useEffect(() => {
-        async function fetchCCNumbers() {
+        async function fetchCCNumbers(user) {
             const response = await fetch(URL + '/payment', {
-                method: "GET"
+                method: "GET",
+                headers: {"Content-Type": "application/json"},
+                body: JSON.stringify({username: user})
             });
             const cardData = await response.json();
             if (cardData.success) {
                 setCCNumbers(cardData.result);
             }
         }
-        fetchCCNumbers();
+        fetchCCNumbers(user);
     }, []);
 
     return (
