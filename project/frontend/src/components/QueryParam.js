@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from "react";
 
-function QueryParam({ id, onInputChange }) {
+function QueryParam({id, attribute, onInputChange}) {
     const [projectName, setProjectName] = useState("");
     const [projectNameOp, setProjectNameOp] = useState("");
     const [oUsername, setOUsername] = useState("");
@@ -11,8 +11,8 @@ function QueryParam({ id, onInputChange }) {
     const [balanceOp, setBalanceOp] = useState("");
 
     const handleInputChange = (event) => {
-        const { id, value } = event.target;
-        switch(id) {
+        const {id, value} = event.target;
+        switch (id) {
             case "project-name-op":
                 setProjectNameOp(value);
                 break;
@@ -73,85 +73,93 @@ function QueryParam({ id, onInputChange }) {
                 borderRadius: "0.35em",
                 boxShadow: "0.15em 0.15em 0.3em rgba(0,0,0,0.07)"
             }}>
-                <div style={attributeStyle}>
-                    <label htmlFor={"project-name-op"}>Project Name: </label>
-                    <select
-                        id={"project-name-op"}
-                        onChange={handleInputChange}
-                    >
-                        <option value={""}></option>
-                        <option value={"="}>equals</option>
-                        <option value={"LIKE"}>includes</option>
-                    </select>
-                    <input
-                        id={"project-name-input"}
-                        type={"text"}
-                        value={projectName}
-                        onChange={handleInputChange}
-                        style={{marginLeft: "0.5em"}}
-                        placeholder={"enter project name"}
-                    />
-                </div>
-                <div style={attributeStyle}>
-                    <label htmlFor={"ousername-op"}>Organization Username: </label>
-                    <select
-                        id={"ousername-op"}
-                        onChange={handleInputChange}
-                    >
-                        <option value={""}></option>
-                        <option value={"="}>equals</option>
-                        <option value={"LIKE"}>includes</option>
-                    </select>
-                    <input
-                        id={"ousername-input"}
-                        type={"text"}
-                        value={oUsername}
-                        onChange={handleInputChange}
-                        style={{marginLeft: "0.5em"}}
-                        placeholder={"enter username"}
-                    />
-                </div>
-                <div style={attributeStyle}>
-                    <label htmlFor={"description-op"}>Description: </label>
-                    <select
-                        id={"description-op"}
-                        onChange={handleInputChange}
-                    >
-                        <option value={""}></option>
-                        <option value={"="}>equals</option>
-                        <option value={"LIKE"}>includes</option>
-                    </select>
-                    <input
-                        id={"description-input"}
-                        type={"text"}
-                        value={description}
-                        onChange={handleInputChange}
-                        style={{marginLeft: "0.5em"}}
-                        placeholder={"enter description"}
-                    />
-                </div>
-                <div style={attributeStyle}>
-                    <label htmlFor={"balance-op"}>Balance: </label>
-                    <select
-                        id={"balance-op"}
-                        onChange={handleInputChange}
-                    >
-                        <option value={""}></option>
-                        <option value={"="}>&#61;</option>
-                        <option value={"<"}>&lt;</option>
-                        <option value={">"}>&gt;</option>
-                        <option value={"<="}>&lt;&#61;</option>
-                        <option value={">="}>&gt;&#61;</option>
-                    </select>
-                    <input
-                        id={"balance-input"}
-                        type={"number"}
-                        value={balance}
-                        onChange={handleInputChange}
-                        style={{marginLeft: "0.5em"}}
-                        placeholder={"enter balance"}
-                    />
-                </div>
+                {attribute === "projectName" &&
+                    <div style={attributeStyle}>
+                        <label htmlFor={"project-name-op"}>Project Name </label>
+                        <select
+                            id={"project-name-op"}
+                            onChange={handleInputChange}
+                        >
+                            <option value={""}></option>
+                            <option value={"="}>equals</option>
+                            <option value={"LIKE"}>includes</option>
+                        </select>
+                        <input
+                            id={"project-name-input"}
+                            type={"text"}
+                            value={projectName}
+                            onChange={handleInputChange}
+                            style={{marginLeft: "0.5em"}}
+                            placeholder={"enter project name"}
+                        />
+                    </div>
+                }
+                {attribute === "oUsername" &&
+                    <div style={attributeStyle}>
+                        <label htmlFor={"ousername-op"}>Organization Username</label>
+                        <select
+                            id={"ousername-op"}
+                            onChange={handleInputChange}
+                        >
+                            <option value={""}></option>
+                            <option value={"="}>equals</option>
+                            <option value={"LIKE"}>includes</option>
+                        </select>
+                        <input
+                            id={"ousername-input"}
+                            type={"text"}
+                            value={oUsername}
+                            onChange={handleInputChange}
+                            style={{marginLeft: "0.5em"}}
+                            placeholder={"enter username"}
+                        />
+                    </div>
+                }
+                {attribute === "description" &&
+                    <div style={attributeStyle}>
+                        <label htmlFor={"description-op"}>Description </label>
+                        <select
+                            id={"description-op"}
+                            onChange={handleInputChange}
+                        >
+                            <option value={""}></option>
+                            <option value={"="}>equals</option>
+                            <option value={"LIKE"}>includes</option>
+                        </select>
+                        <input
+                            id={"description-input"}
+                            type={"text"}
+                            value={description}
+                            onChange={handleInputChange}
+                            style={{marginLeft: "0.5em"}}
+                            placeholder={"enter description"}
+                        />
+                    </div>
+                }
+                {attribute === "balance" &&
+                    <div style={attributeStyle}>
+                        <label htmlFor={"balance-op"}>Balance </label>
+                        <select
+                            id={"balance-op"}
+                            onChange={handleInputChange}
+                        >
+                            <option value={""}></option>
+                            <option value={"="}>&#61;</option>
+                            <option value={"<"}>&lt;</option>
+                            <option value={">"}>&gt;</option>
+                            <option value={"<="}>&lt;&#61;</option>
+                            <option value={">="}>&gt;&#61;</option>
+                        </select>
+                        <input
+                            id={"balance-input"}
+                            type={"number"}
+                            value={balance}
+                            onChange={handleInputChange}
+                            style={{marginLeft: "0.5em"}}
+                            placeholder={"enter balance"}
+                        />
+                    </div>
+                }
             </div>
         < />
     );
