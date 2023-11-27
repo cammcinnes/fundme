@@ -4,7 +4,7 @@ const { withOracleDB } = require('../appService');
 async function getProjectsWithQueryParams(queryParams) {
     return await withOracleDB(async (connection) => {
         // Construct SQL statements
-        let sql = "SELECT PROJECTNAME FROM ORGANIZATION_CREATES_PROJECT WHERE 1=1";
+        let sql = "SELECT * FROM ORGANIZATION_CREATES_PROJECT WHERE 1=1";
         const values = [];
         let counter = 1;
 
