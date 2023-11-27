@@ -77,10 +77,164 @@ async function insertPostalInfo(postalCode, city, province) {
         throw err;
     });
 }
+async function fetchAllInfos(username) {
+    return await withOracleDB(async (connection) => {
+        const allInfo = await connection.execute(
+            `SELECT * 
+            FROM PaymentInformation NATURAL JOIN POSTALCODE_LOCATION 
+            WHERE IUsername=:username`,
+            { username },
+            { autoCommit: true }
+        );
+        return allInfo.rows;
+    }).catch((err) => {
+        throw err;
+    });
+}
 
+// async function updatePostalInfo(oldPostalCode, postalCode, city, province) {
+//     return await withOracleDB(async (connection) => {
+//         await connection.execute(
+//             `UPDATE PostalCode_Location
+//              SET PostalCode=:postalCode, City=:city, Province=:province
+//              WHERE PostalCode=:oldPostalCode`,
+//             {oldPostalCode, postalCode, city, province},
+//             { autoCommit: true }
+//         );
+//         return true;
+//     }).catch((err) => {
+//         throw err;
+//     });
+// }
+
+async function updateAllPaymentInfo(CCNumber, iUsername, cvv, address, postalCode) {
+    return await withOracleDB(async (connection) => {
+        await connection.execute(
+            `UPDATE PaymentInformation 
+             SET CVV=:cvv, Address=:address, PostalCode=:postalCode
+             WHERE CCNumber=:CCNumber AND IUsername=:iUsername`,
+            { CCNumber, iUsername, cvv, address, postalCode},
+            { autoCommit: true }
+        );
+        return true;
+    }).catch((err) => {
+        throw err;
+    });
+}
+async function deletePostalInfo(oldPostalCode) {
+    return await withOracleDB(async (connection) => {
+        const result = await connection.execute(
+            `DELETE
+             FROM PostalCode_Location
+             WHERE PostalCode = :oldPostalCode`,
+            {oldPostalCode},
+            {autoCommit: true}
+        );
+        if (result.rowsAffected > 0) return true;
+        throw Error(`There exists no PostalCode Location with given postalCode.`);
+    }).catch((err) => {
+        throw err;
+    });
+}
+async function updateCVV(CCNumber, iUsername, cvv) {
+    return await withOracleDB(async (connection) => {
+        await connection.execute(
+            `UPDATE PaymentInformation 
+             SET CVV=:cvv
+             WHERE CCNumber=:CCNumber AND IUsername=:iUsername`,
+            { CCNumber, iUsername, cvv},
+            { autoCommit: true }
+        );
+        return true;
+    }).catch((err) => {
+        throw err;
+    });
+}
+async function updateAddress(CCNumber, iUsername, address) {
+    return await withOracleDB(async (connection) => {
+        await connection.execute(
+            `UPDATE PaymentInformation 
+             SET Address=:address
+             WHERE CCNumber=:CCNumber AND IUsername=:iUsername`,
+            { CCNumber, iUsername, address},
+            { autoCommit: true }
+        );
+        return true;
+    }).catch((err) => {
+        throw err;
+    });
+}
+
+async function updateCVVAddress(CCNumber, iUsername, cvv, address) {
+    return await withOracleDB(async (connection) => {
+        await connection.execute(
+            `UPDATE PaymentInformation 
+             SET CVV=:cvv, Address=:address
+             WHERE CCNumber=:CCNumber AND IUsername=:iUsername`,
+            { CCNumber, iUsername, cvv, address},
+            { autoCommit: true }
+        );
+        return true;
+    }).catch((err) => {
+        throw err;
+    });
+}
+
+async function updateCVVPostal(CCNumber, iUsername, cvv, postalCode) {
+    return await withOracleDB(async (connection) => {
+        await connection.execute(
+            `UPDATE PaymentInformation 
+             SET CVV=:cvv, PostalCode=:postalCode
+             WHERE CCNumber=:CCNumber AND IUsername=:iUsername`,
+            { CCNumber, iUsername, cvv, postalCode},
+            { autoCommit: true }
+        );
+        return true;
+    }).catch((err) => {
+        throw err;
+    });
+}
+async function updatePostal(CCNumber, iUsername, postalCode) {
+    return await withOracleDB(async (connection) => {
+        await connection.execute(
+            `UPDATE PaymentInformation 
+             SET PostalCode=:postalCode
+             WHERE CCNumber=:CCNumber AND IUsername=:iUsername`,
+            { CCNumber, iUsername, postalCode},
+            { autoCommit: true }
+        );
+        return true;
+    }).catch((err) => {
+        throw err;
+    });
+}
+
+async function updateAddressPostal(CCNumber, iUsername, address, postalCode) {
+    return await withOracleDB(async (connection) => {
+        await connection.execute(
+            `UPDATE PaymentInformation 
+             SET Address=:address, PostalCode=:postalCode
+             WHERE CCNumber=:CCNumber AND IUsername=:iUsername`,
+            { CCNumber, iUsername, address, postalCode},
+            { autoCommit: true }
+        );
+        return true;
+    }).catch((err) => {
+        throw err;
+    });
+}
 module.exports = {
     insertPaymentInfo,
     ccExists,
     postalCodeExists,
-    insertPostalInfo
+    insertPostalInfo,
+    fetchAllInfos,
+    updateAllPaymentInfo,
+    deletePostalInfo,
+    updateCVV,
+    updateAddress,
+    updateCVVAddress,
+    updateCVVPostal,
+    updatePostal,
+    updateAddressPostal
 }
