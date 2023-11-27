@@ -53,6 +53,7 @@ function Selection() {
                 body: JSON.stringify(queryParams)
             });
             const data = await response.json();
+            console.log(data.result);
             if (data.success) setProjectList(data.result);
         } catch (err) {
             alert(err.message);
@@ -110,7 +111,10 @@ function Selection() {
                     <table>
                         <tbody>
                         <tr>
-                            <th>Projects</th>
+                            <th style={{textAlign: "left"}}>Projects</th>
+                            <th style={{textAlign: "left"}}>Username</th>
+                            <th style={{textAlign: "left"}}>Description</th>
+                            <th style={{textAlign: "left"}}>Balance</th>
                         </tr>
                         {projectList.length <= 0 &&
                             <tr>
@@ -119,7 +123,9 @@ function Selection() {
                         }
                         {projectList.map((projectName, index) => (
                             <tr key={index}>
-                                <td key={index}>{projectName}</td>
+                            {projectName.map((attr, index) => (
+                                <td key={index}>{attr}</td>
+                            ))}
                             </tr>
                         ))}
                         </tbody>
