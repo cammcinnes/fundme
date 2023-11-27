@@ -3,11 +3,13 @@ import {useNavigate} from "react-router-dom";
 function Card({ CCNumber }) {
     const [isOpen, setIsOpen] = useState(false);
     const navigate = useNavigate();
-    const [cardNumber, username, cvv, address, postalCode] = CCNumber;
+    const [postalCode, cardNumber, username, cvv, address, city, province] = CCNumber;
     const [newCCNumber, setNewCCNumber] = useState('');
     const [newCVV, setNewCVV] = useState('');
     const [newAddress, setNewAddress] = useState('');
     const [newPostalCode, setNewPostalCode] = useState('');
+    const [newCity, setNewCity] = useState('');
+    const [newProvince, setNewProvince] = useState('');
 
     const updateInfo = async () => {
         try {
@@ -25,6 +27,7 @@ function Card({ CCNumber }) {
         } catch (error) {
             alert(error.message);
         }
+        setIsOpen(false);
     }
     const modifyPaymentInfo = () => {
         setIsOpen(true);
@@ -36,7 +39,7 @@ function Card({ CCNumber }) {
                     <label>{cardNumber} ->
                         <input
                             type={'text'}
-                            name={'insertCCNumber'}
+                            name={'insertNewCCNumber'}
                             placeholder={'enter credit card number here'}
                             minLength={16}
                             maxLength={16}
@@ -48,7 +51,7 @@ function Card({ CCNumber }) {
                     <label>{cvv} ->
                         <input
                             type={'text'}
-                            name={'insertCVV'}
+                            name={'insertNewCVV'}
                             placeholder={'enter security code here'}
                             minLength={3}
                             maxLength={3}
@@ -60,7 +63,7 @@ function Card({ CCNumber }) {
                     <label>{address} ->
                         <input
                             type={'text'}
-                            name={'insertAddress'}
+                            name={'insertNewAddress'}
                             placeholder={'enter address here'}
                             maxLength={50}
                             value={newAddress}
@@ -71,12 +74,34 @@ function Card({ CCNumber }) {
                     <label>{postalCode} ->
                         <input
                             type={'text'}
-                            name={'insertPostalCode'}
+                            name={'insertNewPostalCode'}
                             placeholder={'enter postal code here'}
                             minLength={6}
                             maxLength={6}
                             value={newPostalCode}
                             onChange = {e => setNewPostalCode(e.target.value)}
+                        />
+                    </label>
+                    <br/>
+                    <label>{city} ->
+                        <input
+                            type={'text'}
+                            name={'insertNewCity'}
+                            placeholder={'enter city here'}
+                            maxLength={50}
+                            value={newCity}
+                            onChange = {e => setNewCity(e.target.value)}
+                        />
+                    </label>
+                    <br/>
+                    <label>{province} ->
+                        <input
+                            type={'text'}
+                            name={'insertNewProvince'}
+                            placeholder={'enter province here'}
+                            maxLength={2}
+                            value={newProvince}
+                            onChange = {e => setNewProvince(e.target.value)}
                         />
                     </label>
                     <br/>
@@ -90,6 +115,8 @@ function Card({ CCNumber }) {
                     <p>CVV: {cvv}</p>
                     <p>Address: {address}</p>
                     <p>Postal Code: {postalCode}</p>
+                    <p>City: {city}</p>
+                    <p>Province: {province}</p>
                     <button onClick={modifyPaymentInfo}>Modify</button>
                 </div>
             )

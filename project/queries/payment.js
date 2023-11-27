@@ -80,9 +80,9 @@ async function insertPostalInfo(postalCode, city, province) {
 async function fetchAllInfos(username) {
     return await withOracleDB(async (connection) => {
         const allInfo = await connection.execute(
-            `SELECT *
-             FROM PaymentInformation
-             WHERE IUsername=:username`,
+            `SELECT * 
+            FROM PaymentInformation NATURAL JOIN POSTALCODE_LOCATION 
+            WHERE IUsername=:username`,
             { username },
             { autoCommit: true }
         );
