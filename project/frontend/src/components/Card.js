@@ -1,10 +1,9 @@
 import React, {useState} from "react";
 import {useNavigate} from "react-router-dom";
 function Card({ CCNumber }) {
+    const URL = process.env.REACT_APP_URL;
     const [isOpen, setIsOpen] = useState(false);
-    const navigate = useNavigate();
     const [postalCode, cardNumber, username, cvv, address, city, province] = CCNumber;
-    const [newCCNumber, setNewCCNumber] = useState('');
     const [newCVV, setNewCVV] = useState('');
     const [newAddress, setNewAddress] = useState('');
     const [newPostalCode, setNewPostalCode] = useState('');
@@ -12,22 +11,31 @@ function Card({ CCNumber }) {
     const [newProvince, setNewProvince] = useState('');
 
     const updateInfo = async () => {
-        try {
-            const response = await fetch(URL + "/payment/update-payment", {
-                method: "POST",
-                headers: {"Content-Type": "application/json"},
-                body: JSON.stringify({newCCNumber, username, newCVV, newAddress, newPostalCode, newCity, newProvince})
-            });
-            const parsedResponse = await response.json();
-            if (parsedResponse.success === true) {
-                alert("Successfully Updated Payment Info!");
-            } else {
-                alert(parsedResponse.error);
+        if (!newCVV && !newAddress && !newPostalCode && !newProvince && !newCity) {
+            alert("CVV, Address or Postal Code is required");
+        } else {
+            try {
+                const response = await fetch(URL + "/payment/update-payment", {
+                    method: "POST",
+                    headers: {"Content-Type": "application/json"},
+                    body: JSON.stringify({cardNumber, username, newCVV, newAddress, postalCode, newPostalCode, newCity, newProvince, city, province}),
+                });
+                const parsedResponse = await response.json();
+                if (parsedResponse.success === true) {
+                    alert("Successfully Updated Payment Info!");
+                } else {
+                    alert(parsedResponse.error);
+                }
+            } catch (error) {
+                alert(error.message);
             }
-        } catch (error) {
-            alert(error.message);
+            setIsOpen(false);
+            setNewCVV("");
+            setNewAddress("");
+            setNewProvince("");
+            setNewCity("");
+            setNewPostalCode("");
         }
-        setIsOpen(false);
     }
     const modifyPaymentInfo = () => {
         setIsOpen(true);
@@ -36,17 +44,7 @@ function Card({ CCNumber }) {
         <>
             {isOpen && (
                 <div>
-                    <label>{cardNumber} ->
-                        <input
-                            type={'text'}
-                            name={'insertNewCCNumber'}
-                            placeholder={'enter credit card number here'}
-                            minLength={16}
-                            maxLength={16}
-                            value={newCCNumber}
-                            onChange = {e => setNewCCNumber(e.target.value)}
-                        />
-                    </label>
+                    {cardNumber}
                     <br/>
                     <label>{cvv} ->
                         <input
