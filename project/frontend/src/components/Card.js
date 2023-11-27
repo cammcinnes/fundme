@@ -9,8 +9,22 @@ function Card({ CCNumber }) {
     const [newAddress, setNewAddress] = useState('');
     const [newPostalCode, setNewPostalCode] = useState('');
 
-    const updateInfo = () => {
-
+    const updateInfo = async () => {
+        try {
+            const response = await fetch(URL + "/payment/update-payment", {
+                method: "POST",
+                headers: {"Content-Type": "application/json"},
+                body: JSON.stringify({newCCNumber, username, newCVV, newAddress, newPostalCode, newCity, newProvince})
+            });
+            const parsedResponse = await response.json();
+            if (parsedResponse.success === true) {
+                alert("Successfully Updated Payment Info!");
+            } else {
+                alert(parsedResponse.error);
+            }
+        } catch (error) {
+            alert(error.message);
+        }
     }
     const modifyPaymentInfo = () => {
         setIsOpen(true);
