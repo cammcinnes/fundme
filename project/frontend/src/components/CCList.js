@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import '../App.css';
 import Card from "./Card";
-import {useParams} from "react-router-dom";
 
 const URL = process.env.REACT_APP_URL;
 

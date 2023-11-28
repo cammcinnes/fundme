@@ -16,6 +16,7 @@ import Organizations from "./pages/Organizations";
 import Organization from "./pages/Organization";
 import Join from "./pages/Join";
 import Selection from "./pages/Selection";
+import TopContributors from "./pages/TopContributors";
 
 const router = createBrowserRouter([
     {
@@ -69,6 +70,10 @@ const router = createBrowserRouter([
     {
         path: '/selection',
         element: <Selection />,
+    },
+    {
+        path: '/leaderboard',
+        element: <TopContributors />,
     }
 ]);
 const root = ReactDOM.createRoot(document.getElementById('root'));

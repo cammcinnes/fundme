@@ -12,6 +12,7 @@ function Navbar() {
                 <li><Link to="/projection">Projection</Link></li>
                 <li><Link to="/join">Join</Link></li>
                 <li><Link to="/selection">Selection</Link></li>
+                <li><Link to="/leaderboard">Top Contributors</Link></li>
             </ul>
         </nav>
     );
