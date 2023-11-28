@@ -13,6 +13,7 @@ function Organization() {
   const [orgDonors, setOrgDonors] = useState([]);
   const [selectedDonors, setSelectedDonors] = useState([]);
   const [divisionResult, setDivisionResult] = useState([]);
+  const [loading, setLoading] = useState(false);
 
   const handleDonorChange = (event) => {
     const checked = event.target.checked;
@@ -36,6 +37,7 @@ function Organization() {
   }
 
   const getResult = async (donors, projects) => {
+    setLoading(true);
     const response = await fetch(`${URL}/organization/${orgData[0][0]}/divide`, {
       method: "POST",
       headers: {"Content-Type": "application/json"},
@@ -47,6 +49,7 @@ function Organization() {
     } else {
       alert("Error running query: " + parsedResponse.error);
     }
+    setLoading(false);
   }
 
   useEffect(() => {
@@ -118,13 +121,14 @@ function Organization() {
                 </div>
                 <div>
                   <h3>Result:</h3>
-                  { divisionResult.map((donor) => (
-                    <p className="division-result">{ donor[0] }</p>
+                  { divisionResult.map((donor, i) => (
+                    <p className="division-result" key={i}>{ donor[0] }</p>
                   ))}
                 </div>
               </div>
             </div>
         )}
+        { loading && <div className="loader"/> }
       </div>
     </>
   );
