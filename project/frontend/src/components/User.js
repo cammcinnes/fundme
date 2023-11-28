@@ -1,12 +1,12 @@
 import React, {useState} from "react";
 
-function Contributor({Contributor}){
+function User({Contributor}){
     const [username, count] = Contributor;
     return(
       <div>
-          <p>{username}: {count}</p>
+          <h3>{username}: {count} Donations</h3>
       </div>
     );
 }
 
-export default Contributor;
+export default User;

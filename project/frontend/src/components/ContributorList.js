@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import '../App.css';
-import Card from "./Card";
+import User from "./User";
 
 const URL = process.env.REACT_APP_URL;
 
@@ -21,11 +21,11 @@ function ContributorList() {
     }, []);
 
     return(
-      <div>
+      <>
           {contributors.map((Contributor, index) => (
-              <Contributor key={index} Contributor={Contributor} />
+              <User key={index} Contributor={Contributor} />
           ))}
-      </div>
+      </>
     );
 }
 
