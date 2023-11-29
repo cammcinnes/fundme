@@ -42,6 +42,7 @@ function Profile() {
             const parsedResponse = await response.json();
             if (parsedResponse.success === true) {
                 alert("Successfully Added Payment Info!");
+                window.location.reload(false);
             } else {
                 alert(parsedResponse.error);
             }
