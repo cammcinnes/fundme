@@ -23,33 +23,34 @@ async function getProjectsWithQueryParams(queryParams) {
 
             // Preventing SQL injection
             if (logicalOp === "OR") {
-                sql += " OR 1=1";
+                sql += " OR ";
             } else {
-                sql += " AND 1=1";
+                sql += " AND ";
             }
             if (projectName && projectNameOp) {
                 let projectNameAppend = projectName;
                 if (projectNameOp === "LIKE") projectNameAppend = `%${projectName}%`;
-                sql += ` AND PROJECTNAME ${projectNameOp} :${counter++}`;
+                sql += `PROJECTNAME ${projectNameOp} :${counter++}`;
                 values.push(projectNameAppend);
             }
             if (oUsername && oUsernameOp) {
                 let oUsernameAppend = oUsername;
                 if (oUsernameOp === "LIKE") oUsernameAppend = `%${oUsername}%`;
-                sql += ` AND OUSERNAME ${oUsernameOp} :${counter++}`;
+                sql += `OUSERNAME ${oUsernameOp} :${counter++}`;
                 values.push(oUsernameAppend);
             }
             if (description && descriptionOp) {
                 let descriptionAppend = description;
                 if (descriptionOp === "LIKE") descriptionAppend = `%${description}%`;
-                sql += ` AND DESCRIPTION ${descriptionOp} :${counter++}`;
+                sql += `DESCRIPTION ${descriptionOp} :${counter++}`;
                 values.push(descriptionAppend);
             }
-            if (balance >= 0 && balanceOp) {
-                sql += ` AND BALANCE ${balanceOp} :${counter++}`;
+            if (balanceOp) {
+                sql += `BALANCE ${balanceOp} :${counter++}`;
                 values.push(balance);
             }
         }
+        console.log(sql);
 
         const result = await connection.execute(
             sql,
