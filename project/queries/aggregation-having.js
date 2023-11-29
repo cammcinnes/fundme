@@ -7,7 +7,7 @@ async function getRecurringContributors() {
                 `SELECT IUSERNAME, PROJECTNAME, Count(*)
                  FROM INDIVIDUAL_MAKES_CONTRIBUTION
                  GROUP BY PROJECTNAME, IUSERNAME
-                 HAVING Count(*) > 1`
+                 HAVING Count(*) > 1 ORDER BY IUSERNAME ASC`
             );
             if (result.rows.length > 0) return result.rows;
         } catch (err) {

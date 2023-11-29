@@ -19,7 +19,7 @@ function Project() {
         const response = await fetch(`${URL}/projects/${projectId}`);
         const parsedResponse = await response.json();
         if (parsedResponse.success === true) {
-          setProjectData(parsedResponse.data);
+          setProjectData(parsedResponse.result);
         } else {
           alert("Error getting project data: " + parsedResponse.error);
         }

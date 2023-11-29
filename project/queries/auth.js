@@ -102,9 +102,9 @@ async function getAccountType(username) {
             { autoCommit: true }
         );
         if (resultInd.rows.length === 1) {
-            return ["individual", username];
+            return "individual";
         }
-        return ["organization", username]
+        return "organization";
     }).catch((error) => {
         throw Error(error.message);
     });

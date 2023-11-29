@@ -91,7 +91,7 @@ function Organization() {
               <h2>Organization: {orgData[0][0]}</h2>
               <p>Description: {orgData[0][2]}</p>
               <p><i>Founded in {orgData[0][1].slice(0, 10)}.</i></p>
-              <h3>See what selected donors have contributed money to each selected projects!</h3>
+              <h3>See what selected donors have contributed money to every selected project!</h3>
               <div className="donor-proj-input">
                 <div>
                   <h3>Donors:</h3>

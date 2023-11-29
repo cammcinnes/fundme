@@ -422,10 +422,40 @@ INSERT INTO Account_writes_Comment_on_Post(Username, PostID, Timestamp, Content)
 VALUES ('wildlife', 1, CURRENT_TIMESTAMP, 'Glad some of you like pandas. i really like them a lot. you should donate to the project!');
 --
 INSERT INTO Account_writes_Comment_on_Post(Username, PostID, Timestamp, Content)
+VALUES ('fundbenslife', 1, CURRENT_TIMESTAMP, 'Nah you should donate to me so i can buy a new laptop');
+--
+INSERT INTO Account_writes_Comment_on_Post(Username, PostID, Timestamp, Content)
+VALUES ('fundbenslife', 1, CURRENT_TIMESTAMP, 'That is selfish of you');
+--
+INSERT INTO Account_writes_Comment_on_Post(Username, PostID, Timestamp, Content)
+VALUES ('cmcdavid1', 1, CURRENT_TIMESTAMP, 'Buy me a new twig bud');
+--
+INSERT INTO Account_writes_Comment_on_Post(Username, PostID, Timestamp, Content)
 VALUES ('ashebs12', 5, CURRENT_TIMESTAMP, 'Ah a nice racing red');
 --
 INSERT INTO Account_writes_Comment_on_Post(Username, PostID, Timestamp, Content)
 VALUES ('ashebs12', 6, CURRENT_TIMESTAMP, 'Jack black isnt a panda');
+--
+INSERT INTO Account_writes_Comment_on_Post(Username, PostID, Timestamp, Content)
+VALUES ('ashebs12', 6, CURRENT_TIMESTAMP, 'Yeah he is');
+--
+INSERT INTO Account_writes_Comment_on_Post(Username, PostID, Timestamp, Content)
+VALUES ('cmcdavid1', 6, CURRENT_TIMESTAMP, 'Oilers suck right now');
+--
+INSERT INTO Account_writes_Comment_on_Post(Username, PostID, Timestamp, Content)
+VALUES ('cmcdavid1', 1, CURRENT_TIMESTAMP, 'I dislike the oilers');
+--
+INSERT INTO Account_writes_Comment_on_Post(Username, PostID, Timestamp, Content)
+VALUES ('cmcdavid1', 2, CURRENT_TIMESTAMP, 'I dislike the oilers');
+--
+INSERT INTO Account_writes_Comment_on_Post(Username, PostID, Timestamp, Content)
+VALUES ('cmcdavid1', 3, CURRENT_TIMESTAMP, 'I dislike the oilers');
+--
+INSERT INTO Account_writes_Comment_on_Post(Username, PostID, Timestamp, Content)
+VALUES ('cmcdavid1', 4, CURRENT_TIMESTAMP, 'I dislike the oilers');
+--
+INSERT INTO Account_writes_Comment_on_Post(Username, PostID, Timestamp, Content)
+VALUES ('cmcdavid1', 5, CURRENT_TIMESTAMP, 'I dislike the oilers');
 --
 INSERT INTO Individual_makes_Contribution(IUsername, ProjectName, Amount, Timestamp)
 VALUES ('cmcdavid1', 'Help Pandas', 97, CURRENT_TIMESTAMP);
@@ -464,6 +494,15 @@ INSERT INTO Individual_makes_Contribution(IUsername, ProjectName, Amount, Timest
 VALUES ('ntesla12', 'Help Fishies', 2000, CURRENT_TIMESTAMP);
 --
 INSERT INTO Individual_makes_Contribution(IUsername, ProjectName, Amount, Timestamp)
+VALUES ('ntesla12', 'Help Fishies', 1, CURRENT_TIMESTAMP);
+--
+INSERT INTO Individual_makes_Contribution(IUsername, ProjectName, Amount, Timestamp)
+VALUES ('ntesla12', 'Help Fishies', 2, CURRENT_TIMESTAMP);
+--
+INSERT INTO Individual_makes_Contribution(IUsername, ProjectName, Amount, Timestamp)
+VALUES ('ntesla12', 'Help Fishies', 3, CURRENT_TIMESTAMP);
+--
+INSERT INTO Individual_makes_Contribution(IUsername, ProjectName, Amount, Timestamp)
 VALUES ('aeinstein30', 'Help Lions', 100, CURRENT_TIMESTAMP);
 --
 INSERT INTO Individual_makes_Contribution(IUsername, ProjectName, Amount, Timestamp)
@@ -479,6 +518,9 @@ INSERT INTO Individual_makes_Contribution(IUsername, ProjectName, Amount, Timest
 VALUES ('aeinstein30', 'Stop Global Warming', 42, CURRENT_TIMESTAMP);
 --
 INSERT INTO Individual_makes_Contribution(IUsername, ProjectName, Amount, Timestamp)
+VALUES ('aeinstein30', 'Stop Global Warming', 100, CURRENT_TIMESTAMP);
+--
+INSERT INTO Individual_makes_Contribution(IUsername, ProjectName, Amount, Timestamp)
 VALUES ('tshebs', 'Help Pandas', 68, CURRENT_TIMESTAMP);
 --
 INSERT INTO Individual_makes_Contribution(IUsername, ProjectName, Amount, Timestamp)
@@ -486,6 +528,42 @@ VALUES ('tshebs', 'Help Pandas', 60, CURRENT_TIMESTAMP);
 --
 INSERT INTO Individual_makes_Contribution(IUsername, ProjectName, Amount, Timestamp)
 VALUES ('tshebs', 'Bens Fund', 7, CURRENT_TIMESTAMP);
+--
+INSERT INTO Individual_makes_Contribution(IUsername, ProjectName, Amount, Timestamp)
+VALUES ('tshebs', 'Bens Fund', 1, CURRENT_TIMESTAMP);
+--
+INSERT INTO Individual_makes_Contribution(IUsername, ProjectName, Amount, Timestamp)
+VALUES ('tshebs', 'Bens Fund', 2, CURRENT_TIMESTAMP);
+--
+INSERT INTO Individual_makes_Contribution(IUsername, ProjectName, Amount, Timestamp)
+VALUES ('tshebs', 'Help Lions', 1, CURRENT_TIMESTAMP);
+--
+INSERT INTO Individual_makes_Contribution(IUsername, ProjectName, Amount, Timestamp)
+VALUES ('tshebs', 'Help Lions', 1, CURRENT_TIMESTAMP);
+--
+INSERT INTO Individual_makes_Contribution(IUsername, ProjectName, Amount, Timestamp)
+VALUES ('tshebs', 'Help Lions', 1, CURRENT_TIMESTAMP);
+--
+INSERT INTO Individual_makes_Contribution(IUsername, ProjectName, Amount, Timestamp)
+VALUES ('tshebs', 'Help Lions', 1, CURRENT_TIMESTAMP);
+--
+INSERT INTO Individual_makes_Contribution(IUsername, ProjectName, Amount, Timestamp)
+VALUES ('tshebs', 'Help Lions', 1, CURRENT_TIMESTAMP);
+--
+INSERT INTO Individual_makes_Contribution(IUsername, ProjectName, Amount, Timestamp)
+VALUES ('tshebs', 'Help Lions', 1, CURRENT_TIMESTAMP);
+--
+INSERT INTO Individual_makes_Contribution(IUsername, ProjectName, Amount, Timestamp)
+VALUES ('tshebs', 'Help Lions', 1, CURRENT_TIMESTAMP);
+--
+INSERT INTO Individual_makes_Contribution(IUsername, ProjectName, Amount, Timestamp)
+VALUES ('tshebs', 'Help Zebras', 2, CURRENT_TIMESTAMP);
+--
+INSERT INTO Individual_makes_Contribution(IUsername, ProjectName, Amount, Timestamp)
+VALUES ('tshebs', 'Help Lions', 1, CURRENT_TIMESTAMP);
+--
+INSERT INTO Individual_makes_Contribution(IUsername, ProjectName, Amount, Timestamp)
+VALUES ('tshebs', 'Help Lions', 5, CURRENT_TIMESTAMP);
 --
 INSERT INTO Individual_makes_Contribution(IUsername, ProjectName, Amount, Timestamp)
 VALUES ('ashebs12', 'Open more CPSC110 sections', 100, CURRENT_TIMESTAMP);
@@ -497,13 +575,25 @@ INSERT INTO Individual_makes_Contribution(IUsername, ProjectName, Amount, Timest
 VALUES ('ashebs12', 'Help Fishies', 10, CURRENT_TIMESTAMP);
 --
 INSERT INTO Individual_makes_Contribution(IUsername, ProjectName, Amount, Timestamp)
-VALUES ('ashebs12', 'Help Fishies', 11, CURRENT_TIMESTAMP);
---
-INSERT INTO Individual_makes_Contribution(IUsername, ProjectName, Amount, Timestamp)
 VALUES ('pshelby1', 'Help Snakes', 58, CURRENT_TIMESTAMP);
 --
 INSERT INTO Individual_makes_Contribution(IUsername, ProjectName, Amount, Timestamp)
-VALUES ('pshelby1', 'Help Snakes', 59, CURRENT_TIMESTAMP);
+VALUES ('pshelby1', 'Help Snakes', 20, CURRENT_TIMESTAMP);
+--
+INSERT INTO Individual_makes_Contribution(IUsername, ProjectName, Amount, Timestamp)
+VALUES ('pshelby1', 'Help Snakes', 1, CURRENT_TIMESTAMP);
+--
+INSERT INTO Individual_makes_Contribution(IUsername, ProjectName, Amount, Timestamp)
+VALUES ('pshelby1', 'Help Snakes', 100, CURRENT_TIMESTAMP);
+--
+INSERT INTO Individual_makes_Contribution(IUsername, ProjectName, Amount, Timestamp)
+VALUES ('pshelby1', 'Help Fishies', 10, CURRENT_TIMESTAMP);
+--
+INSERT INTO Individual_makes_Contribution(IUsername, ProjectName, Amount, Timestamp)
+VALUES ('pshelby1', 'Help Fishies', 10, CURRENT_TIMESTAMP);
+--
+INSERT INTO Individual_makes_Contribution(IUsername, ProjectName, Amount, Timestamp)
+VALUES ('pshelby1', 'Help Fishies', 20, CURRENT_TIMESTAMP);
 --
 INSERT INTO Reward(RewardName, OUsername)
 VALUES ('T-Shirt', 'wildlife');

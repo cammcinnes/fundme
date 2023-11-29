@@ -4,6 +4,7 @@ import '../App.css';
 function Welcome() {
     const URL = process.env.REACT_APP_URL;
     const [dbConnected, setDbConnected] = useState(null);
+    const [resetting, setResetting] = useState(false);
     const navigate = useNavigate();
 
     const moveLogin = () => {
@@ -13,6 +14,7 @@ function Welcome() {
         navigate("/create");
     }
     const resetDatabase = async () => {
+        setResetting(true);
         const response = await fetch(URL + "/initiate-database", {
             method: 'POST'
         });
@@ -22,6 +24,7 @@ function Welcome() {
         } else {
             alert("Error initiating table!");
         }
+        setResetting(false);
     }
     useEffect(() => {
         const checkConnection = async () => {
@@ -43,6 +46,7 @@ function Welcome() {
             {
                 dbConnected === null ? <span className="loader"></span> : <span>Database status: { dbConnected ? "connected": "not connected" }</span>
             }
+            { resetting && <div className="loader"/>}
         </div>
     );
 }
