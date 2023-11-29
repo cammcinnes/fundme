@@ -23,7 +23,7 @@ function MyContributions({user}) {
             {Contributions.map((Contribution, index) => (
                 <PersonalContribution key={index} Contribution={Contribution} />
             ))}
-            <button onSubmit={fetchUserContributions(user)}> Get list of my Contributions</button>
+            <button onSubmit={fetchUserContributions(user)}>Get list of my Contributions</button>
         </>
     );
 }
