@@ -43,8 +43,30 @@ function Selection() {
         ]);
     }
 
+    function validateQueryParams(queryParams) {
+        for (const queryParam of queryParams) {
+            const {
+                projectName,
+                projectNameOp,
+                oUsername,
+                oUsernameOp,
+                description,
+                descriptionOp,
+                balance,
+                balanceOp
+            } = queryParam.queryData;
+            if ((!projectName || !projectNameOp) && (!oUsername || !oUsernameOp) && (!description || !descriptionOp) && !(balanceOp))
+                return false;
+        }
+        return true;
+    }
+
     async function handleFetchSubmit() {
         try {
+            if (!validateQueryParams(queryParams)) {
+                alert("All fields in each query parameter must be provided.");
+                return;
+            }
             const response = await fetch(`${URL}/selection`, {
                 method: "POST",
                 headers: {
@@ -84,7 +106,9 @@ function Selection() {
                         <button title={"Add Query"} onClick={handleAddQueryParam}>Add Query Parameter</button>
                         <label htmlFor={"logical-operator"} style={{marginLeft: "1em"}}></label>
                         <select id={"logical-operator"}
-                                onChange={(e) => {setLogicalOp(e.target.value)}}
+                                onChange={(e) => {
+                                    setLogicalOp(e.target.value)
+                                }}
                         >
                             <option value={"AND"}>AND</option>
                             <option value={"OR"}>OR</option>
@@ -117,9 +141,9 @@ function Selection() {
                         }
                         {projectList.map((projectName, index) => (
                             <tr key={index}>
-                            {projectName.map((attr, index) => (
-                                <td key={index}>{attr}</td>
-                            ))}
+                                {projectName.map((attr, index) => (
+                                    <td key={index}>{attr}</td>
+                                ))}
                             </tr>
                         ))}
                         </tbody>
