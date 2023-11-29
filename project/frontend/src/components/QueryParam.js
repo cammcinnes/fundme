@@ -7,7 +7,7 @@ function QueryParam({id, attribute, onInputChange}) {
     const [oUsernameOp, setOUsernameOp] = useState("");
     const [description, setDescription] = useState("");
     const [descriptionOp, setDescriptionOp] = useState("");
-    const [balance, setBalance] = useState(-1);
+    const [balance, setBalance] = useState(0);
     const [balanceOp, setBalanceOp] = useState("");
 
     const handleInputChange = (event) => {
@@ -58,10 +58,19 @@ function QueryParam({id, attribute, onInputChange}) {
     useEffect(() => {
         const queryData = parseInputData();
         onInputChange(id, queryData);
-    }, [projectName, oUsername, description, balance]);
+    }, [
+        projectName,
+        projectNameOp,
+        oUsername,
+        oUsernameOp,
+        description,
+        descriptionOp,
+        balance,
+        balanceOp
+    ]);
 
     const attributeStyle = {
-        padding: "0.2em"
+        marginLeft: "0.2em"
     }
 
     return (
@@ -75,7 +84,7 @@ function QueryParam({id, attribute, onInputChange}) {
             }}>
                 {attribute === "projectName" &&
                     <div style={attributeStyle}>
-                        <label htmlFor={"project-name-op"}>Project Name </label>
+                        <label style={{paddingRight: "0.5em"}} htmlFor={"project-name-op"}>Project Name</label>
                         <select
                             id={"project-name-op"}
                             onChange={handleInputChange}
@@ -96,7 +105,7 @@ function QueryParam({id, attribute, onInputChange}) {
                 }
                 {attribute === "oUsername" &&
                     <div style={attributeStyle}>
-                        <label htmlFor={"ousername-op"}>Organization Username</label>
+                        <label style={{paddingRight: "0.5em"}} htmlFor={"ousername-op"}>Organization Username</label>
                         <select
                             id={"ousername-op"}
                             onChange={handleInputChange}
@@ -117,7 +126,7 @@ function QueryParam({id, attribute, onInputChange}) {
                 }
                 {attribute === "description" &&
                     <div style={attributeStyle}>
-                        <label htmlFor={"description-op"}>Description </label>
+                        <label style={{paddingRight: "0.5em"}} htmlFor={"description-op"}>Description</label>
                         <select
                             id={"description-op"}
                             onChange={handleInputChange}
@@ -138,7 +147,7 @@ function QueryParam({id, attribute, onInputChange}) {
                 }
                 {attribute === "balance" &&
                     <div style={attributeStyle}>
-                        <label htmlFor={"balance-op"}>Balance </label>
+                        <label style={{paddingRight: "0.5em"}} htmlFor={"balance-op"}>Balance</label>
                         <select
                             id={"balance-op"}
                             onChange={handleInputChange}

@@ -11,6 +11,19 @@ function Join() {
     const [projectNames, setProjectNames] = useState([]);
     const [individuals, setIndividuals] = useState([]);
 
+    useEffect(() => {
+        const isLoggedIn = async () => {
+            const token = localStorage.getItem("token");
+            const [result, username] = await checkAuth(token);
+            if (result === null) {
+                navigate("/login");
+            } else {
+                setAccountType(result);
+                getProjectNames();
+            }
+        }
+        isLoggedIn();
+    }, [])
     async function getProjectNames() {
         try {
             const response = await fetch(`${URL}/projects/names`, {
@@ -34,20 +47,6 @@ function Join() {
             alert(err.message);
         }
     }
-
-    useEffect(() => {
-        const isLoggedIn = async () => {
-            const token = localStorage.getItem("token");
-            const [result, username] = await checkAuth(token);
-            if (result === null) {
-                navigate("/login");
-            } else {
-                setAccountType(result);
-                getProjectNames();
-            }
-        }
-        isLoggedIn();
-    }, [])
 
     useEffect(() => {
         if (selectedProject !== "") {
