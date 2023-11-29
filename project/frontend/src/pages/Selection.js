@@ -11,9 +11,7 @@ function Selection() {
     const [projectList, setProjectList] = useState([]);
     const [logicalOp, setLogicalOp] = useState("AND");
     const [selectedAttribute, setSelectedAttribute] = useState("projectName");
-    const [queryParams, setQueryParams] = useState([
-        {id: 0, attribute: "projectName", logicalOp: "AND", queryData: {}}
-    ]);
+    const [queryParams, setQueryParams] = useState([]);
 
     useEffect(() => {
         const isLoggedIn = async () => {
@@ -105,14 +103,16 @@ function Selection() {
                     <div style={{paddingTop: "1em", paddingBottom: "1em"}}>
                         <button title={"Add Query"} onClick={handleAddQueryParam}>Add Query Parameter</button>
                         <label htmlFor={"logical-operator"} style={{marginLeft: "1em"}}></label>
-                        <select id={"logical-operator"}
-                                onChange={(e) => {
-                                    setLogicalOp(e.target.value)
-                                }}
-                        >
-                            <option value={"AND"}>AND</option>
-                            <option value={"OR"}>OR</option>
-                        </select>
+                        {queryParams.length > 0 &&
+                            <select id={"logical-operator"}
+                                    onChange={(e) => {
+                                        setLogicalOp(e.target.value)
+                                    }}
+                            >
+                                <option value={"AND"}>AND</option>
+                                <option value={"OR"}>OR</option>
+                            </select>
+                        }
                         <label htmlFor={"attributes"} style={{marginLeft: "1em"}}></label>
                         <select id={"attributes"}
                                 onChange={(e) => setSelectedAttribute(e.target.value)}
