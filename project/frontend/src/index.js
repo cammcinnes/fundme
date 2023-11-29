@@ -17,6 +17,7 @@ import Organization from "./pages/Organization";
 import Join from "./pages/Join";
 import Selection from "./pages/Selection";
 import TopContributors from "./pages/TopContributors";
+import RecurringContributors from "./pages/RecurringContributors";
 
 const router = createBrowserRouter([
     {
@@ -74,6 +75,10 @@ const router = createBrowserRouter([
     {
         path: '/leaderboard',
         element: <TopContributors />,
+    },
+    {
+        path: '/recurring',
+        element: <RecurringContributors />,
     }
 ]);
 const root = ReactDOM.createRoot(document.getElementById('root'));

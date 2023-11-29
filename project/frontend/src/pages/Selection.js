@@ -53,20 +53,10 @@ function Selection() {
                 body: JSON.stringify(queryParams)
             });
             const data = await response.json();
-            console.log(data.result);
             if (data.success) setProjectList(data.result);
         } catch (err) {
             alert(err.message);
         }
-
-    }
-
-    function handleLogicalOpChange(event) {
-        setLogicalOp(event.target.value);
-    }
-
-    function handleSelectAttribute(event) {
-        setSelectedAttribute(event.target.value);
     }
 
     return (
@@ -93,12 +83,16 @@ function Selection() {
                     <div style={{paddingTop: "1em", paddingBottom: "1em"}}>
                         <button title={"Add Query"} onClick={handleAddQueryParam}>Add Query Parameter</button>
                         <label htmlFor={"logical-operator"} style={{marginLeft: "1em"}}></label>
-                        <select id={"logical-operator"} onChange={handleLogicalOpChange}>
+                        <select id={"logical-operator"}
+                                onChange={(e) => {setLogicalOp(e.target.value)}}
+                        >
                             <option value={"AND"}>AND</option>
                             <option value={"OR"}>OR</option>
                         </select>
                         <label htmlFor={"attributes"} style={{marginLeft: "1em"}}></label>
-                        <select id={"attributes"} onChange={handleSelectAttribute}>
+                        <select id={"attributes"}
+                                onChange={(e) => setSelectedAttribute(e.target.value)}
+                        >
                             <option value={"projectName"}>Project Name</option>
                             <option value={"oUsername"}>Username</option>
                             <option value={"description"}>Description</option>
