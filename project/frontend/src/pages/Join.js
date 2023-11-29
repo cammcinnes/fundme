@@ -58,13 +58,14 @@ function Join() {
     return (
         <>
             <Navbar/>
-            <h1>Join Query: find all the individuals who have donated to a particular project</h1>
+            <h1>Join Query</h1>
+            <h2>Find all the individuals who have donated to a particular project</h2>
             <div>
-                <label htmlFor="project-select"><h2>Choose a project:</h2></label>
+                <h3>Choose a project:</h3>
                 <select
-                    id="project-select"
                     value={selectedProject}
                     onChange={(e) => setSelectedProject(e.target.value)}
+                    style={{marginBottom: "1em"}}
                 >
                     <option key={-1} value={""}></option>
                     {projectNames.map((projectName, index) => (

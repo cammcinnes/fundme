@@ -22,31 +22,28 @@ function RecurringContributors() {
         isLoggedIn();
     }, [])
 
-    useEffect(() => {
-        async function fetchRecurrAccts() {
-            try {
-                const response = await fetch(`${URL}/aggregation-having`, {
-                    method: "GET",
-                    headers: {
-                        "Content-Type": "application/json"
-                    }
-                });
-                const data = await response.json();
-                if (data.success) setContributorList(data.result);
-            } catch (err) {
-                alert(err.message);
-            }
+    async function fetchRecurrAccts() {
+        try {
+            const response = await fetch(`${URL}/aggregation-having`, {
+                method: "GET",
+                headers: {
+                    "Content-Type": "application/json"
+                }
+            });
+            const data = await response.json();
+            if (data.success) setContributorList(data.result);
+        } catch (err) {
+            alert(err.message);
         }
-
-        fetchRecurrAccts();
-    }, []);
+    }
 
     return (
         <>
-            <Navbar />
+            <Navbar/>
             <h1>Aggregation Query with Having</h1>
             <h2>Displays all contributors that have contributed to a project more than once</h2>
             <table>
+                {contributorList.length > 0 &&
                 <tbody>
                 <tr>
                     <th style={{textAlign: "left"}}>Contributor</th>
@@ -61,7 +58,9 @@ function RecurringContributors() {
                     </tr>
                 ))}
                 </tbody>
+                }
             </table>
+            <button style={{marginTop: "1em"}} onClick={fetchRecurrAccts}>Fetch</button>
         </>
     );
 }
