@@ -23,6 +23,7 @@ function Card({ CCNumber }) {
                 const parsedResponse = await response.json();
                 if (parsedResponse.success === true) {
                     alert("Successfully Updated Payment Info!");
+                    window.location.reload(false);
                 } else {
                     alert(parsedResponse.error);
                 }

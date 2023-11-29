@@ -7,6 +7,7 @@ const URL = process.env.REACT_APP_URL;
 
 function MyContributions({user}) {
     const [Contributions, setContributions] = useState([]);
+    const [showContr, setShowContr] = useState(false);
 
     async function fetchUserContributions(user) {
         const response = await fetch(URL + `/aggregation/${user}`, {
@@ -20,16 +21,19 @@ function MyContributions({user}) {
     }
 
     async function handleSubmitUserContributions() {
-        console.log("getting user contributions");
-        await fetchUserContributions(user);
+        if (!showContr) {
+            console.log("getting user contributions");
+            await fetchUserContributions(user);
+        }
+        setShowContr(!showContr);
     }
 
     return (
         <>
-            {Contributions.map((Contribution, index) => (
+            { showContr && Contributions.map((Contribution, index) => (
                 <PersonalContribution key={index} Contribution={Contribution} />
             ))}
-            <button style={{marginTop: "1em"}} onClick={handleSubmitUserContributions}>Get List of my Contributions</button>
+            <button style={{marginTop: "1em"}} onClick={handleSubmitUserContributions}>{ showContr ? "Hide" : "Show" } Contributions</button>
         </>
     );
 }
