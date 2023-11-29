@@ -1,9 +1,9 @@
-import React, {useState} from "react";
+import React from "react";
 
 function PersonalContribution({Contribution}){
     const [projectName, amount] = Contribution;
     return(
-        <div>
+        <div style={{padding: "0.5em"}}>
             {projectName}: ${amount}
         </div>
     );
