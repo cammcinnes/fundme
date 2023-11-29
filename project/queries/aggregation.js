@@ -19,8 +19,23 @@ async function fetchTopContributors() {
     });
 }
 
-
+async function getAllUserContributions(username) {
+    return await withOracleDB(async (connection) => {
+        const userContributions = await connection.execute(
+            `SELECT PROJECTNAME, SUM(amount)
+             FROM INDIVIDUAL_MAKES_CONTRIBUTION
+             WHERE IUSERNAME =:username
+             GROUP BY IUSERNAME, PROJECTNAME`,
+            {username},
+            { autoCommit: true }
+        );
+        return userContributions.rows;
+    }).catch((err) => {
+        throw err;
+    });
+}
 
 module.exports = {
-    fetchTopContributors
+    fetchTopContributors,
+    getAllUserContributions
 }
