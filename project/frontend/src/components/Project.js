@@ -5,7 +5,7 @@ function Project({ project }) {
         <>
             <h3>{projectName}</h3>
             <p>{description}</p>
-            <p>{balance}</p>
+            <p>Balance: {balance}</p>
         </>
     );
 }

@@ -28,8 +28,6 @@ function Main() {
     <>
       <Navbar />
       <div>
-        Main page. Account type : { accountType } Username: {username}
-        
         <h1>Projects</h1>
         <ProjectList />
       </div>
