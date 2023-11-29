@@ -15,7 +15,7 @@ router.get('/top', async(req, res) => {
 router.get('/:username', async(req, res) => {
     try {
         const { username } = req.params;
-        const totalContributions = await aggQuery.getAllUserContributions();
+        const totalContributions = await aggQuery.getAllUserContributions(username);
         return res.json({success: true, result: totalContributions});
     } catch (error) {
         return res.status(500).json({ success: false, error: error.message });

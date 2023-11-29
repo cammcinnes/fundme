@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { checkAuth } from "../utils";
 import Navbar from "../components/Nav";
 import CCList from "../components/CCList";
+import MyContributions from "../components/MyContributions";
 
 function Profile() {
     const URL = process.env.REACT_APP_URL;
@@ -55,6 +56,8 @@ function Profile() {
                 <Navbar/>
                 <h1> Profile Info</h1>
                 Username: {username}
+                <h1>My Contributions</h1>
+                <MyContributions user={username}/>
                 <h1>Payment Information</h1>
                 <h3> Existing Credit Cards</h3>
                 <CCList user={username} />
@@ -130,6 +133,14 @@ function Profile() {
                 <br/>
                 <button onClick={handlePaymentCreation}>Add Payment Info</button>
             </div>
+        );
+    } else {
+        return (
+        <div>
+            <Navbar/>
+            <h1> Profile Info</h1>
+            Username: {username}
+        </div>
         );
     }
 }
