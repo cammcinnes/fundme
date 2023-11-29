@@ -11,6 +11,7 @@ function handleAuthorization(req, res, next, allowedAccountType) {
       return res.status(403).json({ success: false, error: "You are not logged in! Please visit the login page." });
     }
     const payload = jwt.verify(jwtToken, envVariables.JWT_SECRET);
+    console.log("payload: ", payload);
     req.username = payload.username;
     if (allowedAccountType && payload.accountType !== allowedAccountType) {
       return res.status(403).json({ success: false, error: "You do not have the right permissions. You must be an " + allowedAccountType + " to delete a post" });
