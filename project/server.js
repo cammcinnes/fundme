@@ -9,6 +9,7 @@ const orgRoutes = require('./routes/organization');
 const joinRoutes= require('./routes/join');
 const selectionRoutes = require('./routes/selection');
 const aggregationRoutes = require('./routes/aggregation');
+const aggregationHavingRoutes = require('./routes/aggregation-having');
 const cors = require('cors');
 
 // Load environment variables from .env file
@@ -42,6 +43,7 @@ app.use('/organization', orgRoutes);
 app.use('/join', joinRoutes);
 app.use('/selection', selectionRoutes);
 app.use('/aggregation', aggregationRoutes);
+app.use('/aggregation-having', aggregationHavingRoutes);
 app.use('/', appController);
 
 // ----------------------------------------------------------

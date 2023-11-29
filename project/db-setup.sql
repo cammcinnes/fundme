@@ -482,6 +482,9 @@ INSERT INTO Individual_makes_Contribution(IUsername, ProjectName, Amount, Timest
 VALUES ('tshebs', 'Help Pandas', 68, CURRENT_TIMESTAMP);
 --
 INSERT INTO Individual_makes_Contribution(IUsername, ProjectName, Amount, Timestamp)
+VALUES ('tshebs', 'Help Pandas', 60, CURRENT_TIMESTAMP);
+--
+INSERT INTO Individual_makes_Contribution(IUsername, ProjectName, Amount, Timestamp)
 VALUES ('tshebs', 'Bens Fund', 7, CURRENT_TIMESTAMP);
 --
 INSERT INTO Individual_makes_Contribution(IUsername, ProjectName, Amount, Timestamp)
@@ -494,7 +497,13 @@ INSERT INTO Individual_makes_Contribution(IUsername, ProjectName, Amount, Timest
 VALUES ('ashebs12', 'Help Fishies', 10, CURRENT_TIMESTAMP);
 --
 INSERT INTO Individual_makes_Contribution(IUsername, ProjectName, Amount, Timestamp)
+VALUES ('ashebs12', 'Help Fishies', 11, CURRENT_TIMESTAMP);
+--
+INSERT INTO Individual_makes_Contribution(IUsername, ProjectName, Amount, Timestamp)
 VALUES ('pshelby1', 'Help Snakes', 58, CURRENT_TIMESTAMP);
+--
+INSERT INTO Individual_makes_Contribution(IUsername, ProjectName, Amount, Timestamp)
+VALUES ('pshelby1', 'Help Snakes', 59, CURRENT_TIMESTAMP);
 --
 INSERT INTO Reward(RewardName, OUsername)
 VALUES ('T-Shirt', 'wildlife');

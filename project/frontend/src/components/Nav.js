@@ -13,6 +13,7 @@ function Navbar() {
                 <li><Link to="/join">Join</Link></li>
                 <li><Link to="/selection">Selection</Link></li>
                 <li><Link to="/leaderboard">Top Contributors</Link></li>
+                <li><Link to="/recurring">Recurring Contributors</Link></li>
             </ul>
         </nav>
     );
