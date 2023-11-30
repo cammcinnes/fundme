@@ -15,6 +15,7 @@ function CreateAccount({email, setEmail, username, setUsername, password, setPas
                         value={email}
                         onChange={e => setEmail(e.target.value)}
                     />
+                    <br/>
                 </label>
                 <label>Username:
                     <input
@@ -26,6 +27,7 @@ function CreateAccount({email, setEmail, username, setUsername, password, setPas
                         onChange={e => setUsername(e.target.value)}
                     />
                 </label>
+                <br/>
                 <label>Password:
                     <input
                         type='password'
@@ -36,6 +38,7 @@ function CreateAccount({email, setEmail, username, setUsername, password, setPas
                         onChange={e => setPassword(e.target.value)}
                     />
                 </label>
+                <br/>
                 <label> Re-enter Password:
                     <input
                         type='password'
