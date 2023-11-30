@@ -15,14 +15,12 @@ function MyContributions({user}) {
         });
         const contributionData = await response.json();
         if (contributionData.success) {
-            console.log("got contributions");
             setContributions(contributionData.result);
         }
     }
 
     async function handleSubmitUserContributions() {
         if (!showContr) {
-            console.log("getting user contributions");
             await fetchUserContributions(user);
         }
         setShowContr(!showContr);

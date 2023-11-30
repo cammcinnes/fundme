@@ -60,7 +60,7 @@ function RecurringContributors() {
                 </tbody>
                 }
             </table>
-            <button style={{marginTop: "1em"}} onClick={fetchRecurrAccts}>Fetch</button>
+            <button style={{marginTop: "1em"}} onClick={fetchRecurrAccts}>Get Contributors</button>
         </>
     );
 }
