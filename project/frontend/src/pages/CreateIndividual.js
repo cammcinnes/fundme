@@ -1,8 +1,12 @@
 import React, {useState} from 'react';
 import '../App.css';
 import CreateAccount from '../components/CreateAccount'
+import { useNavigate } from "react-router-dom";
+
+const URL = process.env.REACT_APP_URL;
 
 function CreateIndividual() {
+    const navigate = useNavigate();
     const [email, setEmail] = useState("");
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
@@ -11,7 +15,31 @@ function CreateIndividual() {
     const [lastname, setLastName] = useState("");
     const [dob, setDOB] = useState("");
 
+
+
     const handleIndividualCreation = async () => {
+        const type = 'individual';
+        const options = {dob, firstname, lastname};
+        if (password !== password2) {
+            alert("Passwords don't match!");
+        } else {
+            try {
+                const response = await fetch(URL + "/auth/register", {
+                    method: "POST",
+                    headers: {"Content-Type": "application/json"},
+                    body: JSON.stringify({username, password, email, type, options})
+                });
+                const parsedResponse = await response.json();
+                if (parsedResponse.success === true) {
+                    alert("Account has been created. Proceed to login page.");
+                    navigate("/welcome")
+                } else {
+                    alert(parsedResponse.error);
+                }
+            } catch (error) {
+                alert(error.message);
+            }
+        }
     };
 
     return(
@@ -36,6 +64,7 @@ function CreateIndividual() {
                         value={firstname}
                         onChange={e => setFirstName(e.target.value)}
                     />
+                    <br/>
                 </label>
                 <label>Last Name:
                     <input
@@ -47,6 +76,7 @@ function CreateIndividual() {
                         onChange={e => setLastName(e.target.value)}
                     />
                 </label>
+                <br/>
                 <label>Date of Birth:
                     <input
                         type='date'
