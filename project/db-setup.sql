@@ -206,7 +206,7 @@ CREATE TABLE Individual_makes_Contribution
 CREATE TABLE Reward
 (
     RewardName VARCHAR(50),
-    OUsername  VARCHAR(50),
+    OUsername  VARCHAR(50) NOT NULL,
     PRIMARY KEY (RewardName),
     FOREIGN KEY (OUsername) REFERENCES Organization (Username) ON DELETE CASCADE
 );
