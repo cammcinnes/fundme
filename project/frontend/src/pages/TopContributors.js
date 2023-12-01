@@ -9,6 +9,7 @@ import ContributorList from "../components/ContributorList";
 function TopContributors() {
     const [accountType, setAccountType] = useState(null);
     const [username, setUsername] = useState(null);
+    const [toggleTopContribs, setToggleTopContribs] = useState(false);
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -30,7 +31,8 @@ function TopContributors() {
                 <h1>Top Contributors</h1>
                 <p>Our top contributors are users who donated above the average user donation.
                 They are displayed by username and with the amount of donations they made above the average amount.</p>
-                <ContributorList />
+                <button onClick={() => setToggleTopContribs(!toggleTopContribs)}>{toggleTopContribs ? 'Hide' : 'Show'} top contributors</button>
+                { toggleTopContribs && <ContributorList /> }
             </div>
         </div>
     );
