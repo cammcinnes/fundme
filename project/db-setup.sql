@@ -143,7 +143,7 @@ CREATE TABLE Individual
 CREATE TABLE PaymentInformation
 (
     CCNumber   CHAR(16),
-    IUsername  VARCHAR(50),
+    IUsername  VARCHAR(50) NOT NULL,
     CVV        CHAR(3)     NOT NULL,
     Address    VARCHAR(50) NOT NULL,
     PostalCode CHAR(6)     NOT NULL,
