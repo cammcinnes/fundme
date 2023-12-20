@@ -37,10 +37,6 @@ const router = createBrowserRouter([
         element: <ChooseAccountType />,
     },
     {
-        path: "/projection",
-        element: <Projection />
-    },
-    {
         path: "/organizations",
         element: <Organizations />
     },
