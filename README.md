@@ -1,7 +1,7 @@
 This project models a crowdfunding website. As it stands, the website allows users to login, view a list of active projects on the main page, and manage their payment methods. Users can also search for any type of project, see who has donated to each project, and view the top contributors on the platform. Regarding project management, organizations can see the posts and comments made on their project pages and have the ability to delete them.
 
 
-Please view PDF document marked Details.pdf to view almost all queries performed and their functionality.
+Please view PDF document named fundme.pdf to view the database schema and almost all queries performed and their functionality.
 
 
 Sources:
